@@ -8,7 +8,7 @@ labels = ['PNEUMONIA', 'NORMAL']
 IMG_SIZE = 150  # Ensure this matches your training size
 
 # Load the saved model
-model = load_model("C:/Users/PC-CLICK-PLUS/Desktop/memoire/mysavedmodel/jarvis.h5")  # Load the trained model
+model = load_model("C:/Users/PC-CLICK-PLUS/Desktop/pneumonieprediction/pneumoniedetection/mysavedmodel/jarvis.h5")  # Load the trained model
 print("✅ Model loaded successfully!")
 
 def preprocess_image(image):
