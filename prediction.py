@@ -3,29 +3,24 @@ import numpy as np
 from PIL import Image
 import io
 
-# Define class labels (update if necessary)
 labels = ['PNEUMONIA', 'NORMAL']
-IMG_SIZE = 150  # Ensure this matches your training size
+IMG_SIZE = 150 
 
-# Load the saved model
-model = load_model("C:/Users/PC-CLICK-PLUS/Desktop/pneumonieprediction/pneumoniedetection/mysavedmodel/jarvis.h5")  # Load the trained model
-print("✅ Model loaded successfully!")
+model = load_model("/home/ramylem9aleche/Documents/pneumoniedetection/mysavedmodel/jarvis.h5")  # Load the trained model
+print("Model loaded ")
 
 def preprocess_image(image):
     """ Preprocess the image before passing it to the AI model """
-    image = image.convert("L")  # Convert to grayscale
-    image = image.resize((IMG_SIZE, IMG_SIZE))  # Resize
-    image_array = np.array(image) / 255.0  # Normalize pixel values (0 to 1)
-    image_array = image_array.reshape(1, IMG_SIZE, IMG_SIZE, 1)  # Reshape for CNN
+    image = image.convert("L")  
+    image = image.resize((IMG_SIZE, IMG_SIZE))  
+    image_array = np.array(image) / 255.0  
+    image_array = image_array.reshape(1, IMG_SIZE, IMG_SIZE, 1) 
     return image_array
 
 def predict_image(file):
-    """ Process an uploaded image file and return a prediction """
-    image = Image.open(io.BytesIO(file.read()))  # Read image
-    processed_image = preprocess_image(image)  # Preprocess image
+    image = Image.open(io.BytesIO(file.read()))  
+    processed_image = preprocess_image(image)  
+    prediction = model.predict(processed_image)  # G    et prediction
+    predicted_label = labels[int(prediction[0][0] > 0.5)]  
 
-    prediction = model.predict(processed_image)  # Get prediction
-    predicted_label = labels[int(prediction[0][0] > 0.5)]  # Convert output to label
-    confidence = float(prediction[0][0])  # Confidence score
-
-    return {"prediction": predicted_label, "confidence": confidence}
+    return {"prediction": predicted_label}

@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from prediction import predict_image  # Import the prediction function
+from prediction import predict_image  
 
 app = Flask(__name__)
 
@@ -9,9 +9,9 @@ def predict():
         return jsonify({"error": "No image uploaded"}), 400
 
     file = request.files['image']
-    result = predict_image(file)  # Use the loaded model for prediction
+    result = predict_image(file)
 
-    return jsonify(result)  # Return prediction as JSON
+    return jsonify(result)  
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
