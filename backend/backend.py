@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from prediction import predict_image  
+from backend.prediction import predict_image  
 
 app = Flask(__name__)
 

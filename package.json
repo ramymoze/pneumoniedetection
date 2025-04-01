@@ -1,0 +1,52 @@
+{
+  "name": "pneumoniedetection",
+  "version": "1.0.0",
+  "description": "First clone the repo to your local machine",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "concurrently -k \"vite --port 3000\" \"wait-on http://localhost:3000 && cross-env NODE_ENV=development electron .\"",
+    "build": "vite build",
+    "preview": "vite preview --port 3000",
+    "start": "electron .",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ramymoze/pneumoniedetection.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ramymoze/pneumoniedetection/issues"
+  },
+  "homepage": "https://github.com/ramymoze/pneumoniedetection#readme",
+  "dependencies": {
+    "electron": "^29.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "concurrently": "^8.0.0",
+    "cross-env": "^7.0.3",
+    "electron-builder": "^24.6.0",
+    "vite": "^5.0.0",
+    "wait-on": "^7.0.1"
+  },
+  "build": {
+    "appId": "com.example.pneumoniedetection",
+    "productName": "PneumonieDetectionApp",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/main.js",
+      "electron/preload.js"
+    ],
+    "win": {
+      "target": "portable"
+    }
+  }
+}
