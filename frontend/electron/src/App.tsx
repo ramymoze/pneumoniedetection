@@ -1,35 +1,54 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
+import "./index.css";
+import Navbar from "./components/navebar";
+import Patientliste from "./components/patients_liste";
+import { useState } from "react";
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [isOpen, setIsOpen] = useState("home");
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="flex flex-row h-screen bg-[#e6e6e6]">
+        <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
+        {isOpen === "home" && (
+          <>
+            <div className="flex flex-col items-center justify-center w-full h-full">
+              <h1 className="text-black text-3xl">home page</h1>
+            </div>
+          </>
+        )}
+        {isOpen === "chat" && (
+          <>
+            <div className="flex flex-col items-center justify-center w-full h-full">
+              <h1 className="text-black text-3xl">chat page</h1>
+            </div>
+          </>
+        )}
+        {isOpen === "patients" && (
+          <>
+            <div className="flex flex-col h-screen w-screen bg-[#e6e6e6] ">
+              <div className="flex flex-row items-center justify-between p-4 w-full h-16 ">
+                <h1 className="text-xl font-semibold text-gray-800">
+                  Patients Liste
+                </h1>
+                <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                  New Patient
+                </button>
+              </div>
+              <div className="flex-1 overflow-auto p-4">
+                <Patientliste />
+              </div>
+            </div>
+          </>
+        )}
+        {isOpen === "settings" && (
+          <>
+            <div className="flex flex-col items-center justify-center w-full h-full">
+              <h1 className="text-black text-3xl">settings page</h1>
+            </div>
+          </>
+        )}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

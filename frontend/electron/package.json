@@ -9,8 +9,13 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^7.0.2",
+    "@mui/material": "^7.0.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-icons": "^5.5.0"
   },
   "devDependencies": {
     "@types/node": "^20.10.5",
@@ -24,7 +29,7 @@
     "eslint": "^8.55.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
-    "typescript": "^5.2.2",
+    "typescript": "^5.8.3",
     "vite": "^6.2.6",
     "vite-plugin-electron": "^0.15.5",
     "vite-plugin-electron-renderer": "^0.14.5"
