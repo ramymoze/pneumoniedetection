@@ -1,6 +1,9 @@
 import "./index.css";
 import Navbar from "./components/navebar";
 import Patientliste from "./components/patients_liste";
+import Home from "./components/home";
+import ImageUploadCard from "./components/upload";
+import Patieninfo_add from "./components/patientinfo_add";
 import { useState } from "react";
 function App() {
   const [isOpen, setIsOpen] = useState("home");
@@ -10,8 +13,8 @@ function App() {
         <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
         {isOpen === "home" && (
           <>
-            <div className="flex flex-col items-center justify-center w-full h-full">
-              <h1 className="text-black text-3xl">home page</h1>
+            <div className="fle">
+              <Home/>
             </div>
           </>
         )}
@@ -44,6 +47,23 @@ function App() {
             <div className="flex flex-col items-center justify-center w-full h-full">
               <h1 className="text-black text-3xl">settings page</h1>
             </div>
+          </>
+        )}
+        {isOpen === "add" && (
+          <>
+  <div className="flex h-full w-full bg-[#e6e6e6]">
+  <div className="flex flex-col items-center justify-center w-full h-full">
+    <ImageUploadCard />
+    </div>
+  <div className="flex-1">
+  </div>
+
+  <div className="w-[25rem] h-full bg-white fixed rounded-l-3xl top-0 right-0 flex flex-col items-center  z-10">
+    <Patieninfo_add />
+  </div>
+</div>
+
+
           </>
         )}
       </div>

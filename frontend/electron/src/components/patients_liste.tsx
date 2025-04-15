@@ -34,13 +34,15 @@ const initialPatients: Patient[] = [
   createPatient('Williams', 'Michael', '28', '1995-02-10', 'Los Angeles'),
   createPatient('Brown', 'Sarah', '51', '1972-11-30', 'Houston', 'Asthma'),
   createPatient('Jones', 'David', '39', '1984-07-18', 'Philadelphia'),
+  createPatient('ramy', 'David', '39', '1984-07-18', 'Philadelphia'),
+  createPatient('test', 'David', '39', '1984-07-18', 'Philadelphia'),
 ];
 
 export default function PatientList() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const handleChangePage = (event: unknown, newPage: number) => {
+  const handleChangePage = (_: unknown, newPage: number) => {
     setPage(newPage);
   };
 
