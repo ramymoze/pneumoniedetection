@@ -6,7 +6,7 @@ import io
 labels = ['PNEUMONIA', 'NORMAL']
 IMG_SIZE = 150 
 
-model = load_model("/home/ramylem9aleche/Documents/pneumoniedetection/backend/mysavedmodel/jarvis.h5")  # Load the trained model
+model = load_model("mysavedmodel/jarvis.h5")  # Load the trained model
 print("Model loaded ")
 
 def preprocess_image(image):

@@ -4,17 +4,18 @@ import Patientliste from "./components/patients_liste";
 import Home from "./components/home";
 import ImageUploadCard from "./components/upload";
 import Patieninfo_add from "./components/patientinfo_add";
+import DoctorList from "./components/doctors list";
 import { useState } from "react";
 function App() {
   const [isOpen, setIsOpen] = useState("home");
   return (
     <>
-      <div className="flex flex-row h-screen bg-[#e6e6e6]">
+      <div className="flex flex-row h-screen bg-[#e6e6e6] z-10  sticky top-0">
         <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
         {isOpen === "home" && (
           <>
             <div className="fle">
-              <Home/>
+              <Home />
             </div>
           </>
         )}
@@ -50,22 +51,21 @@ function App() {
           </>
         )}
         {isOpen === "add" && (
-          <>
-  <div className="flex h-full w-full bg-[#e6e6e6]">
-  <div className="flex flex-col items-center justify-center w-full h-full">
-    <ImageUploadCard />
-    </div>
-  <div className="flex-1">
-  </div>
+        <div className="relative flex-1 flex flex-col bg-gray-100">
+          <div className="flex flex-col space-y-16 px-4 py-6 w-[60rem]">
+            <div className="flex justify-center mt-12">
+              <ImageUploadCard />
+            </div>
+            <div className="w-full">
+              <DoctorList />
+            </div>
+          </div>
 
-  <div className="w-[25rem] h-full bg-white fixed rounded-l-3xl top-0 right-0 flex flex-col items-center  z-10">
-    <Patieninfo_add />
-  </div>
-</div>
-
-
-          </>
-        )}
+          <div className="fixed inset-y-0 right-0 w-96 bg-white shadow-lg rounded-l-3xl overflow-hidden z-20">
+            <Patieninfo_add />
+          </div>
+        </div>
+      )}
       </div>
     </>
   );
