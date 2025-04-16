@@ -17,7 +17,6 @@ const DoctorList: React.FC = () => {
 
   const handleDoctorSelect = (doctorId: string): void => {
     setSelectedDoctor(doctorId);
-    console.log(`Selected doctor: ${doctorId}`);
   };
 
   const doctors: Doctor[] = [
