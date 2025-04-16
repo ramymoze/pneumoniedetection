@@ -11,7 +11,7 @@ export default function Navbar( {isOpen, setIsOpen} : {isOpen: string, setIsOpen
   };
 
   return (
-    <div className=" flex flex-col items-center bg-white p-4 w-28 h-screen rounded-r-3xl flex-shrink-0">
+    <div className=" flex flex-col items-center bg-white p-4 w-28 h-screen rounded-r-3xl shrink-0">
       <img src="../public/img/logo.png" alt="logo" className="w-40 h-20 mb-8" />
       
       <ul className="space-y-6 w-full">
