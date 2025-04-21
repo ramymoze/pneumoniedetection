@@ -2,8 +2,13 @@ const express = require('express');
 const formidable = require('formidable');
 const { exec } = require('child_process');
 const path = require('path');
-
+const {PrismaClient } = require("@prisma/client");
+const e = require('express');
 const app = express();
+const prisma = new PrismaClient();
+require('dotenv').config();
+app.use(express.json());
+
 
 app.post('/detect', (req, res) => {
     const form = new formidable.IncomingForm({
@@ -54,7 +59,88 @@ app.post('/detect', (req, res) => {
 });
 
 
+
+
+app.post('/create_patient', async (req, res)=>{
+    const {
+        firstName,
+        lastName,
+        age,
+        dateOfBirth,
+        medicalHistory,
+        email,
+        password
+    } = req.body;
+
+    await prisma.patient.create({
+        data: {
+            firstName,
+            lastName,
+            age,
+            dateOfBirth: new Date(dateOfBirth), // convert to Date object
+            medicalHistory,
+            email,
+            password,
+        }
+    });
+    res.json("Patient created successfully");
+})
+
+app.post('/create_doctor', async (req, res)=>{
+    const {
+        firstName,
+        lastName,
+        email,
+        password
+    } = req.body;
+
+    await prisma.doctor.create({
+        data: {
+            firstName,
+            lastName,
+            email,
+            password,
+        }
+    });
+    res.json("doctor created successfully");
+})
+
+app.post('/create_radiologue', async (req, res)=>{
+    const {
+        firstName,
+        lastName,
+        email,
+        password
+    } = req.body;
+
+    await prisma.radiologue.create({
+        data: {
+            firstName,
+            lastName,
+            email,
+            password,
+        }
+    });
+    res.json("radiologue created successfully");
+})
+
+app.get('/get_patients', async (req, res)=>{
+    const allPatients = await prisma.patient.findMany();
+    res.json(allPatients);
+})
+
+app.get('/get_doctors',async(req, res)   =>{
+    const allDoctors = await prisma.doctor.findMany();
+    res.json(allDoctors);
+})
+
+app.get('/get_radiologues', async (req, res)=>{
+    const allRadiologues = await prisma.radiologue.findMany();
+    res.json(allRadiologues);
+})
+
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+ 
