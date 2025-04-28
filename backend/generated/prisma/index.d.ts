@@ -28,6 +28,29 @@ export type doctor = $Result.DefaultSelection<Prisma.$doctorPayload>
  * 
  */
 export type patient = $Result.DefaultSelection<Prisma.$patientPayload>
+/**
+ * Model Radio
+ * 
+ */
+export type Radio = $Result.DefaultSelection<Prisma.$RadioPayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const RadioType: {
+  Bones: 'Bones',
+  Lung: 'Lung',
+  Other: 'Other'
+};
+
+export type RadioType = (typeof RadioType)[keyof typeof RadioType]
+
+}
+
+export type RadioType = $Enums.RadioType
+
+export const RadioType: typeof $Enums.RadioType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -183,6 +206,16 @@ export class PrismaClient<
     * ```
     */
   get patient(): Prisma.patientDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.radio`: Exposes CRUD operations for the **Radio** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Radios
+    * const radios = await prisma.radio.findMany()
+    * ```
+    */
+  get radio(): Prisma.RadioDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -625,7 +658,8 @@ export namespace Prisma {
   export const ModelName: {
     radiologue: 'radiologue',
     doctor: 'doctor',
-    patient: 'patient'
+    patient: 'patient',
+    Radio: 'Radio'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -644,7 +678,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "radiologue" | "doctor" | "patient"
+      modelProps: "radiologue" | "doctor" | "patient" | "radio"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -870,6 +904,80 @@ export namespace Prisma {
           }
         }
       }
+      Radio: {
+        payload: Prisma.$RadioPayload<ExtArgs>
+        fields: Prisma.RadioFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RadioFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadioPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RadioFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadioPayload>
+          }
+          findFirst: {
+            args: Prisma.RadioFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadioPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RadioFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadioPayload>
+          }
+          findMany: {
+            args: Prisma.RadioFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadioPayload>[]
+          }
+          create: {
+            args: Prisma.RadioCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadioPayload>
+          }
+          createMany: {
+            args: Prisma.RadioCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RadioCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadioPayload>[]
+          }
+          delete: {
+            args: Prisma.RadioDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadioPayload>
+          }
+          update: {
+            args: Prisma.RadioUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadioPayload>
+          }
+          deleteMany: {
+            args: Prisma.RadioDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RadioUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RadioUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadioPayload>[]
+          }
+          upsert: {
+            args: Prisma.RadioUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadioPayload>
+          }
+          aggregate: {
+            args: Prisma.RadioAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRadio>
+          }
+          groupBy: {
+            args: Prisma.RadioGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RadioGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RadioCountArgs<ExtArgs>
+            result: $Utils.Optional<RadioCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -957,6 +1065,7 @@ export namespace Prisma {
     radiologue?: radiologueOmit
     doctor?: doctorOmit
     patient?: patientOmit
+    radio?: RadioOmit
   }
 
   /* Types for Logging */
@@ -1046,6 +1155,98 @@ export namespace Prisma {
    */
 
 
+  /**
+   * Count Type RadiologueCountOutputType
+   */
+
+  export type RadiologueCountOutputType = {
+    redio_liste: number
+  }
+
+  export type RadiologueCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    redio_liste?: boolean | RadiologueCountOutputTypeCountRedio_listeArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * RadiologueCountOutputType without action
+   */
+  export type RadiologueCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadiologueCountOutputType
+     */
+    select?: RadiologueCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * RadiologueCountOutputType without action
+   */
+  export type RadiologueCountOutputTypeCountRedio_listeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RadioWhereInput
+  }
+
+
+  /**
+   * Count Type DoctorCountOutputType
+   */
+
+  export type DoctorCountOutputType = {
+    redio_liste: number
+  }
+
+  export type DoctorCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    redio_liste?: boolean | DoctorCountOutputTypeCountRedio_listeArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DoctorCountOutputType without action
+   */
+  export type DoctorCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DoctorCountOutputType
+     */
+    select?: DoctorCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DoctorCountOutputType without action
+   */
+  export type DoctorCountOutputTypeCountRedio_listeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RadioWhereInput
+  }
+
+
+  /**
+   * Count Type PatientCountOutputType
+   */
+
+  export type PatientCountOutputType = {
+    redio_liste: number
+  }
+
+  export type PatientCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    redio_liste?: boolean | PatientCountOutputTypeCountRedio_listeArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PatientCountOutputType without action
+   */
+  export type PatientCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PatientCountOutputType
+     */
+    select?: PatientCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PatientCountOutputType without action
+   */
+  export type PatientCountOutputTypeCountRedio_listeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RadioWhereInput
+  }
+
 
   /**
    * Models
@@ -1057,68 +1258,56 @@ export namespace Prisma {
 
   export type AggregateRadiologue = {
     _count: RadiologueCountAggregateOutputType | null
-    _avg: RadiologueAvgAggregateOutputType | null
-    _sum: RadiologueSumAggregateOutputType | null
     _min: RadiologueMinAggregateOutputType | null
     _max: RadiologueMaxAggregateOutputType | null
   }
 
-  export type RadiologueAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type RadiologueSumAggregateOutputType = {
-    id: number | null
-  }
-
   export type RadiologueMinAggregateOutputType = {
-    id: number | null
-    name: string | null
+    id: string | null
+    firstName: string | null
+    lastName: string | null
     email: string | null
     password: string | null
   }
 
   export type RadiologueMaxAggregateOutputType = {
-    id: number | null
-    name: string | null
+    id: string | null
+    firstName: string | null
+    lastName: string | null
     email: string | null
     password: string | null
   }
 
   export type RadiologueCountAggregateOutputType = {
     id: number
-    name: number
+    firstName: number
+    lastName: number
     email: number
     password: number
     _all: number
   }
 
 
-  export type RadiologueAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type RadiologueSumAggregateInputType = {
-    id?: true
-  }
-
   export type RadiologueMinAggregateInputType = {
     id?: true
-    name?: true
+    firstName?: true
+    lastName?: true
     email?: true
     password?: true
   }
 
   export type RadiologueMaxAggregateInputType = {
     id?: true
-    name?: true
+    firstName?: true
+    lastName?: true
     email?: true
     password?: true
   }
 
   export type RadiologueCountAggregateInputType = {
     id?: true
-    name?: true
+    firstName?: true
+    lastName?: true
     email?: true
     password?: true
     _all?: true
@@ -1162,18 +1351,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: RadiologueAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: RadiologueSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: RadiologueMinAggregateInputType
@@ -1204,20 +1381,17 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: RadiologueCountAggregateInputType | true
-    _avg?: RadiologueAvgAggregateInputType
-    _sum?: RadiologueSumAggregateInputType
     _min?: RadiologueMinAggregateInputType
     _max?: RadiologueMaxAggregateInputType
   }
 
   export type RadiologueGroupByOutputType = {
-    id: number
-    name: string
+    id: string
+    firstName: string
+    lastName: string
     email: string
     password: string
     _count: RadiologueCountAggregateOutputType | null
-    _avg: RadiologueAvgAggregateOutputType | null
-    _sum: RadiologueSumAggregateOutputType | null
     _min: RadiologueMinAggregateOutputType | null
     _max: RadiologueMaxAggregateOutputType | null
   }
@@ -1238,40 +1412,55 @@ export namespace Prisma {
 
   export type radiologueSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
+    firstName?: boolean
+    lastName?: boolean
     email?: boolean
     password?: boolean
+    redio_liste?: boolean | radiologue$redio_listeArgs<ExtArgs>
+    _count?: boolean | RadiologueCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["radiologue"]>
 
   export type radiologueSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
+    firstName?: boolean
+    lastName?: boolean
     email?: boolean
     password?: boolean
   }, ExtArgs["result"]["radiologue"]>
 
   export type radiologueSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
+    firstName?: boolean
+    lastName?: boolean
     email?: boolean
     password?: boolean
   }, ExtArgs["result"]["radiologue"]>
 
   export type radiologueSelectScalar = {
     id?: boolean
-    name?: boolean
+    firstName?: boolean
+    lastName?: boolean
     email?: boolean
     password?: boolean
   }
 
-  export type radiologueOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password", ExtArgs["result"]["radiologue"]>
+  export type radiologueOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "password", ExtArgs["result"]["radiologue"]>
+  export type radiologueInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    redio_liste?: boolean | radiologue$redio_listeArgs<ExtArgs>
+    _count?: boolean | RadiologueCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type radiologueIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type radiologueIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $radiologuePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "radiologue"
-    objects: {}
+    objects: {
+      redio_liste: Prisma.$RadioPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
-      name: string
+      id: string
+      firstName: string
+      lastName: string
       email: string
       password: string
     }, ExtArgs["result"]["radiologue"]>
@@ -1668,6 +1857,7 @@ export namespace Prisma {
    */
   export interface Prisma__radiologueClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    redio_liste<T extends radiologue$redio_listeArgs<ExtArgs> = {}>(args?: Subset<T, radiologue$redio_listeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RadioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1697,8 +1887,9 @@ export namespace Prisma {
    * Fields of the radiologue model
    */
   interface radiologueFieldRefs {
-    readonly id: FieldRef<"radiologue", 'Int'>
-    readonly name: FieldRef<"radiologue", 'String'>
+    readonly id: FieldRef<"radiologue", 'String'>
+    readonly firstName: FieldRef<"radiologue", 'String'>
+    readonly lastName: FieldRef<"radiologue", 'String'>
     readonly email: FieldRef<"radiologue", 'String'>
     readonly password: FieldRef<"radiologue", 'String'>
   }
@@ -1718,6 +1909,10 @@ export namespace Prisma {
      */
     omit?: radiologueOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: radiologueInclude<ExtArgs> | null
+    /**
      * Filter, which radiologue to fetch.
      */
     where: radiologueWhereUniqueInput
@@ -1736,6 +1931,10 @@ export namespace Prisma {
      */
     omit?: radiologueOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: radiologueInclude<ExtArgs> | null
+    /**
      * Filter, which radiologue to fetch.
      */
     where: radiologueWhereUniqueInput
@@ -1753,6 +1952,10 @@ export namespace Prisma {
      * Omit specific fields from the radiologue
      */
     omit?: radiologueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: radiologueInclude<ExtArgs> | null
     /**
      * Filter, which radiologue to fetch.
      */
@@ -1802,6 +2005,10 @@ export namespace Prisma {
      */
     omit?: radiologueOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: radiologueInclude<ExtArgs> | null
+    /**
      * Filter, which radiologue to fetch.
      */
     where?: radiologueWhereInput
@@ -1850,6 +2057,10 @@ export namespace Prisma {
      */
     omit?: radiologueOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: radiologueInclude<ExtArgs> | null
+    /**
      * Filter, which radiologues to fetch.
      */
     where?: radiologueWhereInput
@@ -1892,6 +2103,10 @@ export namespace Prisma {
      * Omit specific fields from the radiologue
      */
     omit?: radiologueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: radiologueInclude<ExtArgs> | null
     /**
      * The data needed to create a radiologue.
      */
@@ -1940,6 +2155,10 @@ export namespace Prisma {
      * Omit specific fields from the radiologue
      */
     omit?: radiologueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: radiologueInclude<ExtArgs> | null
     /**
      * The data needed to update a radiologue.
      */
@@ -2007,6 +2226,10 @@ export namespace Prisma {
      */
     omit?: radiologueOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: radiologueInclude<ExtArgs> | null
+    /**
      * The filter to search for the radiologue to update in case it exists.
      */
     where: radiologueWhereUniqueInput
@@ -2033,6 +2256,10 @@ export namespace Prisma {
      */
     omit?: radiologueOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: radiologueInclude<ExtArgs> | null
+    /**
      * Filter which radiologue to delete.
      */
     where: radiologueWhereUniqueInput
@@ -2053,6 +2280,30 @@ export namespace Prisma {
   }
 
   /**
+   * radiologue.redio_liste
+   */
+  export type radiologue$redio_listeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Radio
+     */
+    select?: RadioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Radio
+     */
+    omit?: RadioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadioInclude<ExtArgs> | null
+    where?: RadioWhereInput
+    orderBy?: RadioOrderByWithRelationInput | RadioOrderByWithRelationInput[]
+    cursor?: RadioWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RadioScalarFieldEnum | RadioScalarFieldEnum[]
+  }
+
+  /**
    * radiologue without action
    */
   export type radiologueDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2064,6 +2315,10 @@ export namespace Prisma {
      * Omit specific fields from the radiologue
      */
     omit?: radiologueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: radiologueInclude<ExtArgs> | null
   }
 
 
@@ -2073,68 +2328,56 @@ export namespace Prisma {
 
   export type AggregateDoctor = {
     _count: DoctorCountAggregateOutputType | null
-    _avg: DoctorAvgAggregateOutputType | null
-    _sum: DoctorSumAggregateOutputType | null
     _min: DoctorMinAggregateOutputType | null
     _max: DoctorMaxAggregateOutputType | null
   }
 
-  export type DoctorAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type DoctorSumAggregateOutputType = {
-    id: number | null
-  }
-
   export type DoctorMinAggregateOutputType = {
-    id: number | null
-    name: string | null
+    id: string | null
+    firstName: string | null
+    lastName: string | null
     email: string | null
     password: string | null
   }
 
   export type DoctorMaxAggregateOutputType = {
-    id: number | null
-    name: string | null
+    id: string | null
+    firstName: string | null
+    lastName: string | null
     email: string | null
     password: string | null
   }
 
   export type DoctorCountAggregateOutputType = {
     id: number
-    name: number
+    firstName: number
+    lastName: number
     email: number
     password: number
     _all: number
   }
 
 
-  export type DoctorAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type DoctorSumAggregateInputType = {
-    id?: true
-  }
-
   export type DoctorMinAggregateInputType = {
     id?: true
-    name?: true
+    firstName?: true
+    lastName?: true
     email?: true
     password?: true
   }
 
   export type DoctorMaxAggregateInputType = {
     id?: true
-    name?: true
+    firstName?: true
+    lastName?: true
     email?: true
     password?: true
   }
 
   export type DoctorCountAggregateInputType = {
     id?: true
-    name?: true
+    firstName?: true
+    lastName?: true
     email?: true
     password?: true
     _all?: true
@@ -2178,18 +2421,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: DoctorAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: DoctorSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: DoctorMinAggregateInputType
@@ -2220,20 +2451,17 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: DoctorCountAggregateInputType | true
-    _avg?: DoctorAvgAggregateInputType
-    _sum?: DoctorSumAggregateInputType
     _min?: DoctorMinAggregateInputType
     _max?: DoctorMaxAggregateInputType
   }
 
   export type DoctorGroupByOutputType = {
-    id: number
-    name: string
+    id: string
+    firstName: string
+    lastName: string
     email: string
     password: string
     _count: DoctorCountAggregateOutputType | null
-    _avg: DoctorAvgAggregateOutputType | null
-    _sum: DoctorSumAggregateOutputType | null
     _min: DoctorMinAggregateOutputType | null
     _max: DoctorMaxAggregateOutputType | null
   }
@@ -2254,40 +2482,55 @@ export namespace Prisma {
 
   export type doctorSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
+    firstName?: boolean
+    lastName?: boolean
     email?: boolean
     password?: boolean
+    redio_liste?: boolean | doctor$redio_listeArgs<ExtArgs>
+    _count?: boolean | DoctorCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["doctor"]>
 
   export type doctorSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
+    firstName?: boolean
+    lastName?: boolean
     email?: boolean
     password?: boolean
   }, ExtArgs["result"]["doctor"]>
 
   export type doctorSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
+    firstName?: boolean
+    lastName?: boolean
     email?: boolean
     password?: boolean
   }, ExtArgs["result"]["doctor"]>
 
   export type doctorSelectScalar = {
     id?: boolean
-    name?: boolean
+    firstName?: boolean
+    lastName?: boolean
     email?: boolean
     password?: boolean
   }
 
-  export type doctorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password", ExtArgs["result"]["doctor"]>
+  export type doctorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "password", ExtArgs["result"]["doctor"]>
+  export type doctorInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    redio_liste?: boolean | doctor$redio_listeArgs<ExtArgs>
+    _count?: boolean | DoctorCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type doctorIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type doctorIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $doctorPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "doctor"
-    objects: {}
+    objects: {
+      redio_liste: Prisma.$RadioPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
-      name: string
+      id: string
+      firstName: string
+      lastName: string
       email: string
       password: string
     }, ExtArgs["result"]["doctor"]>
@@ -2684,6 +2927,7 @@ export namespace Prisma {
    */
   export interface Prisma__doctorClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    redio_liste<T extends doctor$redio_listeArgs<ExtArgs> = {}>(args?: Subset<T, doctor$redio_listeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RadioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2713,8 +2957,9 @@ export namespace Prisma {
    * Fields of the doctor model
    */
   interface doctorFieldRefs {
-    readonly id: FieldRef<"doctor", 'Int'>
-    readonly name: FieldRef<"doctor", 'String'>
+    readonly id: FieldRef<"doctor", 'String'>
+    readonly firstName: FieldRef<"doctor", 'String'>
+    readonly lastName: FieldRef<"doctor", 'String'>
     readonly email: FieldRef<"doctor", 'String'>
     readonly password: FieldRef<"doctor", 'String'>
   }
@@ -2734,6 +2979,10 @@ export namespace Prisma {
      */
     omit?: doctorOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: doctorInclude<ExtArgs> | null
+    /**
      * Filter, which doctor to fetch.
      */
     where: doctorWhereUniqueInput
@@ -2752,6 +3001,10 @@ export namespace Prisma {
      */
     omit?: doctorOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: doctorInclude<ExtArgs> | null
+    /**
      * Filter, which doctor to fetch.
      */
     where: doctorWhereUniqueInput
@@ -2769,6 +3022,10 @@ export namespace Prisma {
      * Omit specific fields from the doctor
      */
     omit?: doctorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: doctorInclude<ExtArgs> | null
     /**
      * Filter, which doctor to fetch.
      */
@@ -2818,6 +3075,10 @@ export namespace Prisma {
      */
     omit?: doctorOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: doctorInclude<ExtArgs> | null
+    /**
      * Filter, which doctor to fetch.
      */
     where?: doctorWhereInput
@@ -2866,6 +3127,10 @@ export namespace Prisma {
      */
     omit?: doctorOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: doctorInclude<ExtArgs> | null
+    /**
      * Filter, which doctors to fetch.
      */
     where?: doctorWhereInput
@@ -2908,6 +3173,10 @@ export namespace Prisma {
      * Omit specific fields from the doctor
      */
     omit?: doctorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: doctorInclude<ExtArgs> | null
     /**
      * The data needed to create a doctor.
      */
@@ -2956,6 +3225,10 @@ export namespace Prisma {
      * Omit specific fields from the doctor
      */
     omit?: doctorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: doctorInclude<ExtArgs> | null
     /**
      * The data needed to update a doctor.
      */
@@ -3023,6 +3296,10 @@ export namespace Prisma {
      */
     omit?: doctorOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: doctorInclude<ExtArgs> | null
+    /**
      * The filter to search for the doctor to update in case it exists.
      */
     where: doctorWhereUniqueInput
@@ -3049,6 +3326,10 @@ export namespace Prisma {
      */
     omit?: doctorOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: doctorInclude<ExtArgs> | null
+    /**
      * Filter which doctor to delete.
      */
     where: doctorWhereUniqueInput
@@ -3069,6 +3350,30 @@ export namespace Prisma {
   }
 
   /**
+   * doctor.redio_liste
+   */
+  export type doctor$redio_listeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Radio
+     */
+    select?: RadioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Radio
+     */
+    omit?: RadioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadioInclude<ExtArgs> | null
+    where?: RadioWhereInput
+    orderBy?: RadioOrderByWithRelationInput | RadioOrderByWithRelationInput[]
+    cursor?: RadioWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RadioScalarFieldEnum | RadioScalarFieldEnum[]
+  }
+
+  /**
    * doctor without action
    */
   export type doctorDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3080,6 +3385,10 @@ export namespace Prisma {
      * Omit specific fields from the doctor
      */
     omit?: doctorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: doctorInclude<ExtArgs> | null
   }
 
 
@@ -3096,30 +3405,42 @@ export namespace Prisma {
   }
 
   export type PatientAvgAggregateOutputType = {
-    id: number | null
+    age: number | null
   }
 
   export type PatientSumAggregateOutputType = {
-    id: number | null
+    age: number | null
   }
 
   export type PatientMinAggregateOutputType = {
-    id: number | null
-    name: string | null
+    id: string | null
+    firstName: string | null
+    lastName: string | null
+    age: number | null
+    dateOfBirth: Date | null
+    medicalHistory: string | null
     email: string | null
     password: string | null
   }
 
   export type PatientMaxAggregateOutputType = {
-    id: number | null
-    name: string | null
+    id: string | null
+    firstName: string | null
+    lastName: string | null
+    age: number | null
+    dateOfBirth: Date | null
+    medicalHistory: string | null
     email: string | null
     password: string | null
   }
 
   export type PatientCountAggregateOutputType = {
     id: number
-    name: number
+    firstName: number
+    lastName: number
+    age: number
+    dateOfBirth: number
+    medicalHistory: number
     email: number
     password: number
     _all: number
@@ -3127,30 +3448,42 @@ export namespace Prisma {
 
 
   export type PatientAvgAggregateInputType = {
-    id?: true
+    age?: true
   }
 
   export type PatientSumAggregateInputType = {
-    id?: true
+    age?: true
   }
 
   export type PatientMinAggregateInputType = {
     id?: true
-    name?: true
+    firstName?: true
+    lastName?: true
+    age?: true
+    dateOfBirth?: true
+    medicalHistory?: true
     email?: true
     password?: true
   }
 
   export type PatientMaxAggregateInputType = {
     id?: true
-    name?: true
+    firstName?: true
+    lastName?: true
+    age?: true
+    dateOfBirth?: true
+    medicalHistory?: true
     email?: true
     password?: true
   }
 
   export type PatientCountAggregateInputType = {
     id?: true
-    name?: true
+    firstName?: true
+    lastName?: true
+    age?: true
+    dateOfBirth?: true
+    medicalHistory?: true
     email?: true
     password?: true
     _all?: true
@@ -3243,8 +3576,12 @@ export namespace Prisma {
   }
 
   export type PatientGroupByOutputType = {
-    id: number
-    name: string
+    id: string
+    firstName: string
+    lastName: string
+    age: number
+    dateOfBirth: Date
+    medicalHistory: string
     email: string
     password: string
     _count: PatientCountAggregateOutputType | null
@@ -3270,40 +3607,70 @@ export namespace Prisma {
 
   export type patientSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
+    firstName?: boolean
+    lastName?: boolean
+    age?: boolean
+    dateOfBirth?: boolean
+    medicalHistory?: boolean
     email?: boolean
     password?: boolean
+    redio_liste?: boolean | patient$redio_listeArgs<ExtArgs>
+    _count?: boolean | PatientCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["patient"]>
 
   export type patientSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
+    firstName?: boolean
+    lastName?: boolean
+    age?: boolean
+    dateOfBirth?: boolean
+    medicalHistory?: boolean
     email?: boolean
     password?: boolean
   }, ExtArgs["result"]["patient"]>
 
   export type patientSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
+    firstName?: boolean
+    lastName?: boolean
+    age?: boolean
+    dateOfBirth?: boolean
+    medicalHistory?: boolean
     email?: boolean
     password?: boolean
   }, ExtArgs["result"]["patient"]>
 
   export type patientSelectScalar = {
     id?: boolean
-    name?: boolean
+    firstName?: boolean
+    lastName?: boolean
+    age?: boolean
+    dateOfBirth?: boolean
+    medicalHistory?: boolean
     email?: boolean
     password?: boolean
   }
 
-  export type patientOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password", ExtArgs["result"]["patient"]>
+  export type patientOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstName" | "lastName" | "age" | "dateOfBirth" | "medicalHistory" | "email" | "password", ExtArgs["result"]["patient"]>
+  export type patientInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    redio_liste?: boolean | patient$redio_listeArgs<ExtArgs>
+    _count?: boolean | PatientCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type patientIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type patientIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $patientPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "patient"
-    objects: {}
+    objects: {
+      redio_liste: Prisma.$RadioPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
-      name: string
+      id: string
+      firstName: string
+      lastName: string
+      age: number
+      dateOfBirth: Date
+      medicalHistory: string
       email: string
       password: string
     }, ExtArgs["result"]["patient"]>
@@ -3700,6 +4067,7 @@ export namespace Prisma {
    */
   export interface Prisma__patientClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    redio_liste<T extends patient$redio_listeArgs<ExtArgs> = {}>(args?: Subset<T, patient$redio_listeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RadioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3729,8 +4097,12 @@ export namespace Prisma {
    * Fields of the patient model
    */
   interface patientFieldRefs {
-    readonly id: FieldRef<"patient", 'Int'>
-    readonly name: FieldRef<"patient", 'String'>
+    readonly id: FieldRef<"patient", 'String'>
+    readonly firstName: FieldRef<"patient", 'String'>
+    readonly lastName: FieldRef<"patient", 'String'>
+    readonly age: FieldRef<"patient", 'Int'>
+    readonly dateOfBirth: FieldRef<"patient", 'DateTime'>
+    readonly medicalHistory: FieldRef<"patient", 'String'>
     readonly email: FieldRef<"patient", 'String'>
     readonly password: FieldRef<"patient", 'String'>
   }
@@ -3750,6 +4122,10 @@ export namespace Prisma {
      */
     omit?: patientOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: patientInclude<ExtArgs> | null
+    /**
      * Filter, which patient to fetch.
      */
     where: patientWhereUniqueInput
@@ -3768,6 +4144,10 @@ export namespace Prisma {
      */
     omit?: patientOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: patientInclude<ExtArgs> | null
+    /**
      * Filter, which patient to fetch.
      */
     where: patientWhereUniqueInput
@@ -3785,6 +4165,10 @@ export namespace Prisma {
      * Omit specific fields from the patient
      */
     omit?: patientOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: patientInclude<ExtArgs> | null
     /**
      * Filter, which patient to fetch.
      */
@@ -3834,6 +4218,10 @@ export namespace Prisma {
      */
     omit?: patientOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: patientInclude<ExtArgs> | null
+    /**
      * Filter, which patient to fetch.
      */
     where?: patientWhereInput
@@ -3882,6 +4270,10 @@ export namespace Prisma {
      */
     omit?: patientOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: patientInclude<ExtArgs> | null
+    /**
      * Filter, which patients to fetch.
      */
     where?: patientWhereInput
@@ -3924,6 +4316,10 @@ export namespace Prisma {
      * Omit specific fields from the patient
      */
     omit?: patientOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: patientInclude<ExtArgs> | null
     /**
      * The data needed to create a patient.
      */
@@ -3972,6 +4368,10 @@ export namespace Prisma {
      * Omit specific fields from the patient
      */
     omit?: patientOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: patientInclude<ExtArgs> | null
     /**
      * The data needed to update a patient.
      */
@@ -4039,6 +4439,10 @@ export namespace Prisma {
      */
     omit?: patientOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: patientInclude<ExtArgs> | null
+    /**
      * The filter to search for the patient to update in case it exists.
      */
     where: patientWhereUniqueInput
@@ -4065,6 +4469,10 @@ export namespace Prisma {
      */
     omit?: patientOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: patientInclude<ExtArgs> | null
+    /**
      * Filter which patient to delete.
      */
     where: patientWhereUniqueInput
@@ -4085,6 +4493,30 @@ export namespace Prisma {
   }
 
   /**
+   * patient.redio_liste
+   */
+  export type patient$redio_listeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Radio
+     */
+    select?: RadioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Radio
+     */
+    omit?: RadioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadioInclude<ExtArgs> | null
+    where?: RadioWhereInput
+    orderBy?: RadioOrderByWithRelationInput | RadioOrderByWithRelationInput[]
+    cursor?: RadioWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RadioScalarFieldEnum | RadioScalarFieldEnum[]
+  }
+
+  /**
    * patient without action
    */
   export type patientDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4096,6 +4528,1136 @@ export namespace Prisma {
      * Omit specific fields from the patient
      */
     omit?: patientOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: patientInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Radio
+   */
+
+  export type AggregateRadio = {
+    _count: RadioCountAggregateOutputType | null
+    _min: RadioMinAggregateOutputType | null
+    _max: RadioMaxAggregateOutputType | null
+  }
+
+  export type RadioMinAggregateOutputType = {
+    id: string | null
+    patient_id: string | null
+    radiologue_id: string | null
+    doctor_id: string | null
+    date: Date | null
+    radio_image: Uint8Array | null
+    Title: string | null
+    Comment: string | null
+    type: $Enums.RadioType | null
+  }
+
+  export type RadioMaxAggregateOutputType = {
+    id: string | null
+    patient_id: string | null
+    radiologue_id: string | null
+    doctor_id: string | null
+    date: Date | null
+    radio_image: Uint8Array | null
+    Title: string | null
+    Comment: string | null
+    type: $Enums.RadioType | null
+  }
+
+  export type RadioCountAggregateOutputType = {
+    id: number
+    patient_id: number
+    radiologue_id: number
+    doctor_id: number
+    date: number
+    radio_image: number
+    Title: number
+    Comment: number
+    type: number
+    _all: number
+  }
+
+
+  export type RadioMinAggregateInputType = {
+    id?: true
+    patient_id?: true
+    radiologue_id?: true
+    doctor_id?: true
+    date?: true
+    radio_image?: true
+    Title?: true
+    Comment?: true
+    type?: true
+  }
+
+  export type RadioMaxAggregateInputType = {
+    id?: true
+    patient_id?: true
+    radiologue_id?: true
+    doctor_id?: true
+    date?: true
+    radio_image?: true
+    Title?: true
+    Comment?: true
+    type?: true
+  }
+
+  export type RadioCountAggregateInputType = {
+    id?: true
+    patient_id?: true
+    radiologue_id?: true
+    doctor_id?: true
+    date?: true
+    radio_image?: true
+    Title?: true
+    Comment?: true
+    type?: true
+    _all?: true
+  }
+
+  export type RadioAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Radio to aggregate.
+     */
+    where?: RadioWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Radios to fetch.
+     */
+    orderBy?: RadioOrderByWithRelationInput | RadioOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RadioWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Radios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Radios.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Radios
+    **/
+    _count?: true | RadioCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RadioMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RadioMaxAggregateInputType
+  }
+
+  export type GetRadioAggregateType<T extends RadioAggregateArgs> = {
+        [P in keyof T & keyof AggregateRadio]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRadio[P]>
+      : GetScalarType<T[P], AggregateRadio[P]>
+  }
+
+
+
+
+  export type RadioGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RadioWhereInput
+    orderBy?: RadioOrderByWithAggregationInput | RadioOrderByWithAggregationInput[]
+    by: RadioScalarFieldEnum[] | RadioScalarFieldEnum
+    having?: RadioScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RadioCountAggregateInputType | true
+    _min?: RadioMinAggregateInputType
+    _max?: RadioMaxAggregateInputType
+  }
+
+  export type RadioGroupByOutputType = {
+    id: string
+    patient_id: string
+    radiologue_id: string
+    doctor_id: string
+    date: Date
+    radio_image: Uint8Array
+    Title: string
+    Comment: string | null
+    type: $Enums.RadioType
+    _count: RadioCountAggregateOutputType | null
+    _min: RadioMinAggregateOutputType | null
+    _max: RadioMaxAggregateOutputType | null
+  }
+
+  type GetRadioGroupByPayload<T extends RadioGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RadioGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RadioGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RadioGroupByOutputType[P]>
+            : GetScalarType<T[P], RadioGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RadioSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    patient_id?: boolean
+    radiologue_id?: boolean
+    doctor_id?: boolean
+    date?: boolean
+    radio_image?: boolean
+    Title?: boolean
+    Comment?: boolean
+    type?: boolean
+    patient?: boolean | patientDefaultArgs<ExtArgs>
+    radiologue?: boolean | radiologueDefaultArgs<ExtArgs>
+    doctor?: boolean | doctorDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["radio"]>
+
+  export type RadioSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    patient_id?: boolean
+    radiologue_id?: boolean
+    doctor_id?: boolean
+    date?: boolean
+    radio_image?: boolean
+    Title?: boolean
+    Comment?: boolean
+    type?: boolean
+    patient?: boolean | patientDefaultArgs<ExtArgs>
+    radiologue?: boolean | radiologueDefaultArgs<ExtArgs>
+    doctor?: boolean | doctorDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["radio"]>
+
+  export type RadioSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    patient_id?: boolean
+    radiologue_id?: boolean
+    doctor_id?: boolean
+    date?: boolean
+    radio_image?: boolean
+    Title?: boolean
+    Comment?: boolean
+    type?: boolean
+    patient?: boolean | patientDefaultArgs<ExtArgs>
+    radiologue?: boolean | radiologueDefaultArgs<ExtArgs>
+    doctor?: boolean | doctorDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["radio"]>
+
+  export type RadioSelectScalar = {
+    id?: boolean
+    patient_id?: boolean
+    radiologue_id?: boolean
+    doctor_id?: boolean
+    date?: boolean
+    radio_image?: boolean
+    Title?: boolean
+    Comment?: boolean
+    type?: boolean
+  }
+
+  export type RadioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "patient_id" | "radiologue_id" | "doctor_id" | "date" | "radio_image" | "Title" | "Comment" | "type", ExtArgs["result"]["radio"]>
+  export type RadioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    patient?: boolean | patientDefaultArgs<ExtArgs>
+    radiologue?: boolean | radiologueDefaultArgs<ExtArgs>
+    doctor?: boolean | doctorDefaultArgs<ExtArgs>
+  }
+  export type RadioIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    patient?: boolean | patientDefaultArgs<ExtArgs>
+    radiologue?: boolean | radiologueDefaultArgs<ExtArgs>
+    doctor?: boolean | doctorDefaultArgs<ExtArgs>
+  }
+  export type RadioIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    patient?: boolean | patientDefaultArgs<ExtArgs>
+    radiologue?: boolean | radiologueDefaultArgs<ExtArgs>
+    doctor?: boolean | doctorDefaultArgs<ExtArgs>
+  }
+
+  export type $RadioPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Radio"
+    objects: {
+      patient: Prisma.$patientPayload<ExtArgs>
+      radiologue: Prisma.$radiologuePayload<ExtArgs>
+      doctor: Prisma.$doctorPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      patient_id: string
+      radiologue_id: string
+      doctor_id: string
+      date: Date
+      radio_image: Uint8Array
+      Title: string
+      Comment: string | null
+      type: $Enums.RadioType
+    }, ExtArgs["result"]["radio"]>
+    composites: {}
+  }
+
+  type RadioGetPayload<S extends boolean | null | undefined | RadioDefaultArgs> = $Result.GetResult<Prisma.$RadioPayload, S>
+
+  type RadioCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RadioFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RadioCountAggregateInputType | true
+    }
+
+  export interface RadioDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Radio'], meta: { name: 'Radio' } }
+    /**
+     * Find zero or one Radio that matches the filter.
+     * @param {RadioFindUniqueArgs} args - Arguments to find a Radio
+     * @example
+     * // Get one Radio
+     * const radio = await prisma.radio.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RadioFindUniqueArgs>(args: SelectSubset<T, RadioFindUniqueArgs<ExtArgs>>): Prisma__RadioClient<$Result.GetResult<Prisma.$RadioPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Radio that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RadioFindUniqueOrThrowArgs} args - Arguments to find a Radio
+     * @example
+     * // Get one Radio
+     * const radio = await prisma.radio.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RadioFindUniqueOrThrowArgs>(args: SelectSubset<T, RadioFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RadioClient<$Result.GetResult<Prisma.$RadioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Radio that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadioFindFirstArgs} args - Arguments to find a Radio
+     * @example
+     * // Get one Radio
+     * const radio = await prisma.radio.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RadioFindFirstArgs>(args?: SelectSubset<T, RadioFindFirstArgs<ExtArgs>>): Prisma__RadioClient<$Result.GetResult<Prisma.$RadioPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Radio that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadioFindFirstOrThrowArgs} args - Arguments to find a Radio
+     * @example
+     * // Get one Radio
+     * const radio = await prisma.radio.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RadioFindFirstOrThrowArgs>(args?: SelectSubset<T, RadioFindFirstOrThrowArgs<ExtArgs>>): Prisma__RadioClient<$Result.GetResult<Prisma.$RadioPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Radios that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadioFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Radios
+     * const radios = await prisma.radio.findMany()
+     * 
+     * // Get first 10 Radios
+     * const radios = await prisma.radio.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const radioWithIdOnly = await prisma.radio.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RadioFindManyArgs>(args?: SelectSubset<T, RadioFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RadioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Radio.
+     * @param {RadioCreateArgs} args - Arguments to create a Radio.
+     * @example
+     * // Create one Radio
+     * const Radio = await prisma.radio.create({
+     *   data: {
+     *     // ... data to create a Radio
+     *   }
+     * })
+     * 
+     */
+    create<T extends RadioCreateArgs>(args: SelectSubset<T, RadioCreateArgs<ExtArgs>>): Prisma__RadioClient<$Result.GetResult<Prisma.$RadioPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Radios.
+     * @param {RadioCreateManyArgs} args - Arguments to create many Radios.
+     * @example
+     * // Create many Radios
+     * const radio = await prisma.radio.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RadioCreateManyArgs>(args?: SelectSubset<T, RadioCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Radios and returns the data saved in the database.
+     * @param {RadioCreateManyAndReturnArgs} args - Arguments to create many Radios.
+     * @example
+     * // Create many Radios
+     * const radio = await prisma.radio.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Radios and only return the `id`
+     * const radioWithIdOnly = await prisma.radio.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RadioCreateManyAndReturnArgs>(args?: SelectSubset<T, RadioCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RadioPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Radio.
+     * @param {RadioDeleteArgs} args - Arguments to delete one Radio.
+     * @example
+     * // Delete one Radio
+     * const Radio = await prisma.radio.delete({
+     *   where: {
+     *     // ... filter to delete one Radio
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RadioDeleteArgs>(args: SelectSubset<T, RadioDeleteArgs<ExtArgs>>): Prisma__RadioClient<$Result.GetResult<Prisma.$RadioPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Radio.
+     * @param {RadioUpdateArgs} args - Arguments to update one Radio.
+     * @example
+     * // Update one Radio
+     * const radio = await prisma.radio.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RadioUpdateArgs>(args: SelectSubset<T, RadioUpdateArgs<ExtArgs>>): Prisma__RadioClient<$Result.GetResult<Prisma.$RadioPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Radios.
+     * @param {RadioDeleteManyArgs} args - Arguments to filter Radios to delete.
+     * @example
+     * // Delete a few Radios
+     * const { count } = await prisma.radio.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RadioDeleteManyArgs>(args?: SelectSubset<T, RadioDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Radios.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadioUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Radios
+     * const radio = await prisma.radio.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RadioUpdateManyArgs>(args: SelectSubset<T, RadioUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Radios and returns the data updated in the database.
+     * @param {RadioUpdateManyAndReturnArgs} args - Arguments to update many Radios.
+     * @example
+     * // Update many Radios
+     * const radio = await prisma.radio.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Radios and only return the `id`
+     * const radioWithIdOnly = await prisma.radio.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RadioUpdateManyAndReturnArgs>(args: SelectSubset<T, RadioUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RadioPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Radio.
+     * @param {RadioUpsertArgs} args - Arguments to update or create a Radio.
+     * @example
+     * // Update or create a Radio
+     * const radio = await prisma.radio.upsert({
+     *   create: {
+     *     // ... data to create a Radio
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Radio we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RadioUpsertArgs>(args: SelectSubset<T, RadioUpsertArgs<ExtArgs>>): Prisma__RadioClient<$Result.GetResult<Prisma.$RadioPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Radios.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadioCountArgs} args - Arguments to filter Radios to count.
+     * @example
+     * // Count the number of Radios
+     * const count = await prisma.radio.count({
+     *   where: {
+     *     // ... the filter for the Radios we want to count
+     *   }
+     * })
+    **/
+    count<T extends RadioCountArgs>(
+      args?: Subset<T, RadioCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RadioCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Radio.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadioAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RadioAggregateArgs>(args: Subset<T, RadioAggregateArgs>): Prisma.PrismaPromise<GetRadioAggregateType<T>>
+
+    /**
+     * Group by Radio.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadioGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RadioGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RadioGroupByArgs['orderBy'] }
+        : { orderBy?: RadioGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RadioGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRadioGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Radio model
+   */
+  readonly fields: RadioFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Radio.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RadioClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    patient<T extends patientDefaultArgs<ExtArgs> = {}>(args?: Subset<T, patientDefaultArgs<ExtArgs>>): Prisma__patientClient<$Result.GetResult<Prisma.$patientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    radiologue<T extends radiologueDefaultArgs<ExtArgs> = {}>(args?: Subset<T, radiologueDefaultArgs<ExtArgs>>): Prisma__radiologueClient<$Result.GetResult<Prisma.$radiologuePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    doctor<T extends doctorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, doctorDefaultArgs<ExtArgs>>): Prisma__doctorClient<$Result.GetResult<Prisma.$doctorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Radio model
+   */
+  interface RadioFieldRefs {
+    readonly id: FieldRef<"Radio", 'String'>
+    readonly patient_id: FieldRef<"Radio", 'String'>
+    readonly radiologue_id: FieldRef<"Radio", 'String'>
+    readonly doctor_id: FieldRef<"Radio", 'String'>
+    readonly date: FieldRef<"Radio", 'DateTime'>
+    readonly radio_image: FieldRef<"Radio", 'Bytes'>
+    readonly Title: FieldRef<"Radio", 'String'>
+    readonly Comment: FieldRef<"Radio", 'String'>
+    readonly type: FieldRef<"Radio", 'RadioType'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Radio findUnique
+   */
+  export type RadioFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Radio
+     */
+    select?: RadioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Radio
+     */
+    omit?: RadioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadioInclude<ExtArgs> | null
+    /**
+     * Filter, which Radio to fetch.
+     */
+    where: RadioWhereUniqueInput
+  }
+
+  /**
+   * Radio findUniqueOrThrow
+   */
+  export type RadioFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Radio
+     */
+    select?: RadioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Radio
+     */
+    omit?: RadioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadioInclude<ExtArgs> | null
+    /**
+     * Filter, which Radio to fetch.
+     */
+    where: RadioWhereUniqueInput
+  }
+
+  /**
+   * Radio findFirst
+   */
+  export type RadioFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Radio
+     */
+    select?: RadioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Radio
+     */
+    omit?: RadioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadioInclude<ExtArgs> | null
+    /**
+     * Filter, which Radio to fetch.
+     */
+    where?: RadioWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Radios to fetch.
+     */
+    orderBy?: RadioOrderByWithRelationInput | RadioOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Radios.
+     */
+    cursor?: RadioWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Radios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Radios.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Radios.
+     */
+    distinct?: RadioScalarFieldEnum | RadioScalarFieldEnum[]
+  }
+
+  /**
+   * Radio findFirstOrThrow
+   */
+  export type RadioFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Radio
+     */
+    select?: RadioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Radio
+     */
+    omit?: RadioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadioInclude<ExtArgs> | null
+    /**
+     * Filter, which Radio to fetch.
+     */
+    where?: RadioWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Radios to fetch.
+     */
+    orderBy?: RadioOrderByWithRelationInput | RadioOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Radios.
+     */
+    cursor?: RadioWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Radios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Radios.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Radios.
+     */
+    distinct?: RadioScalarFieldEnum | RadioScalarFieldEnum[]
+  }
+
+  /**
+   * Radio findMany
+   */
+  export type RadioFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Radio
+     */
+    select?: RadioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Radio
+     */
+    omit?: RadioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadioInclude<ExtArgs> | null
+    /**
+     * Filter, which Radios to fetch.
+     */
+    where?: RadioWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Radios to fetch.
+     */
+    orderBy?: RadioOrderByWithRelationInput | RadioOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Radios.
+     */
+    cursor?: RadioWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Radios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Radios.
+     */
+    skip?: number
+    distinct?: RadioScalarFieldEnum | RadioScalarFieldEnum[]
+  }
+
+  /**
+   * Radio create
+   */
+  export type RadioCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Radio
+     */
+    select?: RadioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Radio
+     */
+    omit?: RadioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadioInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Radio.
+     */
+    data: XOR<RadioCreateInput, RadioUncheckedCreateInput>
+  }
+
+  /**
+   * Radio createMany
+   */
+  export type RadioCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Radios.
+     */
+    data: RadioCreateManyInput | RadioCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Radio createManyAndReturn
+   */
+  export type RadioCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Radio
+     */
+    select?: RadioSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Radio
+     */
+    omit?: RadioOmit<ExtArgs> | null
+    /**
+     * The data used to create many Radios.
+     */
+    data: RadioCreateManyInput | RadioCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadioIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Radio update
+   */
+  export type RadioUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Radio
+     */
+    select?: RadioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Radio
+     */
+    omit?: RadioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadioInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Radio.
+     */
+    data: XOR<RadioUpdateInput, RadioUncheckedUpdateInput>
+    /**
+     * Choose, which Radio to update.
+     */
+    where: RadioWhereUniqueInput
+  }
+
+  /**
+   * Radio updateMany
+   */
+  export type RadioUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Radios.
+     */
+    data: XOR<RadioUpdateManyMutationInput, RadioUncheckedUpdateManyInput>
+    /**
+     * Filter which Radios to update
+     */
+    where?: RadioWhereInput
+    /**
+     * Limit how many Radios to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Radio updateManyAndReturn
+   */
+  export type RadioUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Radio
+     */
+    select?: RadioSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Radio
+     */
+    omit?: RadioOmit<ExtArgs> | null
+    /**
+     * The data used to update Radios.
+     */
+    data: XOR<RadioUpdateManyMutationInput, RadioUncheckedUpdateManyInput>
+    /**
+     * Filter which Radios to update
+     */
+    where?: RadioWhereInput
+    /**
+     * Limit how many Radios to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadioIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Radio upsert
+   */
+  export type RadioUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Radio
+     */
+    select?: RadioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Radio
+     */
+    omit?: RadioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadioInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Radio to update in case it exists.
+     */
+    where: RadioWhereUniqueInput
+    /**
+     * In case the Radio found by the `where` argument doesn't exist, create a new Radio with this data.
+     */
+    create: XOR<RadioCreateInput, RadioUncheckedCreateInput>
+    /**
+     * In case the Radio was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RadioUpdateInput, RadioUncheckedUpdateInput>
+  }
+
+  /**
+   * Radio delete
+   */
+  export type RadioDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Radio
+     */
+    select?: RadioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Radio
+     */
+    omit?: RadioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadioInclude<ExtArgs> | null
+    /**
+     * Filter which Radio to delete.
+     */
+    where: RadioWhereUniqueInput
+  }
+
+  /**
+   * Radio deleteMany
+   */
+  export type RadioDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Radios to delete
+     */
+    where?: RadioWhereInput
+    /**
+     * Limit how many Radios to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Radio without action
+   */
+  export type RadioDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Radio
+     */
+    select?: RadioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Radio
+     */
+    omit?: RadioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadioInclude<ExtArgs> | null
   }
 
 
@@ -4115,7 +5677,8 @@ export namespace Prisma {
 
   export const RadiologueScalarFieldEnum: {
     id: 'id',
-    name: 'name',
+    firstName: 'firstName',
+    lastName: 'lastName',
     email: 'email',
     password: 'password'
   };
@@ -4125,7 +5688,8 @@ export namespace Prisma {
 
   export const DoctorScalarFieldEnum: {
     id: 'id',
-    name: 'name',
+    firstName: 'firstName',
+    lastName: 'lastName',
     email: 'email',
     password: 'password'
   };
@@ -4135,12 +5699,31 @@ export namespace Prisma {
 
   export const PatientScalarFieldEnum: {
     id: 'id',
-    name: 'name',
+    firstName: 'firstName',
+    lastName: 'lastName',
+    age: 'age',
+    dateOfBirth: 'dateOfBirth',
+    medicalHistory: 'medicalHistory',
     email: 'email',
     password: 'password'
   };
 
   export type PatientScalarFieldEnum = (typeof PatientScalarFieldEnum)[keyof typeof PatientScalarFieldEnum]
+
+
+  export const RadioScalarFieldEnum: {
+    id: 'id',
+    patient_id: 'patient_id',
+    radiologue_id: 'radiologue_id',
+    doctor_id: 'doctor_id',
+    date: 'date',
+    radio_image: 'radio_image',
+    Title: 'Title',
+    Comment: 'Comment',
+    type: 'type'
+  };
+
+  export type RadioScalarFieldEnum = (typeof RadioScalarFieldEnum)[keyof typeof RadioScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -4159,9 +5742,31 @@ export namespace Prisma {
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
   /**
    * Field references
    */
+
+
+  /**
+   * Reference to a field of type 'String'
+   */
+  export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
+    
+
+
+  /**
+   * Reference to a field of type 'String[]'
+   */
+  export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
 
 
   /**
@@ -4179,16 +5784,44 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'String'
+   * Reference to a field of type 'DateTime'
    */
-  export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
     
 
 
   /**
-   * Reference to a field of type 'String[]'
+   * Reference to a field of type 'DateTime[]'
    */
-  export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Bytes'
+   */
+  export type BytesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Bytes'>
+    
+
+
+  /**
+   * Reference to a field of type 'Bytes[]'
+   */
+  export type ListBytesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Bytes[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'RadioType'
+   */
+  export type EnumRadioTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RadioType'>
+    
+
+
+  /**
+   * Reference to a field of type 'RadioType[]'
+   */
+  export type ListEnumRadioTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RadioType[]'>
     
 
 
@@ -4213,47 +5846,53 @@ export namespace Prisma {
     AND?: radiologueWhereInput | radiologueWhereInput[]
     OR?: radiologueWhereInput[]
     NOT?: radiologueWhereInput | radiologueWhereInput[]
-    id?: IntFilter<"radiologue"> | number
-    name?: StringFilter<"radiologue"> | string
+    id?: UuidFilter<"radiologue"> | string
+    firstName?: StringFilter<"radiologue"> | string
+    lastName?: StringFilter<"radiologue"> | string
     email?: StringFilter<"radiologue"> | string
     password?: StringFilter<"radiologue"> | string
+    redio_liste?: RadioListRelationFilter
   }
 
   export type radiologueOrderByWithRelationInput = {
     id?: SortOrder
-    name?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    redio_liste?: RadioOrderByRelationAggregateInput
   }
 
   export type radiologueWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     email?: string
     AND?: radiologueWhereInput | radiologueWhereInput[]
     OR?: radiologueWhereInput[]
     NOT?: radiologueWhereInput | radiologueWhereInput[]
-    name?: StringFilter<"radiologue"> | string
+    firstName?: StringFilter<"radiologue"> | string
+    lastName?: StringFilter<"radiologue"> | string
     password?: StringFilter<"radiologue"> | string
+    redio_liste?: RadioListRelationFilter
   }, "id" | "email">
 
   export type radiologueOrderByWithAggregationInput = {
     id?: SortOrder
-    name?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     email?: SortOrder
     password?: SortOrder
     _count?: radiologueCountOrderByAggregateInput
-    _avg?: radiologueAvgOrderByAggregateInput
     _max?: radiologueMaxOrderByAggregateInput
     _min?: radiologueMinOrderByAggregateInput
-    _sum?: radiologueSumOrderByAggregateInput
   }
 
   export type radiologueScalarWhereWithAggregatesInput = {
     AND?: radiologueScalarWhereWithAggregatesInput | radiologueScalarWhereWithAggregatesInput[]
     OR?: radiologueScalarWhereWithAggregatesInput[]
     NOT?: radiologueScalarWhereWithAggregatesInput | radiologueScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"radiologue"> | number
-    name?: StringWithAggregatesFilter<"radiologue"> | string
+    id?: UuidWithAggregatesFilter<"radiologue"> | string
+    firstName?: StringWithAggregatesFilter<"radiologue"> | string
+    lastName?: StringWithAggregatesFilter<"radiologue"> | string
     email?: StringWithAggregatesFilter<"radiologue"> | string
     password?: StringWithAggregatesFilter<"radiologue"> | string
   }
@@ -4262,47 +5901,53 @@ export namespace Prisma {
     AND?: doctorWhereInput | doctorWhereInput[]
     OR?: doctorWhereInput[]
     NOT?: doctorWhereInput | doctorWhereInput[]
-    id?: IntFilter<"doctor"> | number
-    name?: StringFilter<"doctor"> | string
+    id?: UuidFilter<"doctor"> | string
+    firstName?: StringFilter<"doctor"> | string
+    lastName?: StringFilter<"doctor"> | string
     email?: StringFilter<"doctor"> | string
     password?: StringFilter<"doctor"> | string
+    redio_liste?: RadioListRelationFilter
   }
 
   export type doctorOrderByWithRelationInput = {
     id?: SortOrder
-    name?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    redio_liste?: RadioOrderByRelationAggregateInput
   }
 
   export type doctorWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     email?: string
     AND?: doctorWhereInput | doctorWhereInput[]
     OR?: doctorWhereInput[]
     NOT?: doctorWhereInput | doctorWhereInput[]
-    name?: StringFilter<"doctor"> | string
+    firstName?: StringFilter<"doctor"> | string
+    lastName?: StringFilter<"doctor"> | string
     password?: StringFilter<"doctor"> | string
+    redio_liste?: RadioListRelationFilter
   }, "id" | "email">
 
   export type doctorOrderByWithAggregationInput = {
     id?: SortOrder
-    name?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     email?: SortOrder
     password?: SortOrder
     _count?: doctorCountOrderByAggregateInput
-    _avg?: doctorAvgOrderByAggregateInput
     _max?: doctorMaxOrderByAggregateInput
     _min?: doctorMinOrderByAggregateInput
-    _sum?: doctorSumOrderByAggregateInput
   }
 
   export type doctorScalarWhereWithAggregatesInput = {
     AND?: doctorScalarWhereWithAggregatesInput | doctorScalarWhereWithAggregatesInput[]
     OR?: doctorScalarWhereWithAggregatesInput[]
     NOT?: doctorScalarWhereWithAggregatesInput | doctorScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"doctor"> | number
-    name?: StringWithAggregatesFilter<"doctor"> | string
+    id?: UuidWithAggregatesFilter<"doctor"> | string
+    firstName?: StringWithAggregatesFilter<"doctor"> | string
+    lastName?: StringWithAggregatesFilter<"doctor"> | string
     email?: StringWithAggregatesFilter<"doctor"> | string
     password?: StringWithAggregatesFilter<"doctor"> | string
   }
@@ -4311,32 +5956,51 @@ export namespace Prisma {
     AND?: patientWhereInput | patientWhereInput[]
     OR?: patientWhereInput[]
     NOT?: patientWhereInput | patientWhereInput[]
-    id?: IntFilter<"patient"> | number
-    name?: StringFilter<"patient"> | string
+    id?: UuidFilter<"patient"> | string
+    firstName?: StringFilter<"patient"> | string
+    lastName?: StringFilter<"patient"> | string
+    age?: IntFilter<"patient"> | number
+    dateOfBirth?: DateTimeFilter<"patient"> | Date | string
+    medicalHistory?: StringFilter<"patient"> | string
     email?: StringFilter<"patient"> | string
     password?: StringFilter<"patient"> | string
+    redio_liste?: RadioListRelationFilter
   }
 
   export type patientOrderByWithRelationInput = {
     id?: SortOrder
-    name?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    age?: SortOrder
+    dateOfBirth?: SortOrder
+    medicalHistory?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    redio_liste?: RadioOrderByRelationAggregateInput
   }
 
   export type patientWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     email?: string
     AND?: patientWhereInput | patientWhereInput[]
     OR?: patientWhereInput[]
     NOT?: patientWhereInput | patientWhereInput[]
-    name?: StringFilter<"patient"> | string
+    firstName?: StringFilter<"patient"> | string
+    lastName?: StringFilter<"patient"> | string
+    age?: IntFilter<"patient"> | number
+    dateOfBirth?: DateTimeFilter<"patient"> | Date | string
+    medicalHistory?: StringFilter<"patient"> | string
     password?: StringFilter<"patient"> | string
+    redio_liste?: RadioListRelationFilter
   }, "id" | "email">
 
   export type patientOrderByWithAggregationInput = {
     id?: SortOrder
-    name?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    age?: SortOrder
+    dateOfBirth?: SortOrder
+    medicalHistory?: SortOrder
     email?: SortOrder
     password?: SortOrder
     _count?: patientCountOrderByAggregateInput
@@ -4350,159 +6014,389 @@ export namespace Prisma {
     AND?: patientScalarWhereWithAggregatesInput | patientScalarWhereWithAggregatesInput[]
     OR?: patientScalarWhereWithAggregatesInput[]
     NOT?: patientScalarWhereWithAggregatesInput | patientScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"patient"> | number
-    name?: StringWithAggregatesFilter<"patient"> | string
+    id?: UuidWithAggregatesFilter<"patient"> | string
+    firstName?: StringWithAggregatesFilter<"patient"> | string
+    lastName?: StringWithAggregatesFilter<"patient"> | string
+    age?: IntWithAggregatesFilter<"patient"> | number
+    dateOfBirth?: DateTimeWithAggregatesFilter<"patient"> | Date | string
+    medicalHistory?: StringWithAggregatesFilter<"patient"> | string
     email?: StringWithAggregatesFilter<"patient"> | string
     password?: StringWithAggregatesFilter<"patient"> | string
   }
 
+  export type RadioWhereInput = {
+    AND?: RadioWhereInput | RadioWhereInput[]
+    OR?: RadioWhereInput[]
+    NOT?: RadioWhereInput | RadioWhereInput[]
+    id?: UuidFilter<"Radio"> | string
+    patient_id?: UuidFilter<"Radio"> | string
+    radiologue_id?: UuidFilter<"Radio"> | string
+    doctor_id?: UuidFilter<"Radio"> | string
+    date?: DateTimeFilter<"Radio"> | Date | string
+    radio_image?: BytesFilter<"Radio"> | Uint8Array
+    Title?: StringFilter<"Radio"> | string
+    Comment?: StringNullableFilter<"Radio"> | string | null
+    type?: EnumRadioTypeFilter<"Radio"> | $Enums.RadioType
+    patient?: XOR<PatientScalarRelationFilter, patientWhereInput>
+    radiologue?: XOR<RadiologueScalarRelationFilter, radiologueWhereInput>
+    doctor?: XOR<DoctorScalarRelationFilter, doctorWhereInput>
+  }
+
+  export type RadioOrderByWithRelationInput = {
+    id?: SortOrder
+    patient_id?: SortOrder
+    radiologue_id?: SortOrder
+    doctor_id?: SortOrder
+    date?: SortOrder
+    radio_image?: SortOrder
+    Title?: SortOrder
+    Comment?: SortOrderInput | SortOrder
+    type?: SortOrder
+    patient?: patientOrderByWithRelationInput
+    radiologue?: radiologueOrderByWithRelationInput
+    doctor?: doctorOrderByWithRelationInput
+  }
+
+  export type RadioWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: RadioWhereInput | RadioWhereInput[]
+    OR?: RadioWhereInput[]
+    NOT?: RadioWhereInput | RadioWhereInput[]
+    patient_id?: UuidFilter<"Radio"> | string
+    radiologue_id?: UuidFilter<"Radio"> | string
+    doctor_id?: UuidFilter<"Radio"> | string
+    date?: DateTimeFilter<"Radio"> | Date | string
+    radio_image?: BytesFilter<"Radio"> | Uint8Array
+    Title?: StringFilter<"Radio"> | string
+    Comment?: StringNullableFilter<"Radio"> | string | null
+    type?: EnumRadioTypeFilter<"Radio"> | $Enums.RadioType
+    patient?: XOR<PatientScalarRelationFilter, patientWhereInput>
+    radiologue?: XOR<RadiologueScalarRelationFilter, radiologueWhereInput>
+    doctor?: XOR<DoctorScalarRelationFilter, doctorWhereInput>
+  }, "id">
+
+  export type RadioOrderByWithAggregationInput = {
+    id?: SortOrder
+    patient_id?: SortOrder
+    radiologue_id?: SortOrder
+    doctor_id?: SortOrder
+    date?: SortOrder
+    radio_image?: SortOrder
+    Title?: SortOrder
+    Comment?: SortOrderInput | SortOrder
+    type?: SortOrder
+    _count?: RadioCountOrderByAggregateInput
+    _max?: RadioMaxOrderByAggregateInput
+    _min?: RadioMinOrderByAggregateInput
+  }
+
+  export type RadioScalarWhereWithAggregatesInput = {
+    AND?: RadioScalarWhereWithAggregatesInput | RadioScalarWhereWithAggregatesInput[]
+    OR?: RadioScalarWhereWithAggregatesInput[]
+    NOT?: RadioScalarWhereWithAggregatesInput | RadioScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Radio"> | string
+    patient_id?: UuidWithAggregatesFilter<"Radio"> | string
+    radiologue_id?: UuidWithAggregatesFilter<"Radio"> | string
+    doctor_id?: UuidWithAggregatesFilter<"Radio"> | string
+    date?: DateTimeWithAggregatesFilter<"Radio"> | Date | string
+    radio_image?: BytesWithAggregatesFilter<"Radio"> | Uint8Array
+    Title?: StringWithAggregatesFilter<"Radio"> | string
+    Comment?: StringNullableWithAggregatesFilter<"Radio"> | string | null
+    type?: EnumRadioTypeWithAggregatesFilter<"Radio"> | $Enums.RadioType
+  }
+
   export type radiologueCreateInput = {
-    name: string
+    id?: string
+    firstName: string
+    lastName: string
     email: string
     password: string
+    redio_liste?: RadioCreateNestedManyWithoutRadiologueInput
   }
 
   export type radiologueUncheckedCreateInput = {
-    id?: number
-    name: string
+    id?: string
+    firstName: string
+    lastName: string
     email: string
     password: string
+    redio_liste?: RadioUncheckedCreateNestedManyWithoutRadiologueInput
   }
 
   export type radiologueUpdateInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    redio_liste?: RadioUpdateManyWithoutRadiologueNestedInput
   }
 
   export type radiologueUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    redio_liste?: RadioUncheckedUpdateManyWithoutRadiologueNestedInput
   }
 
   export type radiologueCreateManyInput = {
-    id?: number
-    name: string
+    id?: string
+    firstName: string
+    lastName: string
     email: string
     password: string
   }
 
   export type radiologueUpdateManyMutationInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
   }
 
   export type radiologueUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
   }
 
   export type doctorCreateInput = {
-    name: string
+    id?: string
+    firstName: string
+    lastName: string
     email: string
     password: string
+    redio_liste?: RadioCreateNestedManyWithoutDoctorInput
   }
 
   export type doctorUncheckedCreateInput = {
-    id?: number
-    name: string
+    id?: string
+    firstName: string
+    lastName: string
     email: string
     password: string
+    redio_liste?: RadioUncheckedCreateNestedManyWithoutDoctorInput
   }
 
   export type doctorUpdateInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    redio_liste?: RadioUpdateManyWithoutDoctorNestedInput
   }
 
   export type doctorUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    redio_liste?: RadioUncheckedUpdateManyWithoutDoctorNestedInput
   }
 
   export type doctorCreateManyInput = {
-    id?: number
-    name: string
+    id?: string
+    firstName: string
+    lastName: string
     email: string
     password: string
   }
 
   export type doctorUpdateManyMutationInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
   }
 
   export type doctorUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
   }
 
   export type patientCreateInput = {
-    name: string
+    id?: string
+    firstName: string
+    lastName: string
+    age: number
+    dateOfBirth: Date | string
+    medicalHistory: string
     email: string
     password: string
+    redio_liste?: RadioCreateNestedManyWithoutPatientInput
   }
 
   export type patientUncheckedCreateInput = {
-    id?: number
-    name: string
+    id?: string
+    firstName: string
+    lastName: string
+    age: number
+    dateOfBirth: Date | string
+    medicalHistory: string
     email: string
     password: string
+    redio_liste?: RadioUncheckedCreateNestedManyWithoutPatientInput
   }
 
   export type patientUpdateInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    age?: IntFieldUpdateOperationsInput | number
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    medicalHistory?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    redio_liste?: RadioUpdateManyWithoutPatientNestedInput
   }
 
   export type patientUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    age?: IntFieldUpdateOperationsInput | number
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    medicalHistory?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    redio_liste?: RadioUncheckedUpdateManyWithoutPatientNestedInput
   }
 
   export type patientCreateManyInput = {
-    id?: number
-    name: string
+    id?: string
+    firstName: string
+    lastName: string
+    age: number
+    dateOfBirth: Date | string
+    medicalHistory: string
     email: string
     password: string
   }
 
   export type patientUpdateManyMutationInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    age?: IntFieldUpdateOperationsInput | number
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    medicalHistory?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
   }
 
   export type patientUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    age?: IntFieldUpdateOperationsInput | number
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    medicalHistory?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
+  export type RadioCreateInput = {
+    id?: string
+    date?: Date | string
+    radio_image: Uint8Array
+    Title: string
+    Comment?: string | null
+    type: $Enums.RadioType
+    patient: patientCreateNestedOneWithoutRedio_listeInput
+    radiologue: radiologueCreateNestedOneWithoutRedio_listeInput
+    doctor: doctorCreateNestedOneWithoutRedio_listeInput
+  }
+
+  export type RadioUncheckedCreateInput = {
+    id?: string
+    patient_id: string
+    radiologue_id: string
+    doctor_id: string
+    date?: Date | string
+    radio_image: Uint8Array
+    Title: string
+    Comment?: string | null
+    type: $Enums.RadioType
+  }
+
+  export type RadioUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    radio_image?: BytesFieldUpdateOperationsInput | Uint8Array
+    Title?: StringFieldUpdateOperationsInput | string
+    Comment?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumRadioTypeFieldUpdateOperationsInput | $Enums.RadioType
+    patient?: patientUpdateOneRequiredWithoutRedio_listeNestedInput
+    radiologue?: radiologueUpdateOneRequiredWithoutRedio_listeNestedInput
+    doctor?: doctorUpdateOneRequiredWithoutRedio_listeNestedInput
+  }
+
+  export type RadioUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    radiologue_id?: StringFieldUpdateOperationsInput | string
+    doctor_id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    radio_image?: BytesFieldUpdateOperationsInput | Uint8Array
+    Title?: StringFieldUpdateOperationsInput | string
+    Comment?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumRadioTypeFieldUpdateOperationsInput | $Enums.RadioType
+  }
+
+  export type RadioCreateManyInput = {
+    id?: string
+    patient_id: string
+    radiologue_id: string
+    doctor_id: string
+    date?: Date | string
+    radio_image: Uint8Array
+    Title: string
+    Comment?: string | null
+    type: $Enums.RadioType
+  }
+
+  export type RadioUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    radio_image?: BytesFieldUpdateOperationsInput | Uint8Array
+    Title?: StringFieldUpdateOperationsInput | string
+    Comment?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumRadioTypeFieldUpdateOperationsInput | $Enums.RadioType
+  }
+
+  export type RadioUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    radiologue_id?: StringFieldUpdateOperationsInput | string
+    doctor_id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    radio_image?: BytesFieldUpdateOperationsInput | Uint8Array
+    Title?: StringFieldUpdateOperationsInput | string
+    Comment?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumRadioTypeFieldUpdateOperationsInput | $Enums.RadioType
+  }
+
+  export type UuidFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedUuidFilter<$PrismaModel> | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -4520,49 +6414,53 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type RadioListRelationFilter = {
+    every?: RadioWhereInput
+    some?: RadioWhereInput
+    none?: RadioWhereInput
+  }
+
+  export type RadioOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type radiologueCountOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     email?: SortOrder
     password?: SortOrder
   }
 
-  export type radiologueAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
   export type radiologueMaxOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     email?: SortOrder
     password?: SortOrder
   }
 
   export type radiologueMinOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     email?: SortOrder
     password?: SortOrder
   }
 
-  export type radiologueSumOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+  export type UuidWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedUuidWithAggregatesFilter<$PrismaModel> | string
     _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -4585,64 +6483,344 @@ export namespace Prisma {
 
   export type doctorCountOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     email?: SortOrder
     password?: SortOrder
   }
 
-  export type doctorAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
   export type doctorMaxOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     email?: SortOrder
     password?: SortOrder
   }
 
   export type doctorMinOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     email?: SortOrder
     password?: SortOrder
   }
 
-  export type doctorSumOrderByAggregateInput = {
-    id?: SortOrder
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type patientCountOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    age?: SortOrder
+    dateOfBirth?: SortOrder
+    medicalHistory?: SortOrder
     email?: SortOrder
     password?: SortOrder
   }
 
   export type patientAvgOrderByAggregateInput = {
-    id?: SortOrder
+    age?: SortOrder
   }
 
   export type patientMaxOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    age?: SortOrder
+    dateOfBirth?: SortOrder
+    medicalHistory?: SortOrder
     email?: SortOrder
     password?: SortOrder
   }
 
   export type patientMinOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    age?: SortOrder
+    dateOfBirth?: SortOrder
+    medicalHistory?: SortOrder
     email?: SortOrder
     password?: SortOrder
   }
 
   export type patientSumOrderByAggregateInput = {
+    age?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type BytesFilter<$PrismaModel = never> = {
+    equals?: Uint8Array | BytesFieldRefInput<$PrismaModel>
+    in?: Uint8Array[] | ListBytesFieldRefInput<$PrismaModel>
+    notIn?: Uint8Array[] | ListBytesFieldRefInput<$PrismaModel>
+    not?: NestedBytesFilter<$PrismaModel> | Uint8Array
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type EnumRadioTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.RadioType | EnumRadioTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RadioType[] | ListEnumRadioTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RadioType[] | ListEnumRadioTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRadioTypeFilter<$PrismaModel> | $Enums.RadioType
+  }
+
+  export type PatientScalarRelationFilter = {
+    is?: patientWhereInput
+    isNot?: patientWhereInput
+  }
+
+  export type RadiologueScalarRelationFilter = {
+    is?: radiologueWhereInput
+    isNot?: radiologueWhereInput
+  }
+
+  export type DoctorScalarRelationFilter = {
+    is?: doctorWhereInput
+    isNot?: doctorWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type RadioCountOrderByAggregateInput = {
     id?: SortOrder
+    patient_id?: SortOrder
+    radiologue_id?: SortOrder
+    doctor_id?: SortOrder
+    date?: SortOrder
+    radio_image?: SortOrder
+    Title?: SortOrder
+    Comment?: SortOrder
+    type?: SortOrder
+  }
+
+  export type RadioMaxOrderByAggregateInput = {
+    id?: SortOrder
+    patient_id?: SortOrder
+    radiologue_id?: SortOrder
+    doctor_id?: SortOrder
+    date?: SortOrder
+    radio_image?: SortOrder
+    Title?: SortOrder
+    Comment?: SortOrder
+    type?: SortOrder
+  }
+
+  export type RadioMinOrderByAggregateInput = {
+    id?: SortOrder
+    patient_id?: SortOrder
+    radiologue_id?: SortOrder
+    doctor_id?: SortOrder
+    date?: SortOrder
+    radio_image?: SortOrder
+    Title?: SortOrder
+    Comment?: SortOrder
+    type?: SortOrder
+  }
+
+  export type BytesWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Uint8Array | BytesFieldRefInput<$PrismaModel>
+    in?: Uint8Array[] | ListBytesFieldRefInput<$PrismaModel>
+    notIn?: Uint8Array[] | ListBytesFieldRefInput<$PrismaModel>
+    not?: NestedBytesWithAggregatesFilter<$PrismaModel> | Uint8Array
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBytesFilter<$PrismaModel>
+    _max?: NestedBytesFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type EnumRadioTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RadioType | EnumRadioTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RadioType[] | ListEnumRadioTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RadioType[] | ListEnumRadioTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRadioTypeWithAggregatesFilter<$PrismaModel> | $Enums.RadioType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRadioTypeFilter<$PrismaModel>
+    _max?: NestedEnumRadioTypeFilter<$PrismaModel>
+  }
+
+  export type RadioCreateNestedManyWithoutRadiologueInput = {
+    create?: XOR<RadioCreateWithoutRadiologueInput, RadioUncheckedCreateWithoutRadiologueInput> | RadioCreateWithoutRadiologueInput[] | RadioUncheckedCreateWithoutRadiologueInput[]
+    connectOrCreate?: RadioCreateOrConnectWithoutRadiologueInput | RadioCreateOrConnectWithoutRadiologueInput[]
+    createMany?: RadioCreateManyRadiologueInputEnvelope
+    connect?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+  }
+
+  export type RadioUncheckedCreateNestedManyWithoutRadiologueInput = {
+    create?: XOR<RadioCreateWithoutRadiologueInput, RadioUncheckedCreateWithoutRadiologueInput> | RadioCreateWithoutRadiologueInput[] | RadioUncheckedCreateWithoutRadiologueInput[]
+    connectOrCreate?: RadioCreateOrConnectWithoutRadiologueInput | RadioCreateOrConnectWithoutRadiologueInput[]
+    createMany?: RadioCreateManyRadiologueInputEnvelope
+    connect?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
+  }
+
+  export type RadioUpdateManyWithoutRadiologueNestedInput = {
+    create?: XOR<RadioCreateWithoutRadiologueInput, RadioUncheckedCreateWithoutRadiologueInput> | RadioCreateWithoutRadiologueInput[] | RadioUncheckedCreateWithoutRadiologueInput[]
+    connectOrCreate?: RadioCreateOrConnectWithoutRadiologueInput | RadioCreateOrConnectWithoutRadiologueInput[]
+    upsert?: RadioUpsertWithWhereUniqueWithoutRadiologueInput | RadioUpsertWithWhereUniqueWithoutRadiologueInput[]
+    createMany?: RadioCreateManyRadiologueInputEnvelope
+    set?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+    disconnect?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+    delete?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+    connect?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+    update?: RadioUpdateWithWhereUniqueWithoutRadiologueInput | RadioUpdateWithWhereUniqueWithoutRadiologueInput[]
+    updateMany?: RadioUpdateManyWithWhereWithoutRadiologueInput | RadioUpdateManyWithWhereWithoutRadiologueInput[]
+    deleteMany?: RadioScalarWhereInput | RadioScalarWhereInput[]
+  }
+
+  export type RadioUncheckedUpdateManyWithoutRadiologueNestedInput = {
+    create?: XOR<RadioCreateWithoutRadiologueInput, RadioUncheckedCreateWithoutRadiologueInput> | RadioCreateWithoutRadiologueInput[] | RadioUncheckedCreateWithoutRadiologueInput[]
+    connectOrCreate?: RadioCreateOrConnectWithoutRadiologueInput | RadioCreateOrConnectWithoutRadiologueInput[]
+    upsert?: RadioUpsertWithWhereUniqueWithoutRadiologueInput | RadioUpsertWithWhereUniqueWithoutRadiologueInput[]
+    createMany?: RadioCreateManyRadiologueInputEnvelope
+    set?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+    disconnect?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+    delete?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+    connect?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+    update?: RadioUpdateWithWhereUniqueWithoutRadiologueInput | RadioUpdateWithWhereUniqueWithoutRadiologueInput[]
+    updateMany?: RadioUpdateManyWithWhereWithoutRadiologueInput | RadioUpdateManyWithWhereWithoutRadiologueInput[]
+    deleteMany?: RadioScalarWhereInput | RadioScalarWhereInput[]
+  }
+
+  export type RadioCreateNestedManyWithoutDoctorInput = {
+    create?: XOR<RadioCreateWithoutDoctorInput, RadioUncheckedCreateWithoutDoctorInput> | RadioCreateWithoutDoctorInput[] | RadioUncheckedCreateWithoutDoctorInput[]
+    connectOrCreate?: RadioCreateOrConnectWithoutDoctorInput | RadioCreateOrConnectWithoutDoctorInput[]
+    createMany?: RadioCreateManyDoctorInputEnvelope
+    connect?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+  }
+
+  export type RadioUncheckedCreateNestedManyWithoutDoctorInput = {
+    create?: XOR<RadioCreateWithoutDoctorInput, RadioUncheckedCreateWithoutDoctorInput> | RadioCreateWithoutDoctorInput[] | RadioUncheckedCreateWithoutDoctorInput[]
+    connectOrCreate?: RadioCreateOrConnectWithoutDoctorInput | RadioCreateOrConnectWithoutDoctorInput[]
+    createMany?: RadioCreateManyDoctorInputEnvelope
+    connect?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+  }
+
+  export type RadioUpdateManyWithoutDoctorNestedInput = {
+    create?: XOR<RadioCreateWithoutDoctorInput, RadioUncheckedCreateWithoutDoctorInput> | RadioCreateWithoutDoctorInput[] | RadioUncheckedCreateWithoutDoctorInput[]
+    connectOrCreate?: RadioCreateOrConnectWithoutDoctorInput | RadioCreateOrConnectWithoutDoctorInput[]
+    upsert?: RadioUpsertWithWhereUniqueWithoutDoctorInput | RadioUpsertWithWhereUniqueWithoutDoctorInput[]
+    createMany?: RadioCreateManyDoctorInputEnvelope
+    set?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+    disconnect?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+    delete?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+    connect?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+    update?: RadioUpdateWithWhereUniqueWithoutDoctorInput | RadioUpdateWithWhereUniqueWithoutDoctorInput[]
+    updateMany?: RadioUpdateManyWithWhereWithoutDoctorInput | RadioUpdateManyWithWhereWithoutDoctorInput[]
+    deleteMany?: RadioScalarWhereInput | RadioScalarWhereInput[]
+  }
+
+  export type RadioUncheckedUpdateManyWithoutDoctorNestedInput = {
+    create?: XOR<RadioCreateWithoutDoctorInput, RadioUncheckedCreateWithoutDoctorInput> | RadioCreateWithoutDoctorInput[] | RadioUncheckedCreateWithoutDoctorInput[]
+    connectOrCreate?: RadioCreateOrConnectWithoutDoctorInput | RadioCreateOrConnectWithoutDoctorInput[]
+    upsert?: RadioUpsertWithWhereUniqueWithoutDoctorInput | RadioUpsertWithWhereUniqueWithoutDoctorInput[]
+    createMany?: RadioCreateManyDoctorInputEnvelope
+    set?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+    disconnect?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+    delete?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+    connect?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+    update?: RadioUpdateWithWhereUniqueWithoutDoctorInput | RadioUpdateWithWhereUniqueWithoutDoctorInput[]
+    updateMany?: RadioUpdateManyWithWhereWithoutDoctorInput | RadioUpdateManyWithWhereWithoutDoctorInput[]
+    deleteMany?: RadioScalarWhereInput | RadioScalarWhereInput[]
+  }
+
+  export type RadioCreateNestedManyWithoutPatientInput = {
+    create?: XOR<RadioCreateWithoutPatientInput, RadioUncheckedCreateWithoutPatientInput> | RadioCreateWithoutPatientInput[] | RadioUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: RadioCreateOrConnectWithoutPatientInput | RadioCreateOrConnectWithoutPatientInput[]
+    createMany?: RadioCreateManyPatientInputEnvelope
+    connect?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+  }
+
+  export type RadioUncheckedCreateNestedManyWithoutPatientInput = {
+    create?: XOR<RadioCreateWithoutPatientInput, RadioUncheckedCreateWithoutPatientInput> | RadioCreateWithoutPatientInput[] | RadioUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: RadioCreateOrConnectWithoutPatientInput | RadioCreateOrConnectWithoutPatientInput[]
+    createMany?: RadioCreateManyPatientInputEnvelope
+    connect?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -4653,15 +6831,101 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type RadioUpdateManyWithoutPatientNestedInput = {
+    create?: XOR<RadioCreateWithoutPatientInput, RadioUncheckedCreateWithoutPatientInput> | RadioCreateWithoutPatientInput[] | RadioUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: RadioCreateOrConnectWithoutPatientInput | RadioCreateOrConnectWithoutPatientInput[]
+    upsert?: RadioUpsertWithWhereUniqueWithoutPatientInput | RadioUpsertWithWhereUniqueWithoutPatientInput[]
+    createMany?: RadioCreateManyPatientInputEnvelope
+    set?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+    disconnect?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+    delete?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+    connect?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+    update?: RadioUpdateWithWhereUniqueWithoutPatientInput | RadioUpdateWithWhereUniqueWithoutPatientInput[]
+    updateMany?: RadioUpdateManyWithWhereWithoutPatientInput | RadioUpdateManyWithWhereWithoutPatientInput[]
+    deleteMany?: RadioScalarWhereInput | RadioScalarWhereInput[]
+  }
+
+  export type RadioUncheckedUpdateManyWithoutPatientNestedInput = {
+    create?: XOR<RadioCreateWithoutPatientInput, RadioUncheckedCreateWithoutPatientInput> | RadioCreateWithoutPatientInput[] | RadioUncheckedCreateWithoutPatientInput[]
+    connectOrCreate?: RadioCreateOrConnectWithoutPatientInput | RadioCreateOrConnectWithoutPatientInput[]
+    upsert?: RadioUpsertWithWhereUniqueWithoutPatientInput | RadioUpsertWithWhereUniqueWithoutPatientInput[]
+    createMany?: RadioCreateManyPatientInputEnvelope
+    set?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+    disconnect?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+    delete?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+    connect?: RadioWhereUniqueInput | RadioWhereUniqueInput[]
+    update?: RadioUpdateWithWhereUniqueWithoutPatientInput | RadioUpdateWithWhereUniqueWithoutPatientInput[]
+    updateMany?: RadioUpdateManyWithWhereWithoutPatientInput | RadioUpdateManyWithWhereWithoutPatientInput[]
+    deleteMany?: RadioScalarWhereInput | RadioScalarWhereInput[]
+  }
+
+  export type patientCreateNestedOneWithoutRedio_listeInput = {
+    create?: XOR<patientCreateWithoutRedio_listeInput, patientUncheckedCreateWithoutRedio_listeInput>
+    connectOrCreate?: patientCreateOrConnectWithoutRedio_listeInput
+    connect?: patientWhereUniqueInput
+  }
+
+  export type radiologueCreateNestedOneWithoutRedio_listeInput = {
+    create?: XOR<radiologueCreateWithoutRedio_listeInput, radiologueUncheckedCreateWithoutRedio_listeInput>
+    connectOrCreate?: radiologueCreateOrConnectWithoutRedio_listeInput
+    connect?: radiologueWhereUniqueInput
+  }
+
+  export type doctorCreateNestedOneWithoutRedio_listeInput = {
+    create?: XOR<doctorCreateWithoutRedio_listeInput, doctorUncheckedCreateWithoutRedio_listeInput>
+    connectOrCreate?: doctorCreateOrConnectWithoutRedio_listeInput
+    connect?: doctorWhereUniqueInput
+  }
+
+  export type BytesFieldUpdateOperationsInput = {
+    set?: Uint8Array
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type EnumRadioTypeFieldUpdateOperationsInput = {
+    set?: $Enums.RadioType
+  }
+
+  export type patientUpdateOneRequiredWithoutRedio_listeNestedInput = {
+    create?: XOR<patientCreateWithoutRedio_listeInput, patientUncheckedCreateWithoutRedio_listeInput>
+    connectOrCreate?: patientCreateOrConnectWithoutRedio_listeInput
+    upsert?: patientUpsertWithoutRedio_listeInput
+    connect?: patientWhereUniqueInput
+    update?: XOR<XOR<patientUpdateToOneWithWhereWithoutRedio_listeInput, patientUpdateWithoutRedio_listeInput>, patientUncheckedUpdateWithoutRedio_listeInput>
+  }
+
+  export type radiologueUpdateOneRequiredWithoutRedio_listeNestedInput = {
+    create?: XOR<radiologueCreateWithoutRedio_listeInput, radiologueUncheckedCreateWithoutRedio_listeInput>
+    connectOrCreate?: radiologueCreateOrConnectWithoutRedio_listeInput
+    upsert?: radiologueUpsertWithoutRedio_listeInput
+    connect?: radiologueWhereUniqueInput
+    update?: XOR<XOR<radiologueUpdateToOneWithWhereWithoutRedio_listeInput, radiologueUpdateWithoutRedio_listeInput>, radiologueUncheckedUpdateWithoutRedio_listeInput>
+  }
+
+  export type doctorUpdateOneRequiredWithoutRedio_listeNestedInput = {
+    create?: XOR<doctorCreateWithoutRedio_listeInput, doctorUncheckedCreateWithoutRedio_listeInput>
+    connectOrCreate?: doctorCreateOrConnectWithoutRedio_listeInput
+    upsert?: doctorUpsertWithoutRedio_listeInput
+    connect?: doctorWhereUniqueInput
+    update?: XOR<XOR<doctorUpdateToOneWithWhereWithoutRedio_listeInput, doctorUpdateWithoutRedio_listeInput>, doctorUncheckedUpdateWithoutRedio_listeInput>
+  }
+
+  export type NestedUuidFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedUuidFilter<$PrismaModel> | string
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -4676,6 +6940,59 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedUuidWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedUuidWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -4705,10 +7022,31 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedBytesFilter<$PrismaModel = never> = {
+    equals?: Uint8Array | BytesFieldRefInput<$PrismaModel>
+    in?: Uint8Array[] | ListBytesFieldRefInput<$PrismaModel>
+    notIn?: Uint8Array[] | ListBytesFieldRefInput<$PrismaModel>
+    not?: NestedBytesFilter<$PrismaModel> | Uint8Array
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -4716,10 +7054,509 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedEnumRadioTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.RadioType | EnumRadioTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RadioType[] | ListEnumRadioTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RadioType[] | ListEnumRadioTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRadioTypeFilter<$PrismaModel> | $Enums.RadioType
+  }
+
+  export type NestedBytesWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Uint8Array | BytesFieldRefInput<$PrismaModel>
+    in?: Uint8Array[] | ListBytesFieldRefInput<$PrismaModel>
+    notIn?: Uint8Array[] | ListBytesFieldRefInput<$PrismaModel>
+    not?: NestedBytesWithAggregatesFilter<$PrismaModel> | Uint8Array
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
+    _min?: NestedBytesFilter<$PrismaModel>
+    _max?: NestedBytesFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumRadioTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RadioType | EnumRadioTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RadioType[] | ListEnumRadioTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RadioType[] | ListEnumRadioTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRadioTypeWithAggregatesFilter<$PrismaModel> | $Enums.RadioType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRadioTypeFilter<$PrismaModel>
+    _max?: NestedEnumRadioTypeFilter<$PrismaModel>
+  }
+
+  export type RadioCreateWithoutRadiologueInput = {
+    id?: string
+    date?: Date | string
+    radio_image: Uint8Array
+    Title: string
+    Comment?: string | null
+    type: $Enums.RadioType
+    patient: patientCreateNestedOneWithoutRedio_listeInput
+    doctor: doctorCreateNestedOneWithoutRedio_listeInput
+  }
+
+  export type RadioUncheckedCreateWithoutRadiologueInput = {
+    id?: string
+    patient_id: string
+    doctor_id: string
+    date?: Date | string
+    radio_image: Uint8Array
+    Title: string
+    Comment?: string | null
+    type: $Enums.RadioType
+  }
+
+  export type RadioCreateOrConnectWithoutRadiologueInput = {
+    where: RadioWhereUniqueInput
+    create: XOR<RadioCreateWithoutRadiologueInput, RadioUncheckedCreateWithoutRadiologueInput>
+  }
+
+  export type RadioCreateManyRadiologueInputEnvelope = {
+    data: RadioCreateManyRadiologueInput | RadioCreateManyRadiologueInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type RadioUpsertWithWhereUniqueWithoutRadiologueInput = {
+    where: RadioWhereUniqueInput
+    update: XOR<RadioUpdateWithoutRadiologueInput, RadioUncheckedUpdateWithoutRadiologueInput>
+    create: XOR<RadioCreateWithoutRadiologueInput, RadioUncheckedCreateWithoutRadiologueInput>
+  }
+
+  export type RadioUpdateWithWhereUniqueWithoutRadiologueInput = {
+    where: RadioWhereUniqueInput
+    data: XOR<RadioUpdateWithoutRadiologueInput, RadioUncheckedUpdateWithoutRadiologueInput>
+  }
+
+  export type RadioUpdateManyWithWhereWithoutRadiologueInput = {
+    where: RadioScalarWhereInput
+    data: XOR<RadioUpdateManyMutationInput, RadioUncheckedUpdateManyWithoutRadiologueInput>
+  }
+
+  export type RadioScalarWhereInput = {
+    AND?: RadioScalarWhereInput | RadioScalarWhereInput[]
+    OR?: RadioScalarWhereInput[]
+    NOT?: RadioScalarWhereInput | RadioScalarWhereInput[]
+    id?: UuidFilter<"Radio"> | string
+    patient_id?: UuidFilter<"Radio"> | string
+    radiologue_id?: UuidFilter<"Radio"> | string
+    doctor_id?: UuidFilter<"Radio"> | string
+    date?: DateTimeFilter<"Radio"> | Date | string
+    radio_image?: BytesFilter<"Radio"> | Uint8Array
+    Title?: StringFilter<"Radio"> | string
+    Comment?: StringNullableFilter<"Radio"> | string | null
+    type?: EnumRadioTypeFilter<"Radio"> | $Enums.RadioType
+  }
+
+  export type RadioCreateWithoutDoctorInput = {
+    id?: string
+    date?: Date | string
+    radio_image: Uint8Array
+    Title: string
+    Comment?: string | null
+    type: $Enums.RadioType
+    patient: patientCreateNestedOneWithoutRedio_listeInput
+    radiologue: radiologueCreateNestedOneWithoutRedio_listeInput
+  }
+
+  export type RadioUncheckedCreateWithoutDoctorInput = {
+    id?: string
+    patient_id: string
+    radiologue_id: string
+    date?: Date | string
+    radio_image: Uint8Array
+    Title: string
+    Comment?: string | null
+    type: $Enums.RadioType
+  }
+
+  export type RadioCreateOrConnectWithoutDoctorInput = {
+    where: RadioWhereUniqueInput
+    create: XOR<RadioCreateWithoutDoctorInput, RadioUncheckedCreateWithoutDoctorInput>
+  }
+
+  export type RadioCreateManyDoctorInputEnvelope = {
+    data: RadioCreateManyDoctorInput | RadioCreateManyDoctorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type RadioUpsertWithWhereUniqueWithoutDoctorInput = {
+    where: RadioWhereUniqueInput
+    update: XOR<RadioUpdateWithoutDoctorInput, RadioUncheckedUpdateWithoutDoctorInput>
+    create: XOR<RadioCreateWithoutDoctorInput, RadioUncheckedCreateWithoutDoctorInput>
+  }
+
+  export type RadioUpdateWithWhereUniqueWithoutDoctorInput = {
+    where: RadioWhereUniqueInput
+    data: XOR<RadioUpdateWithoutDoctorInput, RadioUncheckedUpdateWithoutDoctorInput>
+  }
+
+  export type RadioUpdateManyWithWhereWithoutDoctorInput = {
+    where: RadioScalarWhereInput
+    data: XOR<RadioUpdateManyMutationInput, RadioUncheckedUpdateManyWithoutDoctorInput>
+  }
+
+  export type RadioCreateWithoutPatientInput = {
+    id?: string
+    date?: Date | string
+    radio_image: Uint8Array
+    Title: string
+    Comment?: string | null
+    type: $Enums.RadioType
+    radiologue: radiologueCreateNestedOneWithoutRedio_listeInput
+    doctor: doctorCreateNestedOneWithoutRedio_listeInput
+  }
+
+  export type RadioUncheckedCreateWithoutPatientInput = {
+    id?: string
+    radiologue_id: string
+    doctor_id: string
+    date?: Date | string
+    radio_image: Uint8Array
+    Title: string
+    Comment?: string | null
+    type: $Enums.RadioType
+  }
+
+  export type RadioCreateOrConnectWithoutPatientInput = {
+    where: RadioWhereUniqueInput
+    create: XOR<RadioCreateWithoutPatientInput, RadioUncheckedCreateWithoutPatientInput>
+  }
+
+  export type RadioCreateManyPatientInputEnvelope = {
+    data: RadioCreateManyPatientInput | RadioCreateManyPatientInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type RadioUpsertWithWhereUniqueWithoutPatientInput = {
+    where: RadioWhereUniqueInput
+    update: XOR<RadioUpdateWithoutPatientInput, RadioUncheckedUpdateWithoutPatientInput>
+    create: XOR<RadioCreateWithoutPatientInput, RadioUncheckedCreateWithoutPatientInput>
+  }
+
+  export type RadioUpdateWithWhereUniqueWithoutPatientInput = {
+    where: RadioWhereUniqueInput
+    data: XOR<RadioUpdateWithoutPatientInput, RadioUncheckedUpdateWithoutPatientInput>
+  }
+
+  export type RadioUpdateManyWithWhereWithoutPatientInput = {
+    where: RadioScalarWhereInput
+    data: XOR<RadioUpdateManyMutationInput, RadioUncheckedUpdateManyWithoutPatientInput>
+  }
+
+  export type patientCreateWithoutRedio_listeInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    age: number
+    dateOfBirth: Date | string
+    medicalHistory: string
+    email: string
+    password: string
+  }
+
+  export type patientUncheckedCreateWithoutRedio_listeInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    age: number
+    dateOfBirth: Date | string
+    medicalHistory: string
+    email: string
+    password: string
+  }
+
+  export type patientCreateOrConnectWithoutRedio_listeInput = {
+    where: patientWhereUniqueInput
+    create: XOR<patientCreateWithoutRedio_listeInput, patientUncheckedCreateWithoutRedio_listeInput>
+  }
+
+  export type radiologueCreateWithoutRedio_listeInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    email: string
+    password: string
+  }
+
+  export type radiologueUncheckedCreateWithoutRedio_listeInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    email: string
+    password: string
+  }
+
+  export type radiologueCreateOrConnectWithoutRedio_listeInput = {
+    where: radiologueWhereUniqueInput
+    create: XOR<radiologueCreateWithoutRedio_listeInput, radiologueUncheckedCreateWithoutRedio_listeInput>
+  }
+
+  export type doctorCreateWithoutRedio_listeInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    email: string
+    password: string
+  }
+
+  export type doctorUncheckedCreateWithoutRedio_listeInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    email: string
+    password: string
+  }
+
+  export type doctorCreateOrConnectWithoutRedio_listeInput = {
+    where: doctorWhereUniqueInput
+    create: XOR<doctorCreateWithoutRedio_listeInput, doctorUncheckedCreateWithoutRedio_listeInput>
+  }
+
+  export type patientUpsertWithoutRedio_listeInput = {
+    update: XOR<patientUpdateWithoutRedio_listeInput, patientUncheckedUpdateWithoutRedio_listeInput>
+    create: XOR<patientCreateWithoutRedio_listeInput, patientUncheckedCreateWithoutRedio_listeInput>
+    where?: patientWhereInput
+  }
+
+  export type patientUpdateToOneWithWhereWithoutRedio_listeInput = {
+    where?: patientWhereInput
+    data: XOR<patientUpdateWithoutRedio_listeInput, patientUncheckedUpdateWithoutRedio_listeInput>
+  }
+
+  export type patientUpdateWithoutRedio_listeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    age?: IntFieldUpdateOperationsInput | number
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    medicalHistory?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type patientUncheckedUpdateWithoutRedio_listeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    age?: IntFieldUpdateOperationsInput | number
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    medicalHistory?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type radiologueUpsertWithoutRedio_listeInput = {
+    update: XOR<radiologueUpdateWithoutRedio_listeInput, radiologueUncheckedUpdateWithoutRedio_listeInput>
+    create: XOR<radiologueCreateWithoutRedio_listeInput, radiologueUncheckedCreateWithoutRedio_listeInput>
+    where?: radiologueWhereInput
+  }
+
+  export type radiologueUpdateToOneWithWhereWithoutRedio_listeInput = {
+    where?: radiologueWhereInput
+    data: XOR<radiologueUpdateWithoutRedio_listeInput, radiologueUncheckedUpdateWithoutRedio_listeInput>
+  }
+
+  export type radiologueUpdateWithoutRedio_listeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type radiologueUncheckedUpdateWithoutRedio_listeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type doctorUpsertWithoutRedio_listeInput = {
+    update: XOR<doctorUpdateWithoutRedio_listeInput, doctorUncheckedUpdateWithoutRedio_listeInput>
+    create: XOR<doctorCreateWithoutRedio_listeInput, doctorUncheckedCreateWithoutRedio_listeInput>
+    where?: doctorWhereInput
+  }
+
+  export type doctorUpdateToOneWithWhereWithoutRedio_listeInput = {
+    where?: doctorWhereInput
+    data: XOR<doctorUpdateWithoutRedio_listeInput, doctorUncheckedUpdateWithoutRedio_listeInput>
+  }
+
+  export type doctorUpdateWithoutRedio_listeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type doctorUncheckedUpdateWithoutRedio_listeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type RadioCreateManyRadiologueInput = {
+    id?: string
+    patient_id: string
+    doctor_id: string
+    date?: Date | string
+    radio_image: Uint8Array
+    Title: string
+    Comment?: string | null
+    type: $Enums.RadioType
+  }
+
+  export type RadioUpdateWithoutRadiologueInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    radio_image?: BytesFieldUpdateOperationsInput | Uint8Array
+    Title?: StringFieldUpdateOperationsInput | string
+    Comment?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumRadioTypeFieldUpdateOperationsInput | $Enums.RadioType
+    patient?: patientUpdateOneRequiredWithoutRedio_listeNestedInput
+    doctor?: doctorUpdateOneRequiredWithoutRedio_listeNestedInput
+  }
+
+  export type RadioUncheckedUpdateWithoutRadiologueInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    doctor_id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    radio_image?: BytesFieldUpdateOperationsInput | Uint8Array
+    Title?: StringFieldUpdateOperationsInput | string
+    Comment?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumRadioTypeFieldUpdateOperationsInput | $Enums.RadioType
+  }
+
+  export type RadioUncheckedUpdateManyWithoutRadiologueInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    doctor_id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    radio_image?: BytesFieldUpdateOperationsInput | Uint8Array
+    Title?: StringFieldUpdateOperationsInput | string
+    Comment?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumRadioTypeFieldUpdateOperationsInput | $Enums.RadioType
+  }
+
+  export type RadioCreateManyDoctorInput = {
+    id?: string
+    patient_id: string
+    radiologue_id: string
+    date?: Date | string
+    radio_image: Uint8Array
+    Title: string
+    Comment?: string | null
+    type: $Enums.RadioType
+  }
+
+  export type RadioUpdateWithoutDoctorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    radio_image?: BytesFieldUpdateOperationsInput | Uint8Array
+    Title?: StringFieldUpdateOperationsInput | string
+    Comment?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumRadioTypeFieldUpdateOperationsInput | $Enums.RadioType
+    patient?: patientUpdateOneRequiredWithoutRedio_listeNestedInput
+    radiologue?: radiologueUpdateOneRequiredWithoutRedio_listeNestedInput
+  }
+
+  export type RadioUncheckedUpdateWithoutDoctorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    radiologue_id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    radio_image?: BytesFieldUpdateOperationsInput | Uint8Array
+    Title?: StringFieldUpdateOperationsInput | string
+    Comment?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumRadioTypeFieldUpdateOperationsInput | $Enums.RadioType
+  }
+
+  export type RadioUncheckedUpdateManyWithoutDoctorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    patient_id?: StringFieldUpdateOperationsInput | string
+    radiologue_id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    radio_image?: BytesFieldUpdateOperationsInput | Uint8Array
+    Title?: StringFieldUpdateOperationsInput | string
+    Comment?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumRadioTypeFieldUpdateOperationsInput | $Enums.RadioType
+  }
+
+  export type RadioCreateManyPatientInput = {
+    id?: string
+    radiologue_id: string
+    doctor_id: string
+    date?: Date | string
+    radio_image: Uint8Array
+    Title: string
+    Comment?: string | null
+    type: $Enums.RadioType
+  }
+
+  export type RadioUpdateWithoutPatientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    radio_image?: BytesFieldUpdateOperationsInput | Uint8Array
+    Title?: StringFieldUpdateOperationsInput | string
+    Comment?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumRadioTypeFieldUpdateOperationsInput | $Enums.RadioType
+    radiologue?: radiologueUpdateOneRequiredWithoutRedio_listeNestedInput
+    doctor?: doctorUpdateOneRequiredWithoutRedio_listeNestedInput
+  }
+
+  export type RadioUncheckedUpdateWithoutPatientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    radiologue_id?: StringFieldUpdateOperationsInput | string
+    doctor_id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    radio_image?: BytesFieldUpdateOperationsInput | Uint8Array
+    Title?: StringFieldUpdateOperationsInput | string
+    Comment?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumRadioTypeFieldUpdateOperationsInput | $Enums.RadioType
+  }
+
+  export type RadioUncheckedUpdateManyWithoutPatientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    radiologue_id?: StringFieldUpdateOperationsInput | string
+    doctor_id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    radio_image?: BytesFieldUpdateOperationsInput | Uint8Array
+    Title?: StringFieldUpdateOperationsInput | string
+    Comment?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumRadioTypeFieldUpdateOperationsInput | $Enums.RadioType
   }
 
 

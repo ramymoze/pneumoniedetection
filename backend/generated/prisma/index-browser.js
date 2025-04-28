@@ -119,23 +119,41 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.RadiologueScalarFieldEnum = {
   id: 'id',
-  name: 'name',
+  firstName: 'firstName',
+  lastName: 'lastName',
   email: 'email',
   password: 'password'
 };
 
 exports.Prisma.DoctorScalarFieldEnum = {
   id: 'id',
-  name: 'name',
+  firstName: 'firstName',
+  lastName: 'lastName',
   email: 'email',
   password: 'password'
 };
 
 exports.Prisma.PatientScalarFieldEnum = {
   id: 'id',
-  name: 'name',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  age: 'age',
+  dateOfBirth: 'dateOfBirth',
+  medicalHistory: 'medicalHistory',
   email: 'email',
   password: 'password'
+};
+
+exports.Prisma.RadioScalarFieldEnum = {
+  id: 'id',
+  patient_id: 'patient_id',
+  radiologue_id: 'radiologue_id',
+  doctor_id: 'doctor_id',
+  date: 'date',
+  radio_image: 'radio_image',
+  Title: 'Title',
+  Comment: 'Comment',
+  type: 'type'
 };
 
 exports.Prisma.SortOrder = {
@@ -148,11 +166,21 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+exports.RadioType = exports.$Enums.RadioType = {
+  Bones: 'Bones',
+  Lung: 'Lung',
+  Other: 'Other'
+};
 
 exports.Prisma.ModelName = {
   radiologue: 'radiologue',
   doctor: 'doctor',
-  patient: 'patient'
+  patient: 'patient',
+  Radio: 'Radio'
 };
 
 /**

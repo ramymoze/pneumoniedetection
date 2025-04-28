@@ -11,27 +11,64 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")  
+  url      = env("DATABASE_URL")
 }
-     
+
 model radiologue {
-  id          Int      @id @default(autoincrement())
-  name        String
-  email       String   @unique
+  id          String  @id @default(uuid()) @db.Uuid
+  firstName   String
+  lastName    String
+  email       String  @unique
   password    String
+  redio_liste Radio[]
+
+    @@index([email], name: "idx_email-radiologue")  
+
 }
 
-model doctor{
-  id  Int @id @default(autoincrement())
-  name String 
-  email String @unique
-  password String
+model doctor {
+  id          String  @id @default(uuid()) @db.Uuid
+  firstName   String
+  lastName    String
+  email       String  @unique
+  password    String
+  redio_liste Radio[]
+
+    @@index([email], name: "idx_email-doctor")
+
 }
 
-model patient{
-  id  Int @id @default(autoincrement())
-  name String 
-  email String @unique
-  password String
+model patient {
+  id             String   @id @default(uuid()) @db.Uuid
+  firstName      String
+  lastName       String
+  age            Int
+  dateOfBirth    DateTime
+  medicalHistory String
+  email          String   @unique
+  password       String
+  redio_liste    Radio[]
+
+  @@index([email], name: "idx_email-patient")
 }
 
+model Radio {
+  id            String     @id @default(uuid()) @db.Uuid
+  patient       patient    @relation(fields: [patient_id], references: [id])
+  patient_id    String     @db.Uuid
+  radiologue    radiologue @relation(fields: [radiologue_id], references: [id])
+  radiologue_id String     @db.Uuid
+  doctor        doctor     @relation(fields: [doctor_id], references: [id])
+  doctor_id     String     @db.Uuid
+  date          DateTime   @default(now())
+  radio_image   Bytes
+  Title         String
+  Comment       String?
+  type          RadioType
+}
+
+enum RadioType {
+  Bones
+  Lung
+  Other
+}

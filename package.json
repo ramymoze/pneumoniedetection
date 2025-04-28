@@ -25,7 +25,12 @@
   },
   "homepage": "https://github.com/ramymoze/pneumoniedetection#readme",
   "dependencies": {
+    "@prisma/client": "^6.6.0",
+    "@supabase/supabase-js": "^2.49.4",
+    "dotenv": "^16.5.0",
     "electron": "^29.4.6",
+    "express": "^5.1.0",
+    "formidable": "^3.5.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
