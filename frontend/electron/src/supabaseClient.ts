@@ -1,19 +1,10 @@
-import { createClient } from '@supabase/supabase-js';
-import dotenv from 'dotenv';
+import { createClient } from '@supabase/supabase-js'
 
-// Load environment variables from .env file
-dotenv.config();
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
-// TypeScript type checking for environment variables
-const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY;
-
-// Ensure environment variables are set
-if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-  throw new Error("Supabase URL or anon key is missing in the .env file");
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error('Supabase URL and Anon Key must be defined in environment variables')
 }
 
-// Create and export Supabase client
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-export default supabase;
+export const supabase = createClient(supabaseUrl, supabaseAnonKey)

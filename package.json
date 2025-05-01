@@ -27,6 +27,8 @@
   "dependencies": {
     "@prisma/client": "^6.6.0",
     "@supabase/supabase-js": "^2.49.4",
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "electron": "^29.4.6",
     "express": "^5.1.0",
@@ -35,6 +37,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.21",
     "concurrently": "^8.0.0",

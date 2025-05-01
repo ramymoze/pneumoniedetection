@@ -1,4 +1,7 @@
 const express = require("express");
+const cors = require('cors');
+const bcrypt = require('bcrypt');
+require('dotenv').config();
 const formidable = require("formidable");
 const { exec } = require("child_process");
 const path = require("path");
@@ -6,8 +9,15 @@ const { PrismaClient } = require("@prisma/client");
 const e = require("express");
 const app = express();
 const prisma = new PrismaClient();
-require("dotenv").config();
 app.use(express.json());
+
+
+// Enable CORS for all origins (or specify your frontend URL)    tahts amiddlware
+app.use(cors({
+  origin: 'http://localhost:5173', // Your frontend URL
+  credentials: true // If you're using cookies/auth
+}));
+app.use(express.json()); // Middleware to parse JSON bodies
 
 app.post("/detect", (req, res) => {
   const form = new formidable.IncomingForm({
@@ -62,6 +72,7 @@ app.post("/detect", (req, res) => {
 });
 
 app.post("/create_patient", async (req, res) => {
+
   const {
     firstName,
     lastName,
@@ -69,7 +80,7 @@ app.post("/create_patient", async (req, res) => {
     dateOfBirth,
     medicalHistory,
     email,
-    password,
+
   } = req.body;
 
   await prisma.patient.create({
@@ -80,25 +91,36 @@ app.post("/create_patient", async (req, res) => {
       dateOfBirth: new Date(dateOfBirth), // convert to Date object
       medicalHistory,
       email,
-      password,
     },
   });
   res.json("Patient created successfully");
 });
 
 app.post("/create_doctor", async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
 
-  await prisma.doctor.create({
-    data: {
-      firstName,
-      lastName,
-      email,
-      password,
-    },
-  });
-  res.json("doctor created successfully");
+  const { id, firstName, lastName, email } = req.body;
+  try {
+    console.log("Received body:", req.body);
+    const saltRounds = 12; // Work factor (higher = more secure but slower)
+    const salt = await bcrypt.genSalt(saltRounds); // Generate a salt for hashing which is a random string 
+    // Hash the password with the generated salt
+    const password = await bcrypt.hash(req.body.password, salt); // Get the password from the request body : req.body.password
+    await prisma.doctor.create({
+      data: {
+        id, // from Supabase
+        firstName,
+        lastName,
+        email,
+        password,
+      },
+    });
+    res.json({ message: "Doctor created successfully" });
+  } catch (err) {
+  console.error("Doctor creation error:", err);
+  res.status(500).json({ error: err.message, stack: err.stack });
+}
 });
+
 
 app.post("/create_radiologue", async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
@@ -132,4 +154,31 @@ app.get("/get_radiologues", async (req, res) => {
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+app.post('/login', async (req, res) => {
+  const { email, userType } = req.body;
+
+  try {
+    if (userType === "doctor") {
+      user = await prisma.doctor.findUnique({
+        where: { email },
+        select: { id: true, firstName: true, lastName: true, email: true },
+      });
+    } else{
+      user = await prisma.radiologue.findUnique({
+        where: { email },
+        select: { id: true, firstName: true, lastName: true, email: true },
+      });
+    } // Closing brace for the if-else block
+
+    if (!user) {
+      return res.status(404).json({ error: `${userType} profile not found` });
+    }
+
+    res.json(user);
+  } catch (err) {
+    console.error('Login error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });

@@ -274,8 +274,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.6.0
-   * Query Engine version: f676762280b54cd07c770017ed3711ddde35f37a
+   * Prisma Client JS version: 6.7.0
+   * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
    */
   export type PrismaVersion = {
     client: string
@@ -1263,52 +1263,52 @@ export namespace Prisma {
   }
 
   export type RadiologueMinAggregateOutputType = {
-    id: string | null
     firstName: string | null
     lastName: string | null
     email: string | null
+    id: string | null
     password: string | null
   }
 
   export type RadiologueMaxAggregateOutputType = {
-    id: string | null
     firstName: string | null
     lastName: string | null
     email: string | null
+    id: string | null
     password: string | null
   }
 
   export type RadiologueCountAggregateOutputType = {
-    id: number
     firstName: number
     lastName: number
     email: number
+    id: number
     password: number
     _all: number
   }
 
 
   export type RadiologueMinAggregateInputType = {
-    id?: true
     firstName?: true
     lastName?: true
     email?: true
+    id?: true
     password?: true
   }
 
   export type RadiologueMaxAggregateInputType = {
-    id?: true
     firstName?: true
     lastName?: true
     email?: true
+    id?: true
     password?: true
   }
 
   export type RadiologueCountAggregateInputType = {
-    id?: true
     firstName?: true
     lastName?: true
     email?: true
+    id?: true
     password?: true
     _all?: true
   }
@@ -1386,10 +1386,10 @@ export namespace Prisma {
   }
 
   export type RadiologueGroupByOutputType = {
-    id: string
     firstName: string
     lastName: string
     email: string
+    id: string
     password: string
     _count: RadiologueCountAggregateOutputType | null
     _min: RadiologueMinAggregateOutputType | null
@@ -1411,40 +1411,40 @@ export namespace Prisma {
 
 
   export type radiologueSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
     firstName?: boolean
     lastName?: boolean
     email?: boolean
+    id?: boolean
     password?: boolean
     redio_liste?: boolean | radiologue$redio_listeArgs<ExtArgs>
     _count?: boolean | RadiologueCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["radiologue"]>
 
   export type radiologueSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
     firstName?: boolean
     lastName?: boolean
     email?: boolean
+    id?: boolean
     password?: boolean
   }, ExtArgs["result"]["radiologue"]>
 
   export type radiologueSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
     firstName?: boolean
     lastName?: boolean
     email?: boolean
+    id?: boolean
     password?: boolean
   }, ExtArgs["result"]["radiologue"]>
 
   export type radiologueSelectScalar = {
-    id?: boolean
     firstName?: boolean
     lastName?: boolean
     email?: boolean
+    id?: boolean
     password?: boolean
   }
 
-  export type radiologueOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "password", ExtArgs["result"]["radiologue"]>
+  export type radiologueOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"firstName" | "lastName" | "email" | "id" | "password", ExtArgs["result"]["radiologue"]>
   export type radiologueInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     redio_liste?: boolean | radiologue$redio_listeArgs<ExtArgs>
     _count?: boolean | RadiologueCountOutputTypeDefaultArgs<ExtArgs>
@@ -1458,10 +1458,10 @@ export namespace Prisma {
       redio_liste: Prisma.$RadioPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: string
       firstName: string
       lastName: string
       email: string
+      id: string
       password: string
     }, ExtArgs["result"]["radiologue"]>
     composites: {}
@@ -1546,8 +1546,8 @@ export namespace Prisma {
      * // Get first 10 Radiologues
      * const radiologues = await prisma.radiologue.findMany({ take: 10 })
      * 
-     * // Only select the `id`
-     * const radiologueWithIdOnly = await prisma.radiologue.findMany({ select: { id: true } })
+     * // Only select the `firstName`
+     * const radiologueWithFirstNameOnly = await prisma.radiologue.findMany({ select: { firstName: true } })
      * 
      */
     findMany<T extends radiologueFindManyArgs>(args?: SelectSubset<T, radiologueFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$radiologuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -1591,9 +1591,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Create many Radiologues and only return the `id`
-     * const radiologueWithIdOnly = await prisma.radiologue.createManyAndReturn({
-     *   select: { id: true },
+     * // Create many Radiologues and only return the `firstName`
+     * const radiologueWithFirstNameOnly = await prisma.radiologue.createManyAndReturn({
+     *   select: { firstName: true },
      *   data: [
      *     // ... provide data here
      *   ]
@@ -1682,9 +1682,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Radiologues and only return the `id`
-     * const radiologueWithIdOnly = await prisma.radiologue.updateManyAndReturn({
-     *   select: { id: true },
+     * // Update zero or more Radiologues and only return the `firstName`
+     * const radiologueWithFirstNameOnly = await prisma.radiologue.updateManyAndReturn({
+     *   select: { firstName: true },
      *   where: {
      *     // ... provide filter here
      *   },
@@ -1887,10 +1887,10 @@ export namespace Prisma {
    * Fields of the radiologue model
    */
   interface radiologueFieldRefs {
-    readonly id: FieldRef<"radiologue", 'String'>
     readonly firstName: FieldRef<"radiologue", 'String'>
     readonly lastName: FieldRef<"radiologue", 'String'>
     readonly email: FieldRef<"radiologue", 'String'>
+    readonly id: FieldRef<"radiologue", 'String'>
     readonly password: FieldRef<"radiologue", 'String'>
   }
     
@@ -2333,52 +2333,52 @@ export namespace Prisma {
   }
 
   export type DoctorMinAggregateOutputType = {
-    id: string | null
     firstName: string | null
     lastName: string | null
     email: string | null
+    id: string | null
     password: string | null
   }
 
   export type DoctorMaxAggregateOutputType = {
-    id: string | null
     firstName: string | null
     lastName: string | null
     email: string | null
+    id: string | null
     password: string | null
   }
 
   export type DoctorCountAggregateOutputType = {
-    id: number
     firstName: number
     lastName: number
     email: number
+    id: number
     password: number
     _all: number
   }
 
 
   export type DoctorMinAggregateInputType = {
-    id?: true
     firstName?: true
     lastName?: true
     email?: true
+    id?: true
     password?: true
   }
 
   export type DoctorMaxAggregateInputType = {
-    id?: true
     firstName?: true
     lastName?: true
     email?: true
+    id?: true
     password?: true
   }
 
   export type DoctorCountAggregateInputType = {
-    id?: true
     firstName?: true
     lastName?: true
     email?: true
+    id?: true
     password?: true
     _all?: true
   }
@@ -2456,10 +2456,10 @@ export namespace Prisma {
   }
 
   export type DoctorGroupByOutputType = {
-    id: string
     firstName: string
     lastName: string
     email: string
+    id: string
     password: string
     _count: DoctorCountAggregateOutputType | null
     _min: DoctorMinAggregateOutputType | null
@@ -2481,40 +2481,40 @@ export namespace Prisma {
 
 
   export type doctorSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
     firstName?: boolean
     lastName?: boolean
     email?: boolean
+    id?: boolean
     password?: boolean
     redio_liste?: boolean | doctor$redio_listeArgs<ExtArgs>
     _count?: boolean | DoctorCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["doctor"]>
 
   export type doctorSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
     firstName?: boolean
     lastName?: boolean
     email?: boolean
+    id?: boolean
     password?: boolean
   }, ExtArgs["result"]["doctor"]>
 
   export type doctorSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
     firstName?: boolean
     lastName?: boolean
     email?: boolean
+    id?: boolean
     password?: boolean
   }, ExtArgs["result"]["doctor"]>
 
   export type doctorSelectScalar = {
-    id?: boolean
     firstName?: boolean
     lastName?: boolean
     email?: boolean
+    id?: boolean
     password?: boolean
   }
 
-  export type doctorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "password", ExtArgs["result"]["doctor"]>
+  export type doctorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"firstName" | "lastName" | "email" | "id" | "password", ExtArgs["result"]["doctor"]>
   export type doctorInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     redio_liste?: boolean | doctor$redio_listeArgs<ExtArgs>
     _count?: boolean | DoctorCountOutputTypeDefaultArgs<ExtArgs>
@@ -2528,10 +2528,10 @@ export namespace Prisma {
       redio_liste: Prisma.$RadioPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: string
       firstName: string
       lastName: string
       email: string
+      id: string
       password: string
     }, ExtArgs["result"]["doctor"]>
     composites: {}
@@ -2616,8 +2616,8 @@ export namespace Prisma {
      * // Get first 10 Doctors
      * const doctors = await prisma.doctor.findMany({ take: 10 })
      * 
-     * // Only select the `id`
-     * const doctorWithIdOnly = await prisma.doctor.findMany({ select: { id: true } })
+     * // Only select the `firstName`
+     * const doctorWithFirstNameOnly = await prisma.doctor.findMany({ select: { firstName: true } })
      * 
      */
     findMany<T extends doctorFindManyArgs>(args?: SelectSubset<T, doctorFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$doctorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -2661,9 +2661,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Create many Doctors and only return the `id`
-     * const doctorWithIdOnly = await prisma.doctor.createManyAndReturn({
-     *   select: { id: true },
+     * // Create many Doctors and only return the `firstName`
+     * const doctorWithFirstNameOnly = await prisma.doctor.createManyAndReturn({
+     *   select: { firstName: true },
      *   data: [
      *     // ... provide data here
      *   ]
@@ -2752,9 +2752,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Doctors and only return the `id`
-     * const doctorWithIdOnly = await prisma.doctor.updateManyAndReturn({
-     *   select: { id: true },
+     * // Update zero or more Doctors and only return the `firstName`
+     * const doctorWithFirstNameOnly = await prisma.doctor.updateManyAndReturn({
+     *   select: { firstName: true },
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2957,10 +2957,10 @@ export namespace Prisma {
    * Fields of the doctor model
    */
   interface doctorFieldRefs {
-    readonly id: FieldRef<"doctor", 'String'>
     readonly firstName: FieldRef<"doctor", 'String'>
     readonly lastName: FieldRef<"doctor", 'String'>
     readonly email: FieldRef<"doctor", 'String'>
+    readonly id: FieldRef<"doctor", 'String'>
     readonly password: FieldRef<"doctor", 'String'>
   }
     
@@ -3413,35 +3413,35 @@ export namespace Prisma {
   }
 
   export type PatientMinAggregateOutputType = {
-    id: string | null
-    firstName: string | null
     lastName: string | null
     age: number | null
     dateOfBirth: Date | null
     medicalHistory: string | null
     email: string | null
+    id: string | null
+    firstName: string | null
     password: string | null
   }
 
   export type PatientMaxAggregateOutputType = {
-    id: string | null
-    firstName: string | null
     lastName: string | null
     age: number | null
     dateOfBirth: Date | null
     medicalHistory: string | null
     email: string | null
+    id: string | null
+    firstName: string | null
     password: string | null
   }
 
   export type PatientCountAggregateOutputType = {
-    id: number
-    firstName: number
     lastName: number
     age: number
     dateOfBirth: number
     medicalHistory: number
     email: number
+    id: number
+    firstName: number
     password: number
     _all: number
   }
@@ -3456,35 +3456,35 @@ export namespace Prisma {
   }
 
   export type PatientMinAggregateInputType = {
-    id?: true
-    firstName?: true
     lastName?: true
     age?: true
     dateOfBirth?: true
     medicalHistory?: true
     email?: true
+    id?: true
+    firstName?: true
     password?: true
   }
 
   export type PatientMaxAggregateInputType = {
-    id?: true
-    firstName?: true
     lastName?: true
     age?: true
     dateOfBirth?: true
     medicalHistory?: true
     email?: true
+    id?: true
+    firstName?: true
     password?: true
   }
 
   export type PatientCountAggregateInputType = {
-    id?: true
-    firstName?: true
     lastName?: true
     age?: true
     dateOfBirth?: true
     medicalHistory?: true
     email?: true
+    id?: true
+    firstName?: true
     password?: true
     _all?: true
   }
@@ -3576,13 +3576,13 @@ export namespace Prisma {
   }
 
   export type PatientGroupByOutputType = {
-    id: string
-    firstName: string
     lastName: string
     age: number
     dateOfBirth: Date
     medicalHistory: string
     email: string
+    id: string
+    firstName: string
     password: string
     _count: PatientCountAggregateOutputType | null
     _avg: PatientAvgAggregateOutputType | null
@@ -3606,52 +3606,52 @@ export namespace Prisma {
 
 
   export type patientSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    firstName?: boolean
     lastName?: boolean
     age?: boolean
     dateOfBirth?: boolean
     medicalHistory?: boolean
     email?: boolean
+    id?: boolean
+    firstName?: boolean
     password?: boolean
     redio_liste?: boolean | patient$redio_listeArgs<ExtArgs>
     _count?: boolean | PatientCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["patient"]>
 
   export type patientSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    firstName?: boolean
     lastName?: boolean
     age?: boolean
     dateOfBirth?: boolean
     medicalHistory?: boolean
     email?: boolean
+    id?: boolean
+    firstName?: boolean
     password?: boolean
   }, ExtArgs["result"]["patient"]>
 
   export type patientSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    firstName?: boolean
     lastName?: boolean
     age?: boolean
     dateOfBirth?: boolean
     medicalHistory?: boolean
     email?: boolean
+    id?: boolean
+    firstName?: boolean
     password?: boolean
   }, ExtArgs["result"]["patient"]>
 
   export type patientSelectScalar = {
-    id?: boolean
-    firstName?: boolean
     lastName?: boolean
     age?: boolean
     dateOfBirth?: boolean
     medicalHistory?: boolean
     email?: boolean
+    id?: boolean
+    firstName?: boolean
     password?: boolean
   }
 
-  export type patientOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstName" | "lastName" | "age" | "dateOfBirth" | "medicalHistory" | "email" | "password", ExtArgs["result"]["patient"]>
+  export type patientOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"lastName" | "age" | "dateOfBirth" | "medicalHistory" | "email" | "id" | "firstName" | "password", ExtArgs["result"]["patient"]>
   export type patientInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     redio_liste?: boolean | patient$redio_listeArgs<ExtArgs>
     _count?: boolean | PatientCountOutputTypeDefaultArgs<ExtArgs>
@@ -3665,13 +3665,13 @@ export namespace Prisma {
       redio_liste: Prisma.$RadioPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: string
-      firstName: string
       lastName: string
       age: number
       dateOfBirth: Date
       medicalHistory: string
       email: string
+      id: string
+      firstName: string
       password: string
     }, ExtArgs["result"]["patient"]>
     composites: {}
@@ -3756,8 +3756,8 @@ export namespace Prisma {
      * // Get first 10 Patients
      * const patients = await prisma.patient.findMany({ take: 10 })
      * 
-     * // Only select the `id`
-     * const patientWithIdOnly = await prisma.patient.findMany({ select: { id: true } })
+     * // Only select the `lastName`
+     * const patientWithLastNameOnly = await prisma.patient.findMany({ select: { lastName: true } })
      * 
      */
     findMany<T extends patientFindManyArgs>(args?: SelectSubset<T, patientFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$patientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -3801,9 +3801,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Create many Patients and only return the `id`
-     * const patientWithIdOnly = await prisma.patient.createManyAndReturn({
-     *   select: { id: true },
+     * // Create many Patients and only return the `lastName`
+     * const patientWithLastNameOnly = await prisma.patient.createManyAndReturn({
+     *   select: { lastName: true },
      *   data: [
      *     // ... provide data here
      *   ]
@@ -3892,9 +3892,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Patients and only return the `id`
-     * const patientWithIdOnly = await prisma.patient.updateManyAndReturn({
-     *   select: { id: true },
+     * // Update zero or more Patients and only return the `lastName`
+     * const patientWithLastNameOnly = await prisma.patient.updateManyAndReturn({
+     *   select: { lastName: true },
      *   where: {
      *     // ... provide filter here
      *   },
@@ -4097,13 +4097,13 @@ export namespace Prisma {
    * Fields of the patient model
    */
   interface patientFieldRefs {
-    readonly id: FieldRef<"patient", 'String'>
-    readonly firstName: FieldRef<"patient", 'String'>
     readonly lastName: FieldRef<"patient", 'String'>
     readonly age: FieldRef<"patient", 'Int'>
     readonly dateOfBirth: FieldRef<"patient", 'DateTime'>
     readonly medicalHistory: FieldRef<"patient", 'String'>
     readonly email: FieldRef<"patient", 'String'>
+    readonly id: FieldRef<"patient", 'String'>
+    readonly firstName: FieldRef<"patient", 'String'>
     readonly password: FieldRef<"patient", 'String'>
   }
     
@@ -4731,9 +4731,9 @@ export namespace Prisma {
     Title?: boolean
     Comment?: boolean
     type?: boolean
+    doctor?: boolean | doctorDefaultArgs<ExtArgs>
     patient?: boolean | patientDefaultArgs<ExtArgs>
     radiologue?: boolean | radiologueDefaultArgs<ExtArgs>
-    doctor?: boolean | doctorDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["radio"]>
 
   export type RadioSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4746,9 +4746,9 @@ export namespace Prisma {
     Title?: boolean
     Comment?: boolean
     type?: boolean
+    doctor?: boolean | doctorDefaultArgs<ExtArgs>
     patient?: boolean | patientDefaultArgs<ExtArgs>
     radiologue?: boolean | radiologueDefaultArgs<ExtArgs>
-    doctor?: boolean | doctorDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["radio"]>
 
   export type RadioSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4761,9 +4761,9 @@ export namespace Prisma {
     Title?: boolean
     Comment?: boolean
     type?: boolean
+    doctor?: boolean | doctorDefaultArgs<ExtArgs>
     patient?: boolean | patientDefaultArgs<ExtArgs>
     radiologue?: boolean | radiologueDefaultArgs<ExtArgs>
-    doctor?: boolean | doctorDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["radio"]>
 
   export type RadioSelectScalar = {
@@ -4780,27 +4780,27 @@ export namespace Prisma {
 
   export type RadioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "patient_id" | "radiologue_id" | "doctor_id" | "date" | "radio_image" | "Title" | "Comment" | "type", ExtArgs["result"]["radio"]>
   export type RadioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    doctor?: boolean | doctorDefaultArgs<ExtArgs>
     patient?: boolean | patientDefaultArgs<ExtArgs>
     radiologue?: boolean | radiologueDefaultArgs<ExtArgs>
-    doctor?: boolean | doctorDefaultArgs<ExtArgs>
   }
   export type RadioIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    doctor?: boolean | doctorDefaultArgs<ExtArgs>
     patient?: boolean | patientDefaultArgs<ExtArgs>
     radiologue?: boolean | radiologueDefaultArgs<ExtArgs>
-    doctor?: boolean | doctorDefaultArgs<ExtArgs>
   }
   export type RadioIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    doctor?: boolean | doctorDefaultArgs<ExtArgs>
     patient?: boolean | patientDefaultArgs<ExtArgs>
     radiologue?: boolean | radiologueDefaultArgs<ExtArgs>
-    doctor?: boolean | doctorDefaultArgs<ExtArgs>
   }
 
   export type $RadioPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Radio"
     objects: {
+      doctor: Prisma.$doctorPayload<ExtArgs>
       patient: Prisma.$patientPayload<ExtArgs>
       radiologue: Prisma.$radiologuePayload<ExtArgs>
-      doctor: Prisma.$doctorPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5206,9 +5206,9 @@ export namespace Prisma {
    */
   export interface Prisma__RadioClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    doctor<T extends doctorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, doctorDefaultArgs<ExtArgs>>): Prisma__doctorClient<$Result.GetResult<Prisma.$doctorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     patient<T extends patientDefaultArgs<ExtArgs> = {}>(args?: Subset<T, patientDefaultArgs<ExtArgs>>): Prisma__patientClient<$Result.GetResult<Prisma.$patientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     radiologue<T extends radiologueDefaultArgs<ExtArgs> = {}>(args?: Subset<T, radiologueDefaultArgs<ExtArgs>>): Prisma__radiologueClient<$Result.GetResult<Prisma.$radiologuePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    doctor<T extends doctorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, doctorDefaultArgs<ExtArgs>>): Prisma__doctorClient<$Result.GetResult<Prisma.$doctorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5676,10 +5676,10 @@ export namespace Prisma {
 
 
   export const RadiologueScalarFieldEnum: {
-    id: 'id',
     firstName: 'firstName',
     lastName: 'lastName',
     email: 'email',
+    id: 'id',
     password: 'password'
   };
 
@@ -5687,10 +5687,10 @@ export namespace Prisma {
 
 
   export const DoctorScalarFieldEnum: {
-    id: 'id',
     firstName: 'firstName',
     lastName: 'lastName',
     email: 'email',
+    id: 'id',
     password: 'password'
   };
 
@@ -5698,13 +5698,13 @@ export namespace Prisma {
 
 
   export const PatientScalarFieldEnum: {
-    id: 'id',
-    firstName: 'firstName',
     lastName: 'lastName',
     age: 'age',
     dateOfBirth: 'dateOfBirth',
     medicalHistory: 'medicalHistory',
     email: 'email',
+    id: 'id',
+    firstName: 'firstName',
     password: 'password'
   };
 
@@ -5846,26 +5846,26 @@ export namespace Prisma {
     AND?: radiologueWhereInput | radiologueWhereInput[]
     OR?: radiologueWhereInput[]
     NOT?: radiologueWhereInput | radiologueWhereInput[]
-    id?: UuidFilter<"radiologue"> | string
     firstName?: StringFilter<"radiologue"> | string
     lastName?: StringFilter<"radiologue"> | string
     email?: StringFilter<"radiologue"> | string
+    id?: UuidFilter<"radiologue"> | string
     password?: StringFilter<"radiologue"> | string
     redio_liste?: RadioListRelationFilter
   }
 
   export type radiologueOrderByWithRelationInput = {
-    id?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
     email?: SortOrder
+    id?: SortOrder
     password?: SortOrder
     redio_liste?: RadioOrderByRelationAggregateInput
   }
 
   export type radiologueWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
     email?: string
+    id?: string
     AND?: radiologueWhereInput | radiologueWhereInput[]
     OR?: radiologueWhereInput[]
     NOT?: radiologueWhereInput | radiologueWhereInput[]
@@ -5876,10 +5876,10 @@ export namespace Prisma {
   }, "id" | "email">
 
   export type radiologueOrderByWithAggregationInput = {
-    id?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
     email?: SortOrder
+    id?: SortOrder
     password?: SortOrder
     _count?: radiologueCountOrderByAggregateInput
     _max?: radiologueMaxOrderByAggregateInput
@@ -5890,10 +5890,10 @@ export namespace Prisma {
     AND?: radiologueScalarWhereWithAggregatesInput | radiologueScalarWhereWithAggregatesInput[]
     OR?: radiologueScalarWhereWithAggregatesInput[]
     NOT?: radiologueScalarWhereWithAggregatesInput | radiologueScalarWhereWithAggregatesInput[]
-    id?: UuidWithAggregatesFilter<"radiologue"> | string
     firstName?: StringWithAggregatesFilter<"radiologue"> | string
     lastName?: StringWithAggregatesFilter<"radiologue"> | string
     email?: StringWithAggregatesFilter<"radiologue"> | string
+    id?: UuidWithAggregatesFilter<"radiologue"> | string
     password?: StringWithAggregatesFilter<"radiologue"> | string
   }
 
@@ -5901,26 +5901,26 @@ export namespace Prisma {
     AND?: doctorWhereInput | doctorWhereInput[]
     OR?: doctorWhereInput[]
     NOT?: doctorWhereInput | doctorWhereInput[]
-    id?: UuidFilter<"doctor"> | string
     firstName?: StringFilter<"doctor"> | string
     lastName?: StringFilter<"doctor"> | string
     email?: StringFilter<"doctor"> | string
+    id?: UuidFilter<"doctor"> | string
     password?: StringFilter<"doctor"> | string
     redio_liste?: RadioListRelationFilter
   }
 
   export type doctorOrderByWithRelationInput = {
-    id?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
     email?: SortOrder
+    id?: SortOrder
     password?: SortOrder
     redio_liste?: RadioOrderByRelationAggregateInput
   }
 
   export type doctorWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
     email?: string
+    id?: string
     AND?: doctorWhereInput | doctorWhereInput[]
     OR?: doctorWhereInput[]
     NOT?: doctorWhereInput | doctorWhereInput[]
@@ -5931,10 +5931,10 @@ export namespace Prisma {
   }, "id" | "email">
 
   export type doctorOrderByWithAggregationInput = {
-    id?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
     email?: SortOrder
+    id?: SortOrder
     password?: SortOrder
     _count?: doctorCountOrderByAggregateInput
     _max?: doctorMaxOrderByAggregateInput
@@ -5945,10 +5945,10 @@ export namespace Prisma {
     AND?: doctorScalarWhereWithAggregatesInput | doctorScalarWhereWithAggregatesInput[]
     OR?: doctorScalarWhereWithAggregatesInput[]
     NOT?: doctorScalarWhereWithAggregatesInput | doctorScalarWhereWithAggregatesInput[]
-    id?: UuidWithAggregatesFilter<"doctor"> | string
     firstName?: StringWithAggregatesFilter<"doctor"> | string
     lastName?: StringWithAggregatesFilter<"doctor"> | string
     email?: StringWithAggregatesFilter<"doctor"> | string
+    id?: UuidWithAggregatesFilter<"doctor"> | string
     password?: StringWithAggregatesFilter<"doctor"> | string
   }
 
@@ -5956,52 +5956,52 @@ export namespace Prisma {
     AND?: patientWhereInput | patientWhereInput[]
     OR?: patientWhereInput[]
     NOT?: patientWhereInput | patientWhereInput[]
-    id?: UuidFilter<"patient"> | string
-    firstName?: StringFilter<"patient"> | string
     lastName?: StringFilter<"patient"> | string
     age?: IntFilter<"patient"> | number
     dateOfBirth?: DateTimeFilter<"patient"> | Date | string
     medicalHistory?: StringFilter<"patient"> | string
     email?: StringFilter<"patient"> | string
+    id?: UuidFilter<"patient"> | string
+    firstName?: StringFilter<"patient"> | string
     password?: StringFilter<"patient"> | string
     redio_liste?: RadioListRelationFilter
   }
 
   export type patientOrderByWithRelationInput = {
-    id?: SortOrder
-    firstName?: SortOrder
     lastName?: SortOrder
     age?: SortOrder
     dateOfBirth?: SortOrder
     medicalHistory?: SortOrder
     email?: SortOrder
+    id?: SortOrder
+    firstName?: SortOrder
     password?: SortOrder
     redio_liste?: RadioOrderByRelationAggregateInput
   }
 
   export type patientWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
     email?: string
+    id?: string
     AND?: patientWhereInput | patientWhereInput[]
     OR?: patientWhereInput[]
     NOT?: patientWhereInput | patientWhereInput[]
-    firstName?: StringFilter<"patient"> | string
     lastName?: StringFilter<"patient"> | string
     age?: IntFilter<"patient"> | number
     dateOfBirth?: DateTimeFilter<"patient"> | Date | string
     medicalHistory?: StringFilter<"patient"> | string
+    firstName?: StringFilter<"patient"> | string
     password?: StringFilter<"patient"> | string
     redio_liste?: RadioListRelationFilter
   }, "id" | "email">
 
   export type patientOrderByWithAggregationInput = {
-    id?: SortOrder
-    firstName?: SortOrder
     lastName?: SortOrder
     age?: SortOrder
     dateOfBirth?: SortOrder
     medicalHistory?: SortOrder
     email?: SortOrder
+    id?: SortOrder
+    firstName?: SortOrder
     password?: SortOrder
     _count?: patientCountOrderByAggregateInput
     _avg?: patientAvgOrderByAggregateInput
@@ -6014,13 +6014,13 @@ export namespace Prisma {
     AND?: patientScalarWhereWithAggregatesInput | patientScalarWhereWithAggregatesInput[]
     OR?: patientScalarWhereWithAggregatesInput[]
     NOT?: patientScalarWhereWithAggregatesInput | patientScalarWhereWithAggregatesInput[]
-    id?: UuidWithAggregatesFilter<"patient"> | string
-    firstName?: StringWithAggregatesFilter<"patient"> | string
     lastName?: StringWithAggregatesFilter<"patient"> | string
     age?: IntWithAggregatesFilter<"patient"> | number
     dateOfBirth?: DateTimeWithAggregatesFilter<"patient"> | Date | string
     medicalHistory?: StringWithAggregatesFilter<"patient"> | string
     email?: StringWithAggregatesFilter<"patient"> | string
+    id?: UuidWithAggregatesFilter<"patient"> | string
+    firstName?: StringWithAggregatesFilter<"patient"> | string
     password?: StringWithAggregatesFilter<"patient"> | string
   }
 
@@ -6037,9 +6037,9 @@ export namespace Prisma {
     Title?: StringFilter<"Radio"> | string
     Comment?: StringNullableFilter<"Radio"> | string | null
     type?: EnumRadioTypeFilter<"Radio"> | $Enums.RadioType
+    doctor?: XOR<DoctorScalarRelationFilter, doctorWhereInput>
     patient?: XOR<PatientScalarRelationFilter, patientWhereInput>
     radiologue?: XOR<RadiologueScalarRelationFilter, radiologueWhereInput>
-    doctor?: XOR<DoctorScalarRelationFilter, doctorWhereInput>
   }
 
   export type RadioOrderByWithRelationInput = {
@@ -6052,9 +6052,9 @@ export namespace Prisma {
     Title?: SortOrder
     Comment?: SortOrderInput | SortOrder
     type?: SortOrder
+    doctor?: doctorOrderByWithRelationInput
     patient?: patientOrderByWithRelationInput
     radiologue?: radiologueOrderByWithRelationInput
-    doctor?: doctorOrderByWithRelationInput
   }
 
   export type RadioWhereUniqueInput = Prisma.AtLeast<{
@@ -6070,9 +6070,9 @@ export namespace Prisma {
     Title?: StringFilter<"Radio"> | string
     Comment?: StringNullableFilter<"Radio"> | string | null
     type?: EnumRadioTypeFilter<"Radio"> | $Enums.RadioType
+    doctor?: XOR<DoctorScalarRelationFilter, doctorWhereInput>
     patient?: XOR<PatientScalarRelationFilter, patientWhereInput>
     radiologue?: XOR<RadiologueScalarRelationFilter, radiologueWhereInput>
-    doctor?: XOR<DoctorScalarRelationFilter, doctorWhereInput>
   }, "id">
 
   export type RadioOrderByWithAggregationInput = {
@@ -6106,203 +6106,203 @@ export namespace Prisma {
   }
 
   export type radiologueCreateInput = {
-    id?: string
     firstName: string
     lastName: string
     email: string
+    id: string
     password: string
     redio_liste?: RadioCreateNestedManyWithoutRadiologueInput
   }
 
   export type radiologueUncheckedCreateInput = {
-    id?: string
     firstName: string
     lastName: string
     email: string
+    id: string
     password: string
     redio_liste?: RadioUncheckedCreateNestedManyWithoutRadiologueInput
   }
 
   export type radiologueUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     redio_liste?: RadioUpdateManyWithoutRadiologueNestedInput
   }
 
   export type radiologueUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     redio_liste?: RadioUncheckedUpdateManyWithoutRadiologueNestedInput
   }
 
   export type radiologueCreateManyInput = {
-    id?: string
     firstName: string
     lastName: string
     email: string
+    id: string
     password: string
   }
 
   export type radiologueUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
   }
 
   export type radiologueUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
   }
 
   export type doctorCreateInput = {
-    id?: string
     firstName: string
     lastName: string
     email: string
+    id: string
     password: string
     redio_liste?: RadioCreateNestedManyWithoutDoctorInput
   }
 
   export type doctorUncheckedCreateInput = {
-    id?: string
     firstName: string
     lastName: string
     email: string
+    id: string
     password: string
     redio_liste?: RadioUncheckedCreateNestedManyWithoutDoctorInput
   }
 
   export type doctorUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     redio_liste?: RadioUpdateManyWithoutDoctorNestedInput
   }
 
   export type doctorUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     redio_liste?: RadioUncheckedUpdateManyWithoutDoctorNestedInput
   }
 
   export type doctorCreateManyInput = {
-    id?: string
     firstName: string
     lastName: string
     email: string
+    id: string
     password: string
   }
 
   export type doctorUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
   }
 
   export type doctorUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
   }
 
   export type patientCreateInput = {
-    id?: string
-    firstName: string
     lastName: string
     age: number
     dateOfBirth: Date | string
     medicalHistory: string
     email: string
+    id: string
+    firstName: string
     password: string
     redio_liste?: RadioCreateNestedManyWithoutPatientInput
   }
 
   export type patientUncheckedCreateInput = {
-    id?: string
-    firstName: string
     lastName: string
     age: number
     dateOfBirth: Date | string
     medicalHistory: string
     email: string
+    id: string
+    firstName: string
     password: string
     redio_liste?: RadioUncheckedCreateNestedManyWithoutPatientInput
   }
 
   export type patientUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
     medicalHistory?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     redio_liste?: RadioUpdateManyWithoutPatientNestedInput
   }
 
   export type patientUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
     medicalHistory?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     redio_liste?: RadioUncheckedUpdateManyWithoutPatientNestedInput
   }
 
   export type patientCreateManyInput = {
-    id?: string
-    firstName: string
     lastName: string
     age: number
     dateOfBirth: Date | string
     medicalHistory: string
     email: string
+    id: string
+    firstName: string
     password: string
   }
 
   export type patientUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
     medicalHistory?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
   }
 
   export type patientUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
     medicalHistory?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
   }
 
@@ -6313,9 +6313,9 @@ export namespace Prisma {
     Title: string
     Comment?: string | null
     type: $Enums.RadioType
+    doctor: doctorCreateNestedOneWithoutRedio_listeInput
     patient: patientCreateNestedOneWithoutRedio_listeInput
     radiologue: radiologueCreateNestedOneWithoutRedio_listeInput
-    doctor: doctorCreateNestedOneWithoutRedio_listeInput
   }
 
   export type RadioUncheckedCreateInput = {
@@ -6337,9 +6337,9 @@ export namespace Prisma {
     Title?: StringFieldUpdateOperationsInput | string
     Comment?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumRadioTypeFieldUpdateOperationsInput | $Enums.RadioType
+    doctor?: doctorUpdateOneRequiredWithoutRedio_listeNestedInput
     patient?: patientUpdateOneRequiredWithoutRedio_listeNestedInput
     radiologue?: radiologueUpdateOneRequiredWithoutRedio_listeNestedInput
-    doctor?: doctorUpdateOneRequiredWithoutRedio_listeNestedInput
   }
 
   export type RadioUncheckedUpdateInput = {
@@ -6387,18 +6387,6 @@ export namespace Prisma {
     type?: EnumRadioTypeFieldUpdateOperationsInput | $Enums.RadioType
   }
 
-  export type UuidFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedUuidFilter<$PrismaModel> | string
-  }
-
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -6414,6 +6402,18 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type UuidFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedUuidFilter<$PrismaModel> | string
+  }
+
   export type RadioListRelationFilter = {
     every?: RadioWhereInput
     some?: RadioWhereInput
@@ -6425,42 +6425,27 @@ export namespace Prisma {
   }
 
   export type radiologueCountOrderByAggregateInput = {
-    id?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
     email?: SortOrder
+    id?: SortOrder
     password?: SortOrder
   }
 
   export type radiologueMaxOrderByAggregateInput = {
-    id?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
     email?: SortOrder
+    id?: SortOrder
     password?: SortOrder
   }
 
   export type radiologueMinOrderByAggregateInput = {
-    id?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
     email?: SortOrder
+    id?: SortOrder
     password?: SortOrder
-  }
-
-  export type UuidWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedUuidWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -6481,27 +6466,42 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type UuidWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedUuidWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
   export type doctorCountOrderByAggregateInput = {
-    id?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
     email?: SortOrder
+    id?: SortOrder
     password?: SortOrder
   }
 
   export type doctorMaxOrderByAggregateInput = {
-    id?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
     email?: SortOrder
+    id?: SortOrder
     password?: SortOrder
   }
 
   export type doctorMinOrderByAggregateInput = {
-    id?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
     email?: SortOrder
+    id?: SortOrder
     password?: SortOrder
   }
 
@@ -6528,13 +6528,13 @@ export namespace Prisma {
   }
 
   export type patientCountOrderByAggregateInput = {
-    id?: SortOrder
-    firstName?: SortOrder
     lastName?: SortOrder
     age?: SortOrder
     dateOfBirth?: SortOrder
     medicalHistory?: SortOrder
     email?: SortOrder
+    id?: SortOrder
+    firstName?: SortOrder
     password?: SortOrder
   }
 
@@ -6543,24 +6543,24 @@ export namespace Prisma {
   }
 
   export type patientMaxOrderByAggregateInput = {
-    id?: SortOrder
-    firstName?: SortOrder
     lastName?: SortOrder
     age?: SortOrder
     dateOfBirth?: SortOrder
     medicalHistory?: SortOrder
     email?: SortOrder
+    id?: SortOrder
+    firstName?: SortOrder
     password?: SortOrder
   }
 
   export type patientMinOrderByAggregateInput = {
-    id?: SortOrder
-    firstName?: SortOrder
     lastName?: SortOrder
     age?: SortOrder
     dateOfBirth?: SortOrder
     medicalHistory?: SortOrder
     email?: SortOrder
+    id?: SortOrder
+    firstName?: SortOrder
     password?: SortOrder
   }
 
@@ -6627,6 +6627,11 @@ export namespace Prisma {
     not?: NestedEnumRadioTypeFilter<$PrismaModel> | $Enums.RadioType
   }
 
+  export type DoctorScalarRelationFilter = {
+    is?: doctorWhereInput
+    isNot?: doctorWhereInput
+  }
+
   export type PatientScalarRelationFilter = {
     is?: patientWhereInput
     isNot?: patientWhereInput
@@ -6635,11 +6640,6 @@ export namespace Prisma {
   export type RadiologueScalarRelationFilter = {
     is?: radiologueWhereInput
     isNot?: radiologueWhereInput
-  }
-
-  export type DoctorScalarRelationFilter = {
-    is?: doctorWhereInput
-    isNot?: doctorWhereInput
   }
 
   export type SortOrderInput = {
@@ -6863,6 +6863,12 @@ export namespace Prisma {
     deleteMany?: RadioScalarWhereInput | RadioScalarWhereInput[]
   }
 
+  export type doctorCreateNestedOneWithoutRedio_listeInput = {
+    create?: XOR<doctorCreateWithoutRedio_listeInput, doctorUncheckedCreateWithoutRedio_listeInput>
+    connectOrCreate?: doctorCreateOrConnectWithoutRedio_listeInput
+    connect?: doctorWhereUniqueInput
+  }
+
   export type patientCreateNestedOneWithoutRedio_listeInput = {
     create?: XOR<patientCreateWithoutRedio_listeInput, patientUncheckedCreateWithoutRedio_listeInput>
     connectOrCreate?: patientCreateOrConnectWithoutRedio_listeInput
@@ -6875,12 +6881,6 @@ export namespace Prisma {
     connect?: radiologueWhereUniqueInput
   }
 
-  export type doctorCreateNestedOneWithoutRedio_listeInput = {
-    create?: XOR<doctorCreateWithoutRedio_listeInput, doctorUncheckedCreateWithoutRedio_listeInput>
-    connectOrCreate?: doctorCreateOrConnectWithoutRedio_listeInput
-    connect?: doctorWhereUniqueInput
-  }
-
   export type BytesFieldUpdateOperationsInput = {
     set?: Uint8Array
   }
@@ -6891,6 +6891,14 @@ export namespace Prisma {
 
   export type EnumRadioTypeFieldUpdateOperationsInput = {
     set?: $Enums.RadioType
+  }
+
+  export type doctorUpdateOneRequiredWithoutRedio_listeNestedInput = {
+    create?: XOR<doctorCreateWithoutRedio_listeInput, doctorUncheckedCreateWithoutRedio_listeInput>
+    connectOrCreate?: doctorCreateOrConnectWithoutRedio_listeInput
+    upsert?: doctorUpsertWithoutRedio_listeInput
+    connect?: doctorWhereUniqueInput
+    update?: XOR<XOR<doctorUpdateToOneWithWhereWithoutRedio_listeInput, doctorUpdateWithoutRedio_listeInput>, doctorUncheckedUpdateWithoutRedio_listeInput>
   }
 
   export type patientUpdateOneRequiredWithoutRedio_listeNestedInput = {
@@ -6909,25 +6917,6 @@ export namespace Prisma {
     update?: XOR<XOR<radiologueUpdateToOneWithWhereWithoutRedio_listeInput, radiologueUpdateWithoutRedio_listeInput>, radiologueUncheckedUpdateWithoutRedio_listeInput>
   }
 
-  export type doctorUpdateOneRequiredWithoutRedio_listeNestedInput = {
-    create?: XOR<doctorCreateWithoutRedio_listeInput, doctorUncheckedCreateWithoutRedio_listeInput>
-    connectOrCreate?: doctorCreateOrConnectWithoutRedio_listeInput
-    upsert?: doctorUpsertWithoutRedio_listeInput
-    connect?: doctorWhereUniqueInput
-    update?: XOR<XOR<doctorUpdateToOneWithWhereWithoutRedio_listeInput, doctorUpdateWithoutRedio_listeInput>, doctorUncheckedUpdateWithoutRedio_listeInput>
-  }
-
-  export type NestedUuidFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedUuidFilter<$PrismaModel> | string
-  }
-
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -6942,7 +6931,7 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedUuidWithAggregatesFilter<$PrismaModel = never> = {
+  export type NestedUuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
     notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -6950,7 +6939,21 @@ export namespace Prisma {
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
     gte?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedUuidWithAggregatesFilter<$PrismaModel> | string
+    not?: NestedUuidFilter<$PrismaModel> | string
+  }
+
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
@@ -6967,7 +6970,7 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+  export type NestedUuidWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
     notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -6975,10 +6978,7 @@ export namespace Prisma {
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
     gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    not?: NestedUuidWithAggregatesFilter<$PrismaModel> | string
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
@@ -7119,8 +7119,8 @@ export namespace Prisma {
     Title: string
     Comment?: string | null
     type: $Enums.RadioType
-    patient: patientCreateNestedOneWithoutRedio_listeInput
     doctor: doctorCreateNestedOneWithoutRedio_listeInput
+    patient: patientCreateNestedOneWithoutRedio_listeInput
   }
 
   export type RadioUncheckedCreateWithoutRadiologueInput = {
@@ -7230,8 +7230,8 @@ export namespace Prisma {
     Title: string
     Comment?: string | null
     type: $Enums.RadioType
-    radiologue: radiologueCreateNestedOneWithoutRedio_listeInput
     doctor: doctorCreateNestedOneWithoutRedio_listeInput
+    radiologue: radiologueCreateNestedOneWithoutRedio_listeInput
   }
 
   export type RadioUncheckedCreateWithoutPatientInput = {
@@ -7271,25 +7271,46 @@ export namespace Prisma {
     data: XOR<RadioUpdateManyMutationInput, RadioUncheckedUpdateManyWithoutPatientInput>
   }
 
-  export type patientCreateWithoutRedio_listeInput = {
-    id?: string
+  export type doctorCreateWithoutRedio_listeInput = {
     firstName: string
+    lastName: string
+    email: string
+    id: string
+    password: string
+  }
+
+  export type doctorUncheckedCreateWithoutRedio_listeInput = {
+    firstName: string
+    lastName: string
+    email: string
+    id: string
+    password: string
+  }
+
+  export type doctorCreateOrConnectWithoutRedio_listeInput = {
+    where: doctorWhereUniqueInput
+    create: XOR<doctorCreateWithoutRedio_listeInput, doctorUncheckedCreateWithoutRedio_listeInput>
+  }
+
+  export type patientCreateWithoutRedio_listeInput = {
     lastName: string
     age: number
     dateOfBirth: Date | string
     medicalHistory: string
     email: string
+    id: string
+    firstName: string
     password: string
   }
 
   export type patientUncheckedCreateWithoutRedio_listeInput = {
-    id?: string
-    firstName: string
     lastName: string
     age: number
     dateOfBirth: Date | string
     medicalHistory: string
     email: string
+    id: string
+    firstName: string
     password: string
   }
 
@@ -7299,18 +7320,18 @@ export namespace Prisma {
   }
 
   export type radiologueCreateWithoutRedio_listeInput = {
-    id?: string
     firstName: string
     lastName: string
     email: string
+    id: string
     password: string
   }
 
   export type radiologueUncheckedCreateWithoutRedio_listeInput = {
-    id?: string
     firstName: string
     lastName: string
     email: string
+    id: string
     password: string
   }
 
@@ -7319,25 +7340,31 @@ export namespace Prisma {
     create: XOR<radiologueCreateWithoutRedio_listeInput, radiologueUncheckedCreateWithoutRedio_listeInput>
   }
 
-  export type doctorCreateWithoutRedio_listeInput = {
-    id?: string
-    firstName: string
-    lastName: string
-    email: string
-    password: string
-  }
-
-  export type doctorUncheckedCreateWithoutRedio_listeInput = {
-    id?: string
-    firstName: string
-    lastName: string
-    email: string
-    password: string
-  }
-
-  export type doctorCreateOrConnectWithoutRedio_listeInput = {
-    where: doctorWhereUniqueInput
+  export type doctorUpsertWithoutRedio_listeInput = {
+    update: XOR<doctorUpdateWithoutRedio_listeInput, doctorUncheckedUpdateWithoutRedio_listeInput>
     create: XOR<doctorCreateWithoutRedio_listeInput, doctorUncheckedCreateWithoutRedio_listeInput>
+    where?: doctorWhereInput
+  }
+
+  export type doctorUpdateToOneWithWhereWithoutRedio_listeInput = {
+    where?: doctorWhereInput
+    data: XOR<doctorUpdateWithoutRedio_listeInput, doctorUncheckedUpdateWithoutRedio_listeInput>
+  }
+
+  export type doctorUpdateWithoutRedio_listeInput = {
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type doctorUncheckedUpdateWithoutRedio_listeInput = {
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
   }
 
   export type patientUpsertWithoutRedio_listeInput = {
@@ -7352,24 +7379,24 @@ export namespace Prisma {
   }
 
   export type patientUpdateWithoutRedio_listeInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
     medicalHistory?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
   }
 
   export type patientUncheckedUpdateWithoutRedio_listeInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     age?: IntFieldUpdateOperationsInput | number
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
     medicalHistory?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
   }
 
@@ -7385,45 +7412,18 @@ export namespace Prisma {
   }
 
   export type radiologueUpdateWithoutRedio_listeInput = {
-    id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    id?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
   }
 
   export type radiologueUncheckedUpdateWithoutRedio_listeInput = {
-    id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type doctorUpsertWithoutRedio_listeInput = {
-    update: XOR<doctorUpdateWithoutRedio_listeInput, doctorUncheckedUpdateWithoutRedio_listeInput>
-    create: XOR<doctorCreateWithoutRedio_listeInput, doctorUncheckedCreateWithoutRedio_listeInput>
-    where?: doctorWhereInput
-  }
-
-  export type doctorUpdateToOneWithWhereWithoutRedio_listeInput = {
-    where?: doctorWhereInput
-    data: XOR<doctorUpdateWithoutRedio_listeInput, doctorUncheckedUpdateWithoutRedio_listeInput>
-  }
-
-  export type doctorUpdateWithoutRedio_listeInput = {
     id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type doctorUncheckedUpdateWithoutRedio_listeInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
   }
 
@@ -7445,8 +7445,8 @@ export namespace Prisma {
     Title?: StringFieldUpdateOperationsInput | string
     Comment?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumRadioTypeFieldUpdateOperationsInput | $Enums.RadioType
-    patient?: patientUpdateOneRequiredWithoutRedio_listeNestedInput
     doctor?: doctorUpdateOneRequiredWithoutRedio_listeNestedInput
+    patient?: patientUpdateOneRequiredWithoutRedio_listeNestedInput
   }
 
   export type RadioUncheckedUpdateWithoutRadiologueInput = {
@@ -7533,8 +7533,8 @@ export namespace Prisma {
     Title?: StringFieldUpdateOperationsInput | string
     Comment?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumRadioTypeFieldUpdateOperationsInput | $Enums.RadioType
-    radiologue?: radiologueUpdateOneRequiredWithoutRedio_listeNestedInput
     doctor?: doctorUpdateOneRequiredWithoutRedio_listeNestedInput
+    radiologue?: radiologueUpdateOneRequiredWithoutRedio_listeNestedInput
   }
 
   export type RadioUncheckedUpdateWithoutPatientInput = {

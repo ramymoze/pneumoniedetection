@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
@@ -15,56 +9,53 @@ datasource db {
 }
 
 model radiologue {
-  id          String  @id @default(uuid()) @db.Uuid
   firstName   String
   lastName    String
   email       String  @unique
-  password    String
+  id          String  @id @db.Uuid
   redio_liste Radio[]
-
-    @@index([email], name: "idx_email-radiologue")  
-
+ password    String
+  @@index([email], map: "idx_email-radiologue")
 }
 
 model doctor {
-  id          String  @id @default(uuid()) @db.Uuid
   firstName   String
   lastName    String
   email       String  @unique
-  password    String
+  id          String  @id @db.Uuid
   redio_liste Radio[]
+  password    String
 
-    @@index([email], name: "idx_email-doctor")
-
+  @@index([email], map: "idx_email-doctor")
 }
 
 model patient {
-  id             String   @id @default(uuid()) @db.Uuid
-  firstName      String
   lastName       String
   age            Int
   dateOfBirth    DateTime
   medicalHistory String
   email          String   @unique
-  password       String
+  id             String   @id @db.Uuid
+  firstName      String
   redio_liste    Radio[]
+  password       String
 
-  @@index([email], name: "idx_email-patient")
+  @@index([email], map: "idx_email-patient")
 }
 
 model Radio {
   id            String     @id @default(uuid()) @db.Uuid
-  patient       patient    @relation(fields: [patient_id], references: [id])
   patient_id    String     @db.Uuid
-  radiologue    radiologue @relation(fields: [radiologue_id], references: [id])
   radiologue_id String     @db.Uuid
-  doctor        doctor     @relation(fields: [doctor_id], references: [id])
   doctor_id     String     @db.Uuid
   date          DateTime   @default(now())
   radio_image   Bytes
   Title         String
   Comment       String?
   type          RadioType
+  doctor        doctor     @relation(fields: [doctor_id], references: [id])
+  patient       patient    @relation(fields: [patient_id], references: [id])
+  radiologue    radiologue @relation(fields: [radiologue_id], references: [id])
 }
 
 enum RadioType {
