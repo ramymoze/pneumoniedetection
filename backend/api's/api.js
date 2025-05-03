@@ -72,7 +72,6 @@ app.post("/detect", (req, res) => {
 });
 
 app.post("/create_patient", async (req, res) => {
-
   const {
     firstName,
     lastName,
@@ -80,21 +79,26 @@ app.post("/create_patient", async (req, res) => {
     dateOfBirth,
     medicalHistory,
     email,
-
   } = req.body;
-
-  await prisma.patient.create({
+  const saltRounds = 12; // Work factor (higher = more secure but slower)
+  const salt = await bcrypt.genSalt(saltRounds); // Generate a salt for hashing which is a random string 
+  // Hash the password with the generated salt
+  const password = await bcrypt.hash(req.body.password, salt); // Get the password from the request body : req.body.password
+  const newPatient = await prisma.patient.create({
     data: {
       firstName,
       lastName,
       age,
-      dateOfBirth: new Date(dateOfBirth), // convert to Date object
+      dateOfBirth: new Date(dateOfBirth),
       medicalHistory,
       email,
+      password,
     },
   });
-  res.json("Patient created successfully");
+
+  res.json(newPatient); // return patient
 });
+
 
 app.post("/create_doctor", async (req, res) => {
 
@@ -123,8 +127,11 @@ app.post("/create_doctor", async (req, res) => {
 
 
 app.post("/create_radiologue", async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
-
+  const { firstName, lastName, email,} = req.body;
+  const saltRounds = 12; // Work factor (higher = more secure but slower)
+  const salt = await bcrypt.genSalt(saltRounds); // Generate a salt for hashing which is a random string 
+  // Hash the password with the generated salt
+  const password = await bcrypt.hash(req.body.password, salt); // Get the password from the request body : req.body.password
   await prisma.radiologue.create({
     data: {
       firstName,
@@ -160,7 +167,7 @@ app.post('/login', async (req, res) => {
   const { email, userType } = req.body;
 
   try {
-    if (userType === "doctor") {
+    if (userType === "doctor") { // lazm nbdl logic ada psq na7it radiobox t3 usertype
       user = await prisma.doctor.findUnique({
         where: { email },
         select: { id: true, firstName: true, lastName: true, email: true },

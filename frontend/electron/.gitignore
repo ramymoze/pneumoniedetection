@@ -26,3 +26,9 @@ dist-ssr
 # Electron
 dist-electron
 release
+
+# prisma
+prisma/dev.db
+prisma/migrations
+prisma/dev.db-shm
+prisma/dev.db-wal

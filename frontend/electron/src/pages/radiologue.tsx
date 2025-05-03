@@ -32,9 +32,7 @@ function Radiologue_interface() {
                 <h1 className="text-xl font-semibold text-gray-800">
                   Patients Liste
                 </h1>
-                <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                  New Patient
-                </button>
+             
               </div>
               <div className="flex-1 overflow-auto p-4">
                 <Patientliste />

@@ -124,8 +124,9 @@ export default function AuthPage() {
         : '/doctor_interface';
       
       // Use replace to prevent back navigation to login
-      window.location.replace(redirectPath);
-  
+      setTimeout(() => {
+        window.location.replace(redirectPath);
+      }, 1800);
     } catch (err: unknown) {
       console.error('Login error:', err);
   
@@ -186,7 +187,11 @@ export default function AuthPage() {
 
         <div className="mt-8 bg-white p-8 rounded-lg shadow sm:mx-auto sm:w-full sm:max-w-md">
           <form className="space-y-6" onSubmit={authMode === 'login' ? handleLogin : handleSignup}>
-            <div>
+          
+
+            {authMode === 'signup' && (
+              <div>
+                  <div>
               <Label className="block text-sm font-medium text-gray-700">I am a</Label>
               <RadioGroup
                 defaultValue="radiologue"
@@ -204,8 +209,6 @@ export default function AuthPage() {
                 ))}
               </RadioGroup>
             </div>
-
-            {authMode === 'signup' && (
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="firstName">First name</Label>
@@ -227,6 +230,7 @@ export default function AuthPage() {
                     onChange={(e) => setLastName(e.target.value)}
                   />
                 </div>
+              </div>
               </div>
             )}
 
