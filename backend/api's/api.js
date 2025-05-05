@@ -149,8 +149,19 @@ app.get("/get_patients", async (req, res) => {
 });
 
 app.get("/get_doctors", async (req, res) => {
-  const allDoctors = await prisma.doctor.findMany();
-  res.json(allDoctors);
+  try {
+    const allDoctors = await prisma.doctor.findMany();
+    res.json({
+      success: true,
+      data: allDoctors,
+      count: allDoctors.length
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch doctors'
+    });
+  }
 });
 
 app.get("/get_radiologues", async (req, res) => {
