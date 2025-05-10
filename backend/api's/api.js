@@ -143,11 +143,49 @@ app.post("/create_radiologue", async (req, res) => {
   res.json("radiologue created successfully");
 });
 
-app.get("/get_patients", async (req, res) => {
-  const allPatients = await prisma.patient.findMany();
-  res.json(allPatients);
-});
 
+app.get("/get_patients", async (req, res) => {
+  try {
+    // Fetch patients with all fields from your schema
+    const allPatients = await prisma.patient.findMany({
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        age: true,
+        dateOfBirth: true,
+        email: true,
+        medicalHistory: true,
+      },
+      orderBy: {
+        lastName: 'asc'
+      }
+    });
+
+    // Format dates to ISO string for consistent frontend handling
+    const formattedPatients = allPatients.map(patient => ({
+      ...patient,
+      dateOfBirth: patient.dateOfBirth.toISOString()
+    }));
+
+    res.json({
+      success: true,
+      data: formattedPatients
+    });
+
+  } catch (error) {
+    console.error('Error fetching patients:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Internal server error',
+      // Only show details in development
+      details: process.env.NODE_ENV === 'development' ? {
+        message: error.message,
+        stack: error.stack
+      } : undefined
+    });
+  }
+});
 app.get("/get_doctors", async (req, res) => {
   try {
     const allDoctors = await prisma.doctor.findMany();
@@ -198,5 +236,22 @@ app.post('/login', async (req, res) => {
   } catch (err) {
     console.error('Login error:', err);
     res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.get("/api/patients/:id", async (req, res) => {
+  try {
+    const patient = await prisma.patient.findUnique({
+      where: { id: req.params.id }
+    });
+
+    if (!patient) {
+      return res.status(404).json({ success: false, error: "Patient not found" });
+    }
+
+    res.json({ success: true, data: patient });
+  } catch (error) {
+    console.error("Error fetching patient:", error);
+    res.status(500).json({ success: false, error: "Failed to fetch patient" });
   }
 });
