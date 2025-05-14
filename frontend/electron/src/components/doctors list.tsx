@@ -1,9 +1,6 @@
-"use client"
-
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { FaUser, FaSearch, FaFilter } from 'react-icons/fa';
-import { Toaster, toast } from 'sonner';
 
 interface Doctor {
   id: string;
@@ -22,8 +19,7 @@ interface ApiResponse {
   error?: string;
 }
 
-// Define API URL directly or use a configuration file
-const API_BASE_URL = 'http://localhost:3000'; // Replace with your actual API URL
+const API_BASE_URL = 'http://localhost:3000';
 
 export default function DoctorList() {
   const [state, setState] = useState({
@@ -61,7 +57,6 @@ export default function DoctorList() {
         loading: false
       }));
 
-      toast.success(`Successfully loaded ${response.data.count} doctors`);
     } catch (error) {
       const errorMessage = axios.isAxiosError(error)
         ? error.response?.data?.error || error.message
@@ -76,7 +71,6 @@ export default function DoctorList() {
         totalDoctors: 0
       }));
 
-      toast.error(`Failed to load doctors: ${errorMessage}`);
       console.error('Error fetching doctors:', error);
     }
   }, []);
@@ -114,7 +108,6 @@ export default function DoctorList() {
       <div className="flex flex-col items-center justify-center h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mb-4"></div>
         <p className="text-gray-600">Loading doctors...</p>
-        <Toaster position="top-right" richColors />
       </div>
     );
   }
@@ -132,14 +125,12 @@ export default function DoctorList() {
             Retry
           </button>
         </div>
-        <Toaster position="top-right" richColors />
       </div>
     );
   }
 
   return (
     <div className="flex flex-col h-screen bg-gray-50">
-      <Toaster position="top-right" richColors />
       
       <div className="bg-white shadow-sm p-4 border-b">
         <h1 className="text-2xl font-bold text-gray-800">Doctor's Liste</h1>
@@ -237,7 +228,7 @@ export default function DoctorList() {
                       handleDoctorSelect(doctor.id);
                     }}
                   >
-                    {state.selectedDoctorId === doctor.id ? 'Selected' : 'View Profile'}
+                    {state.selectedDoctorId === doctor.id ? 'Selected' : 'select'}
                   </button>
                 </div>
               </div>

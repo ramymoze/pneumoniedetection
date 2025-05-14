@@ -1,7 +1,6 @@
 import { GoHomeFill } from "react-icons/go";
-import { AiFillMessage } from "react-icons/ai";
 import { IoIosPeople } from "react-icons/io";
-import { IoSettingsSharp } from "react-icons/io5";
+import { FaImages } from "react-icons/fa";
 import { IoMdAddCircle } from "react-icons/io";   
 
 export default function Navbar( {isOpen, setIsOpen} : {isOpen: string, setIsOpen: (name: string) => void}) {
@@ -17,10 +16,9 @@ export default function Navbar( {isOpen, setIsOpen} : {isOpen: string, setIsOpen
       <ul className="space-y-6 w-full">
         {[
           { id: "home", icon: <GoHomeFill size={30} /> },
-          { id: "chat", icon: <AiFillMessage size={30} /> },
+          { id: "radio sent", icon: <FaImages  size={30} /> },
           { id: "patients", icon: <IoIosPeople size={30} /> },
           { id: "add", icon: <IoMdAddCircle size={30} /> },
-          { id: "settings", icon: <IoSettingsSharp size={30} /> }
         ].map((item) => (
           <li key={item.id} className="w-full">
             <button

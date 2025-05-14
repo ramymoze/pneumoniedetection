@@ -88,7 +88,7 @@ app.post("/create_patient", async (req, res) => {
     data: {
       firstName,
       lastName,
-      age,
+      age: parseInt(age, 10),
       dateOfBirth: new Date(dateOfBirth),
       medicalHistory,
       email,
@@ -239,7 +239,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
-app.get("/api/patients/:id", async (req, res) => {
+app.get("/patients/:id", async (req, res) => {
   try {
     const patient = await prisma.patient.findUnique({
       where: { id: req.params.id }

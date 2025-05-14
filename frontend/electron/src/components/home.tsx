@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { 
   Clock, Mail, Calendar, User, Activity, 
-  Bell, Settings, LogOut, Trash, 
+  Bell, LogOut, Trash, 
   CheckCircle, PlusCircle, XCircle, Building 
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -60,41 +60,14 @@ type ActivityItem = {
   timestamp: number;
 };
 
-const DashboardStats = {
-  patientsReviewed: 128,
-  reportsCompleted: 87,
-  pendingReviews: 14,
-  totalHours: 42,
-};
+
 
 export default function DashboardProfile() {
   const [user, setUser] = useState<UserType | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [progress, setProgress] = useState(0);
-  const [tasks, setTasks] = useState<Task[]>([
-    {
-      id: 1,
-      text: "Review MRI scans for patient #1082",
-      dueDate: "Due today",
-      priority: "Urgent",
-      completed: false,
-    },
-    {
-      id: 2,
-      text: "Complete weekly report",
-      dueDate: "Due in 2 days",
-      priority: "Medium",
-      completed: false,
-    },
-    {
-      id: 3,
-      text: "Team meeting",
-      dueDate: "Tomorrow, 10:00 AM",
-      priority: "Low",
-      completed: false,
-    },
-  ]);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [newTask, setNewTask] = useState("");
   const [newTaskPriority, setNewTaskPriority] = useState<"Low" | "Medium" | "Urgent">("Medium");
   const [activityLog, setActivityLog] = useState<ActivityItem[]>([]);
@@ -121,7 +94,7 @@ export default function DashboardProfile() {
           status: "completed",
           timestamp: Date.now(),
         },
-        ...prev.filter((a) => !a.action.includes("Weekly progress updated")),
+        ...prev.filter((a) => !a.action.includes("Today's progress updated")),
       ]);
     }
   }, [tasks]);
@@ -330,9 +303,6 @@ export default function DashboardProfile() {
         {/* Header Section */}
         <HeaderSection user={user} currentTime={currentTime} getInitials={getInitials} />
 
-        {/* Stats Cards */}
-        <StatsSection stats={DashboardStats} />
-
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Activity and Tasks Section */}
@@ -409,56 +379,9 @@ const HeaderSection = ({ user, currentTime, getInitials }: {
   </div>
 );
 
-const StatsSection = ({ stats }: { stats: typeof DashboardStats }) => (
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-    <StatCard 
-      title="Patients Reviewed" 
-      value={stats.patientsReviewed} 
-      change="+12% from last month" 
-      borderColor="border-blue-500" 
-      textColor="text-blue-600" 
-    />
-    <StatCard 
-      title="Reports Completed" 
-      value={stats.reportsCompleted} 
-      change="+5% from last month" 
-      borderColor="border-green-500" 
-      textColor="text-green-600" 
-    />
-    <StatCard 
-      title="Pending Reviews" 
-      value={stats.pendingReviews} 
-      change="-3% from last month" 
-      borderColor="border-red-500" 
-      textColor="text-red-600" 
-    />
-    <StatCard 
-      title="Total Hours" 
-      value={stats.totalHours} 
-      change="This month" 
-      borderColor="border-gray-500" 
-      textColor="text-gray-700" 
-    />
-  </div>
-);
 
-const StatCard = ({ title, value, change, borderColor, textColor }: {
-  title: string;
-  value: number;
-  change: string;
-  borderColor: string;
-  textColor: string;
-}) => (
-  <Card className={`border-t-4 ${borderColor}`}>
-    <CardHeader className="pb-2">
-      <CardTitle className="text-sm font-medium text-gray-500">{title}</CardTitle>
-    </CardHeader>
-    <CardContent>
-      <div className={`text-3xl font-bold ${textColor}`}>{value}</div>
-      <p className="text-xs text-gray-500 mt-1">{change}</p>
-    </CardContent>
-  </Card>
-);
+
+
 
 const ActivityTasksSection = ({
   activityLog,
@@ -758,11 +681,6 @@ const ProfileActionsSection = ({
           />
         </div>
       </CardContent>
-      <CardFooter>
-        <Button variant="outline" className="w-full">
-          Edit Profile
-        </Button>
-      </CardFooter>
     </Card>
 
     <Card>
@@ -771,7 +689,6 @@ const ProfileActionsSection = ({
       </CardHeader>
       <CardContent className="space-y-2">
         <QuickActionButton icon={<Bell className="mr-2 h-4 w-4" />} text="Notifications" />
-        <QuickActionButton icon={<Settings className="mr-2 h-4 w-4" />} text="Settings" />
         <QuickActionButton 
           icon={<LogOut className="mr-2 h-4 w-4" />} 
           text={loading ? "Signing out..." : "Sign Out"} 

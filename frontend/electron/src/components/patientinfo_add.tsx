@@ -1,178 +1,283 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Toaster, toast } from 'sonner';
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+import { toast } from "sonner"
+import axios from "axios"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Skeleton } from "@/components/ui/skeleton"
+import {
+
+  ArrowLeft,
+
+  User,
+  Mail,
+  Calendar,
+
+  Activity,
+} from "lucide-react"
 
 interface Patient {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  age: number;
-  dateOfBirth: string;
-  placeOfBirth?: string;
-  medicalHistory?: string;
-  lastVisit?: string;
+  id: string
+  firstName: string
+  lastName: string
+  email: string
+  age: number
+  dateOfBirth: string
+  medicalHistory?: string
+  lastVisit?: string
 }
 
-interface DetailCardProps {
-  title: string;
-  children: React.ReactNode;
+type Props = {
+  patientId: string | null
 }
 
-interface DetailItemProps {
-  label: string;
-  value: string | number | null | undefined;
-}
-
-const DetailCard = ({ title, children }: DetailCardProps) => (
-  <div className="bg-gray-50 p-6 rounded-lg">
-    <h3 className="text-lg font-medium text-gray-900 mb-4">{title}</h3>
-    <div className="space-y-3">
-      {children}
-    </div>
-  </div>
-);
-
-const DetailItem = ({ label, value }: DetailItemProps) => (
-  <div className="flex justify-between">
-    <span className="text-sm font-medium text-gray-500">{label}</span>
-    <span className="text-sm text-gray-900">{value ?? 'Not specified'}</span>
-  </div>
-);
-
-const PatientDetails = () => {
-  const [patient, setPatient] = useState<Patient | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
+const PatientDetails = ({ patientId }: Props) => {
+  const [patient, setPatient] = useState<Patient | null>(null)
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string | null>(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
+    if (!patientId) return
+
     const fetchPatient = async () => {
+      setLoading(true)
+      setError(null)
       try {
-        if (!id) {
-          throw new Error('Patient ID is missing');
-        }
+        const response = await axios.get(`http://localhost:3000/patients/${patientId}`)
 
-        const response = await fetch(`http://localhost:3000/api/patients/${id}`);
-        if (!response.ok) throw new Error('Network response was not ok');
-
-        const data = await response.json();
-        if (data.success) {
-          setPatient(data.data);
+        if (response.data.success) {
+          setPatient(response.data.data)
         } else {
-          throw new Error(data.error || 'Patient not found');
+          throw new Error(response.data.error || "Failed to load patient")
         }
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load patient details');
+        const msg =
+          axios.isAxiosError(err) && err.response?.data?.error
+            ? err.response.data.error
+            : err instanceof Error
+              ? err.message
+              : "Failed to load patient details"
+        setError(msg)
+        toast.error(msg)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
+    }
 
-    fetchPatient();
-  }, [id]);
+    fetchPatient()
+  }, [patientId])
+
+  if (!patientId) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-br from-slate-50 to-white">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <User className="w-10 h-10 text-primary" />
+            </div>
+            <CardTitle className="text-2xl">No Patient Selected</CardTitle>
+            <CardDescription>Please select a patient from the list to view details</CardDescription>
+          </CardHeader>
+          <CardFooter>
+            <Button
+              onClick={() => navigate("/radiologue_interface", { state: { tab: "patients" } })}
+              className="w-full"
+            >
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back to Patient List
+            </Button>
+          </CardFooter>
+        </Card>
+      </div>
+    )
+  }
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500" />
+      <div className="container mx-auto px-4 py-8 max-w-6xl">
+        <div className="flex items-center space-x-4 mb-6">
+          <Skeleton className="h-12 w-12 rounded-full" />
+          <div className="space-y-2">
+            <Skeleton className="h-6 w-[250px]" />
+            <Skeleton className="h-4 w-[200px]" />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader>
+              <Skeleton className="h-6 w-[180px]" />
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <div key={i} className="flex justify-between">
+                  <Skeleton className="h-4 w-[100px]" />
+                  <Skeleton className="h-4 w-[150px]" />
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <Skeleton className="h-6 w-[180px]" />
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <Skeleton className="h-20 w-full" />
+              <div className="flex justify-between">
+                <Skeleton className="h-4 w-[100px]" />
+                <Skeleton className="h-4 w-[150px]" />
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
-    );
+    )
   }
 
   if (error) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="bg-red-50 border-l-4 border-red-500 p-4">
-          <div className="flex">
-            <div className="flex-shrink-0">
-              <svg className="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-              </svg>
+      <div className="container mx-auto px-4 py-8 max-w-4xl">
+        <Card className="border-red-200 bg-red-50">
+          <CardHeader>
+            <div className="flex items-center">
+              <div className="mr-4 p-2 bg-red-100 rounded-full">
+                <Activity className="h-6 w-6 text-red-600" />
+              </div>
+              <CardTitle className="text-red-800">Error loading patient</CardTitle>
             </div>
-            <div className="ml-3">
-              <p className="text-sm text-red-700">{error}</p>
-            </div>
-          </div>
-        </div>
-        <button
-          onClick={() => navigate('/')}
-          className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
-        >
-          Back to Patient List
-        </button>
+            <CardDescription className="text-red-700">{error}</CardDescription>
+          </CardHeader>
+          <CardFooter>
+            <Button onClick={() => navigate("/radiologue_interface", { state: { tab: "patients" } })} variant="outline">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back to Patient List
+            </Button>
+          </CardFooter>
+        </Card>
       </div>
-    );
+    )
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <Toaster position="top-center" />
-      
-      <header className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">Patient Details</h1>
-        <button
-          onClick={() => navigate('/')}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
-        >
-          Back to List
-        </button>
-      </header>
-
-      <div className="bg-white rounded-lg shadow-md overflow-hidden">
-        <div className="p-8">
-          <div className="flex flex-col items-center mb-8">
-            <div className="w-32 h-32 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-              <svg className="w-16 h-16 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-            </div>
-            <h2 className="text-2xl font-semibold text-gray-800">
-              {patient?.firstName} {patient?.lastName}
-            </h2>
-            <p className="text-blue-600">{patient?.email}</p>
+    <div className="container mx-auto px-4 py-8 max-w-6xl">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+        <div className="flex items-center mb-4 md:mb-0">
+          <div className="bg-primary/10 p-3 rounded-full mr-4">
+            <User className="w-8 h-8 text-primary" />
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <DetailCard title="Personal Information">
-              <DetailItem label="First Name" value={patient?.firstName} />
-              <DetailItem label="Last Name" value={patient?.lastName} />
-              <DetailItem label="Age" value={patient?.age} />
-              <DetailItem 
-                label="Date of Birth" 
-                value={patient?.dateOfBirth ? new Date(patient.dateOfBirth).toLocaleDateString() : undefined} 
-              />
-              <DetailItem label="Place of Birth" value={patient?.placeOfBirth} />
-            </DetailCard>
-
-            <DetailCard title="Medical Information">
-              <DetailItem label="Medical History" value={patient?.medicalHistory} />
-              <DetailItem 
-                label="Last Visit" 
-                value={patient?.lastVisit ? new Date(patient.lastVisit).toLocaleDateString() : undefined} 
-              />
-            </DetailCard>
-          </div>
-
-          <div className="mt-8 flex space-x-4">
-            <button
-              onClick={() => navigate(`/patient/edit/${patient?.id}`)}
-              className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-2 rounded-lg transition-colors"
-            >
-              Edit Patient
-            </button>
-            <button
-              onClick={() => navigate(`/patient/records/${patient?.id}`)}
-              className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition-colors"
-            >
-              View Medical Records
-            </button>
+          <div>
+            <h1 className="text-2xl font-bold">Patient Details</h1>
           </div>
         </div>
+        <div className="flex space-x-3">
+          <Button
+            onClick={() => navigate("/radiologue_interface", { state: { tab: "patients" } })}
+            className="bg-blue-700 text-white hover:bg-blue-500 hover:text-white"
+            variant="outline"
+            size="sm"
+          >
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back
+          </Button>
+        </div>
+      </div>
+
+      <Card className="mb-8 overflow-hidden border-none shadow-md ">
+        <div className="bg-gradient-to-r from-blue-700 to-blue-700/80 p-6 text-white rounded-2xl">
+          <div className="flex flex-col md:flex-row items-center">
+            <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center mb-4 md:mb-0 md:mr-6">
+              <User className="w-12 h-12" />
+            </div>
+            <div className="text-center md:text-left">
+              <h2 className="text-2xl font-bold">
+                {patient?.firstName} {patient?.lastName}
+              </h2>
+              <div className="flex items-center justify-center md:justify-start mt-2">
+                <Mail className="w-4 h-4 mr-2" />
+                <span>{patient?.email}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Card>
+
+      <Tabs defaultValue="personal" className="w-full">
+        <TabsList className="grid w-full grid-cols-2 mb-6">
+          <TabsTrigger value="personal">Personal Information</TabsTrigger>
+          <TabsTrigger value="medical">Medical Information</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="personal">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center text-lg">
+                <User className="mr-2 h-5 w-5 text-muted-foreground" />
+                Personal Details
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <dl className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                <div className="space-y-1">
+                  <dt className="text-sm font-medium text-muted-foreground">First Name</dt>
+                  <dd className="text-base font-semibold">{patient?.firstName ?? "—"}</dd>
+                </div>
+                <div className="space-y-1">
+                  <dt className="text-sm font-medium text-muted-foreground">Last Name</dt>
+                  <dd className="text-base font-semibold">{patient?.lastName ?? "—"}</dd>
+                </div>
+                <div className="space-y-1">
+                  <dt className="text-sm font-medium text-muted-foreground">Age</dt>
+                  <dd className="text-base font-semibold">{patient?.age ?? "—"}</dd>
+                </div>
+                <div className="space-y-1">
+                  <dt className="text-sm font-medium text-muted-foreground">Date of Birth</dt>
+                  <dd className="text-base font-semibold flex items-center">
+                    <Calendar className="mr-2 h-4 w-4 text-muted-foreground" />
+                    {patient?.dateOfBirth ? new Date(patient.dateOfBirth).toLocaleDateString() : "—"}
+                  </dd>
+                </div>
+               
+              </dl>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="medical">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center text-lg">
+                <Activity className="mr-2 h-5 w-5 text-muted-foreground" />
+                Medical History
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <h4 className="text-sm font-medium text-muted-foreground">Medical History</h4>
+                  <div className="p-4 bg-muted/50 rounded-lg">
+                    {patient?.medicalHistory ? (
+                      <p className="whitespace-pre-line">{patient.medicalHistory}</p>
+                    ) : (
+                      <p className="text-muted-foreground italic">No medical history recorded</p>
+                    )}
+                  </div>
+                </div>
+
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
+
+      <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+      
+  
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default PatientDetails;
+export default PatientDetails
