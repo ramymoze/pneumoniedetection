@@ -19,9 +19,13 @@ interface ApiResponse {
   error?: string;
 }
 
+interface DoctorListProps {
+  onDoctorSelect: (doctorId: string | null) => void;
+}
+
 const API_BASE_URL = 'http://localhost:3000';
 
-export default function DoctorList() {
+export default function DoctorList({ onDoctorSelect }: DoctorListProps) {
   const [state, setState] = useState({
     doctors: [] as Doctor[],
     filteredDoctors: [] as Doctor[],
@@ -95,10 +99,12 @@ export default function DoctorList() {
   }, [state.doctors, state.searchTerm, state.filterSpecialty]);
 
   const handleDoctorSelect = (doctorId: string) => {
+    const newSelectedId = state.selectedDoctorId === doctorId ? null : doctorId;
     setState(prev => ({
       ...prev,
-      selectedDoctorId: prev.selectedDoctorId === doctorId ? null : doctorId
+      selectedDoctorId: newSelectedId
     }));
+    onDoctorSelect(newSelectedId);
   };
 
   const specialties = [...new Set(state.doctors.map(d => d.specialty).filter(Boolean))] as string[];
@@ -131,7 +137,6 @@ export default function DoctorList() {
 
   return (
     <div className="flex flex-col h-screen bg-gray-50">
-      
       <div className="bg-white shadow-sm p-4 border-b">
         <h1 className="text-2xl font-bold text-gray-800">Doctor's Liste</h1>
       </div>
@@ -228,7 +233,7 @@ export default function DoctorList() {
                       handleDoctorSelect(doctor.id);
                     }}
                   >
-                    {state.selectedDoctorId === doctor.id ? 'Selected' : 'select'}
+                    {state.selectedDoctorId === doctor.id ? 'Selected' : 'Select'}
                   </button>
                 </div>
               </div>

@@ -8,13 +8,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+
+
+enum RadioType {
+  Bones
+  Lung
+  Other
+}
+
 model radiologue {
   firstName   String
   lastName    String
   email       String  @unique
   id          String  @id @db.Uuid
-  redio_liste Radio[]
- password    String
+  redio_liste radio[]
+  password    String
+
   @@index([email], map: "idx_email-radiologue")
 }
 
@@ -23,7 +33,7 @@ model doctor {
   lastName    String
   email       String  @unique
   id          String  @id @db.Uuid
-  redio_liste Radio[]
+  redio_liste radio[]
   password    String
 
   @@index([email], map: "idx_email-doctor")
@@ -37,13 +47,13 @@ model patient {
   email          String   @unique
   id             String   @id @db.Uuid
   firstName      String
-  redio_liste    Radio[]
+  redio_liste    radio[]
   password       String
 
   @@index([email], map: "idx_email-patient")
 }
 
-model Radio {
+model radio {
   id            String     @id @default(uuid()) @db.Uuid
   patient_id    String     @db.Uuid
   radiologue_id String     @db.Uuid
@@ -56,10 +66,4 @@ model Radio {
   doctor        doctor     @relation(fields: [doctor_id], references: [id])
   patient       patient    @relation(fields: [patient_id], references: [id])
   radiologue    radiologue @relation(fields: [radiologue_id], references: [id])
-}
-
-enum RadioType {
-  Bones
-  Lung
-  Other
 }

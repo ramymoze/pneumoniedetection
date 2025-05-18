@@ -9,7 +9,8 @@ const { PrismaClient } = require("@prisma/client");
 const e = require("express");
 const app = express();
 const prisma = new PrismaClient();
-app.use(express.json());
+
+app.use(express.json({ limit: "10mb" })); // Middleware to parse JSON bodies
 
 
 // Enable CORS for all origins (or specify your frontend URL)    tahts amiddlware
@@ -186,6 +187,10 @@ app.get("/get_patients", async (req, res) => {
     });
   }
 });
+
+app.use(express.json({ limit: '10mb' }))
+
+
 app.get("/get_doctors", async (req, res) => {
   try {
     const allDoctors = await prisma.doctor.findMany();
@@ -253,5 +258,52 @@ app.get("/patients/:id", async (req, res) => {
   } catch (error) {
     console.error("Error fetching patient:", error);
     res.status(500).json({ success: false, error: "Failed to fetch patient" });
+  }
+});
+
+
+
+
+app.post("/create_radio", async (req, res) => {
+  console.log(Object.keys(prisma));
+
+  const {
+    patient_id,
+    radiologue_id,
+    doctor_id,
+    radio_image,
+    title,
+    comment,
+    type,
+  } = req.body;
+
+  try {
+    if (!patient_id || !radiologue_id || !doctor_id || !radio_image || !title || !type) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    // Convert base64 to binary (strip metadata)
+    const base64Data = radio_image.replace(/^data:image\/\w+;base64,/, "");
+    const buffer = Buffer.from(base64Data, "base64");
+
+    const newRadio = await prisma.radio.create({
+      data: {
+        patient_id,
+        radiologue_id,
+        doctor_id,
+        radio_image: buffer,
+        Title: title,
+        Comment: comment || null,
+        type,
+      },
+    });
+
+    res.status(201).json({ success: true, data: newRadio });
+  } catch (error) {
+    console.error("Error saving radio:", error);
+    res.status(500).json({ 
+      error: "Server error while saving radio",
+      details: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 });

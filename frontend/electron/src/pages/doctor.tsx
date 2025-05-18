@@ -1,11 +1,97 @@
+import Navbar from "../components/navebar";
+import Patientliste from "../components/patients_liste";
+import Home from "../components/home";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import RadioList from "../components/ImageDetaills";
+
+
 function Doctor_interface() {
+   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Get tab from navigation state (if passed)
+  const state = location.state as { tab?: string; id?: string };
+  const initialTab = state?.tab || "home";
+ const userData = localStorage.getItem("user");
+const radiologueId = userData ? JSON.parse(userData).id : null;
+
+   console.log("Radiologue ID:", radiologueId);
+
+  const patientId = state?.id || null;
+
+  const [isOpen, setIsOpen] = useState(initialTab);
+  const [selectedDoctorId, setSelectedDoctorId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (state?.tab) {
+      setIsOpen(state.tab);
+    }
+  }, [state?.tab]);
+              
+  
+     console.log("Selected Doctor ID:", selectedDoctorId)
+     console.log("Patient ID:", patientId)
+
+
+
+  // Update URL query param when tab changes (but keep clean URL if home)
+  useEffect(() => {
+    // Only navigate if the tab is different from what's in the URL
+    const searchParams = new URLSearchParams(window.location.search);
+    const currentTabParam = searchParams.get("tab");
+
+    if (isOpen === "home" && currentTabParam !== null) {
+      navigate("", {
+        replace: true,
+        state: location.state,
+      });
+    } else if (isOpen !== "home" && currentTabParam !== isOpen) {
+      navigate(`?tab=${isOpen}`, {
+        replace: true,
+        state: location.state,
+      });
+    }
+  }, [isOpen, navigate, location.state]);
+
   return (
-    <div>
-      <h1>Doctor Interface</h1>
-      <p>This is the doctor interface.</p>
+    <div className="flex h-screen overflow-hidden bg-[#e6e6e6]">
+      {/* Fixed navbar that stays visible when scrolling */}
+      <div className="fixed h-full z-30">
+        <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
+      </div>
+
+      {/* Content area with left padding to accommodate the navbar */}
+      <div className="flex-1 overflow-auto ml-[calc(var(--navbar-width,80px)+0.5rem)]">
+        {isOpen === "home" && (
+          <div className="h-full pl-6">
+            <Home />
+          </div>
+        )}
+
+        {isOpen === "radio sent" && (
+          <div className="flex flex-col items-center justify-center w-full h-full pl-6">
+            <RadioList/>
+          </div>
+        )}
+
+        {isOpen === "patients" && (
+          <div className="flex flex-col h-full w-full bg-[#e6e6e6] pl-6">
+            <div className="flex flex-row items-center justify-between p-4 w-full h-16">
+              <h1 className="text-xl font-semibold text-gray-800">
+                Patients Liste
+              </h1>
+            </div>
+            <div className="flex-1 overflow-auto p-4">
+              <Patientliste />
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
+
 
 
 export default Doctor_interface;
