@@ -73,23 +73,32 @@ const ImageUploadCard = ({
       // Get the file from the preview
       const response = await fetch(preview);
       const blob = await response.blob();
-      const arrayBuffer = await blob.arrayBuffer();
 
-      // Convert to PostgreSQL bytea hex format
-      const uint8Array = new Uint8Array(arrayBuffer);
-      const hexString = Array.from(uint8Array)
-        .map((byte) => byte.toString(16).padStart(2, "0"))
-        .join("");
-      const byteaHex = `\\x${hexString}`;
+      // Upload to Supabase Storage
+      const fileExt = blob.type.split('/')[1];
+      const fileName = `${Date.now()}_${title.replace(/\s+/g, '_')}.${fileExt}`;
+      const filePath = `radios/${fileName}`;
+
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from('radios') // Your bucket name
+        .upload(filePath, blob);
+
+      if (uploadError) throw uploadError;
+
+      // Get the public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('radios')
+        .getPublicUrl(filePath);
+
       const newId = uuidv4();
 
-      // Insert into database
+      // Insert into database with the URL
       const { error } = await supabase.from("radio").insert({
         id: newId,
         patient_id: patientId,
         radiologue_id: radiologueId,
         doctor_id: selectedDoctorId,
-        radio_image: byteaHex,
+        radio_image: publicUrl, // Store the URL instead of binary data
         Title: title,
         Comment: comment,
         type: type,

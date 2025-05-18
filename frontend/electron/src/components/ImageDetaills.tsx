@@ -43,14 +43,6 @@ const formatDate = (date: Date): string => {
   });
 }
 
-// Convert bytea to image URL
-const convertByteaToImageUrl = (byteaData: string | null): string | null => {
-  if (!byteaData) return null;
-
-  // Assume the string is already base64-encoded
-  return `data:image/jpeg;base64,${byteaData}`;
-};
-
 function RadioList() {
   const [radioImages, setRadioImages] = useState<RadioImage[]>([]);
   const [selectedImage, setSelectedImage] = useState<RadioImage | null>(null);
@@ -59,6 +51,7 @@ function RadioList() {
     images: true,
   });
   const [error, setError] = useState<string | null>(null);
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   const fetchRadioImages = async () => {
     try {
@@ -94,9 +87,6 @@ function RadioList() {
               return null;
             }
 
-            // Convert bytea to image URL
-            const imageUrl = convertByteaToImageUrl(radio.radio_image);
-
             return {
               ...radio,
               date: new Date(radio.date),
@@ -112,7 +102,8 @@ function RadioList() {
                 id: radiologueRes.data.id,
                 name: `${radiologueRes.data.firstName} ${radiologueRes.data.lastName}`,
               },
-              radio_image: imageUrl,
+              // Use the URL directly from the database
+              radio_image: radio.radio_image,
             };
           } catch (err) {
             console.warn(`Error processing radio ${radio.id}:`, err);
@@ -157,16 +148,29 @@ function RadioList() {
     if (!image.radio_image) return;
 
     try {
-      const link = document.createElement("a");
-      link.href = image.radio_image;
-      link.download = `${image.Title.replace(/\s+/g, "_")}_${image.id}.jpg`;
+      // Fetch the image from the URL
+      const response = await fetch(image.radio_image);
+      const blob = await response.blob();
+      
+      // Create a download link
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${image.Title.replace(/\s+/g, '_')}_${image.id}.${blob.type.split('/')[1]}`;
       document.body.appendChild(link);
       link.click();
+      
+      // Cleanup
       document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
     } catch (err) {
-      console.error("Error downloading image:", err);
-      alert("Failed to download image");
+      console.error('Error downloading image:', err);
+      alert('Failed to download image');
     }
+  };
+
+  const toggleFullScreen = (image: RadioImage) => {
+    setIsFullScreen(!isFullScreen);
   };
 
   const handleRetry = () => {
@@ -308,25 +312,42 @@ function RadioList() {
       {/* Modal for image details */}
       {selectedImage && (
         <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex justify-center items-center z-50">
-          <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-hidden">
+          <div className={`bg-white rounded-lg shadow-xl w-full ${isFullScreen ? 'h-full max-w-none m-0' : 'max-w-4xl max-h-[90vh]'} overflow-hidden`}>
             <div className="flex justify-between items-center border-b border-gray-200 px-6 py-4">
               <h2 className="text-xl font-semibold text-gray-800">{selectedImage.Title}</h2>
-              <button onClick={handleCloseDetail} className="text-gray-500 hover:text-gray-700 focus:outline-none">
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={() => toggleFullScreen(selectedImage)}
+                  className="text-gray-500 hover:text-gray-700 focus:outline-none p-2"
+                  title={isFullScreen ? "Exit Full Screen" : "Full Screen"}
+                >
+                  {isFullScreen ? (
+                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5-5m0 0l5-5m-5 5h16m0-5l-5 5m0 0l5 5m-5-5H4" />
+                    </svg>
+                  ) : (
+                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                    </svg>
+                  )}
+                </button>
+                <button onClick={handleCloseDetail} className="text-gray-500 hover:text-gray-700 focus:outline-none p-2">
+                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
             </div>
 
-            <div className="overflow-y-auto p-6 max-h-[calc(90vh-4rem)]">
-              <div className="flex flex-col lg:flex-row gap-6">
-                <div className="lg:w-1/2">
-                  <div className="bg-gray-100 rounded-lg overflow-hidden">
+            <div className={`overflow-y-auto p-6 ${isFullScreen ? 'h-[calc(100vh-5rem)]' : 'max-h-[calc(90vh-4rem)]'}`}>
+              <div className={`flex ${isFullScreen ? 'flex-col' : 'flex-col lg:flex-row'} gap-6`}>
+                <div className={`${isFullScreen ? 'w-full' : 'lg:w-1/2'}`}>
+                  <div className={`bg-gray-100 rounded-lg overflow-hidden ${isFullScreen ? 'h-[calc(100vh-12rem)]' : ''}`}>
                     {selectedImage.radio_image ? (
                       <img
                         src={selectedImage.radio_image}
                         alt={selectedImage.Title}
-                        className="w-full h-auto object-contain"
+                        className={`w-full h-full ${isFullScreen ? 'object-contain' : 'object-cover'}`}
                       />
                     ) : (
                       <div className="w-full h-64 bg-gray-200 flex items-center justify-center">
@@ -362,76 +383,80 @@ function RadioList() {
                       </svg>
                       Download Image
                     </button>
-                    <button className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 px-4 rounded-md text-sm font-medium transition-colors flex items-center justify-center">
+                    <button
+                      onClick={() => toggleFullScreen(selectedImage)}
+                      className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 px-4 rounded-md text-sm font-medium transition-colors flex items-center justify-center"
+                    >
                       <svg className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"
-                        />
+                        {isFullScreen ? (
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5-5m0 0l5-5m-5 5h16m0-5l-5 5m0 0l5 5m-5-5H4" />
+                        ) : (
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                        )}
                       </svg>
-                      Print Report
+                      {isFullScreen ? "Exit Full Screen" : "Full Screen"}
                     </button>
                   </div>
                 </div>
 
-                <div className="lg:w-1/2">
-                  <div className="space-y-6">
-                    <div className="bg-blue-50 rounded-lg p-4">
-                      <h3 className="text-sm font-semibold text-blue-800 uppercase mb-2">Image Information</h3>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <p className="text-xs text-gray-500">Type</p>
-                          <p className="font-medium text-gray-800">{selectedImage.type.replace("_", " ")}</p>
-                        </div>
-                        <div>
-                          <p className="text-xs text-gray-500">Date</p>
-                          <p className="font-medium text-gray-800">{formatDate(selectedImage.date)}</p>
-                        </div>
-                        <div>
-                          <p className="text-xs text-gray-500">ID</p>
-                          <p className="font-medium text-gray-800">{selectedImage.id}</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="bg-gray-50 rounded-lg p-4">
-                      <h3 className="text-sm font-semibold text-gray-700 uppercase mb-2">Patient Information</h3>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <p className="text-xs text-gray-500">Name</p>
-                          <p className="font-medium text-gray-800">{selectedImage.patient.name}</p>
-                        </div>
-                        <div>
-                          <p className="text-xs text-gray-500">ID</p>
-                          <p className="font-medium text-gray-800">{selectedImage.patient_id}</p>
+                {!isFullScreen && (
+                  <div className="lg:w-1/2">
+                    <div className="space-y-6">
+                      <div className="bg-blue-50 rounded-lg p-4">
+                        <h3 className="text-sm font-semibold text-blue-800 uppercase mb-2">Image Information</h3>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <p className="text-xs text-gray-500">Type</p>
+                            <p className="font-medium text-gray-800">{selectedImage.type.replace("_", " ")}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-gray-500">Date</p>
+                            <p className="font-medium text-gray-800">{formatDate(selectedImage.date)}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-gray-500">ID</p>
+                            <p className="font-medium text-gray-800">{selectedImage.id}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    <div className="bg-gray-50 rounded-lg p-4">
-                      <h3 className="text-sm font-semibold text-gray-700 uppercase mb-2">Medical Staff</h3>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <p className="text-xs text-gray-500">Doctor</p>
-                          <p className="font-medium text-gray-800">{selectedImage.doctor.name}</p>
-                        </div>
-                        <div>
-                          <p className="text-xs text-gray-500">Radiologist</p>
-                          <p className="font-medium text-gray-800">{selectedImage.radiologue.name}</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {selectedImage.Comment && (
                       <div className="bg-gray-50 rounded-lg p-4">
-                        <h3 className="text-sm font-semibold text-gray-700 uppercase mb-2">Comments</h3>
-                        <p className="text-gray-800">{selectedImage.Comment}</p>
+                        <h3 className="text-sm font-semibold text-gray-700 uppercase mb-2">Patient Information</h3>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <p className="text-xs text-gray-500">Name</p>
+                            <p className="font-medium text-gray-800">{selectedImage.patient.name}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-gray-500">ID</p>
+                            <p className="font-medium text-gray-800">{selectedImage.patient_id}</p>
+                          </div>
+                        </div>
                       </div>
-                    )}
+
+                      <div className="bg-gray-50 rounded-lg p-4">
+                        <h3 className="text-sm font-semibold text-gray-700 uppercase mb-2">Medical Staff</h3>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <p className="text-xs text-gray-500">Doctor</p>
+                            <p className="font-medium text-gray-800">{selectedImage.doctor.name}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-gray-500">Radiologist</p>
+                            <p className="font-medium text-gray-800">{selectedImage.radiologue.name}</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {selectedImage.Comment && (
+                        <div className="bg-gray-50 rounded-lg p-4">
+                          <h3 className="text-sm font-semibold text-gray-700 uppercase mb-2">Comments</h3>
+                          <p className="text-gray-800">{selectedImage.Comment}</p>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
           </div>
