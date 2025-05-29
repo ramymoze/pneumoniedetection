@@ -5,20 +5,19 @@ require('dotenv').config();
 const formidable = require("formidable");
 const { exec } = require("child_process");
 const path = require("path");
+const fs = require('fs').promises; // Using promises version for better async handling
 const { PrismaClient } = require("@prisma/client");
 const e = require("express");
 const app = express();
 const prisma = new PrismaClient();
 
-app.use(express.json({ limit: "10mb" })); // Middleware to parse JSON bodies
-
-
-// Enable CORS for all origins (or specify your frontend URL)    tahts amiddlware
+// Enable CORS for all routes
 app.use(cors({
-  origin: 'http://localhost:5173', // Your frontend URL
-  credentials: true // If you're using cookies/auth
+  origin: ["http://localhost:5173"],
+  methods: ["GET", "POST"],
 }));
-app.use(express.json()); // Middleware to parse JSON bodies
+
+app.use(express.json({ limit: "10mb" })); // Middleware to parse JSON bodies
 
 app.post("/detect", (req, res) => {
   const form = new formidable.IncomingForm({
@@ -304,6 +303,80 @@ app.post("/create_radio", async (req, res) => {
     res.status(500).json({ 
       error: "Server error while saving radio",
       details: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+});
+
+// Cleanup endpoint
+app.post("/cleanup-uploads", async (req, res) => {
+  console.log("🚀 Cleanup endpoint called");
+  const uploadsDir = path.join(__dirname, "../../backend/uploads");
+  console.log("📁 Uploads directory path:", uploadsDir);
+  
+  try {
+    // Check if directory exists
+    try {
+      console.log("🔍 Checking if directory exists...");
+      await fs.access(uploadsDir);
+      console.log("✅ Directory exists");
+    } catch (error) {
+      console.log("⚠️ Directory doesn't exist, creating it...");
+      console.error("Directory access error:", error);
+      await fs.mkdir(uploadsDir, { recursive: true });
+      console.log("✅ Directory created");
+      return res.json({ message: "No files to clean" });
+    }
+
+    // Read directory contents
+    console.log("📖 Reading directory contents...");
+    const files = await fs.readdir(uploadsDir);
+    console.log(`📊 Found ${files.length} files to delete:`, files);
+
+    // Delete each file
+    const deletePromises = files.map(async (file) => {
+      const filePath = path.join(uploadsDir, file);
+      try {
+        console.log(`🗑️ Attempting to delete: ${file}`);
+        await fs.unlink(filePath);
+        console.log(`✅ Successfully deleted: ${file}`);
+      } catch (err) {
+        console.error(`❌ Error deleting ${file}:`, err);
+        console.error("Error details:", {
+          code: err.code,
+          message: err.message,
+          stack: err.stack
+        });
+      }
+    });
+
+    // Wait for all deletions to complete
+    console.log("⏳ Waiting for all deletions to complete...");
+    await Promise.all(deletePromises);
+    console.log("✅ All deletions completed");
+
+    // Verify cleanup
+    const remainingFiles = await fs.readdir(uploadsDir);
+    console.log(`📊 Files remaining after cleanup: ${remainingFiles.length}`, remainingFiles);
+
+    res.json({ 
+      message: "Cleanup completed", 
+      filesDeleted: files.length,
+      remainingFiles: remainingFiles.length
+    });
+  } catch (error) {
+    console.log("❌ Cleanup error occurred:");
+    console.log("log message:", error.message);
+    console.log("Error code:", error.code);
+    console.log("Error stack:", error.stack);
+    console.log("Full error object:", error);
+    
+    res.status(500).json({ 
+      error: "Failed to clean uploads",
+      details: {
+        message: error.message,
+        code: error.code,
+        path: uploadsDir
+      }
     });
   }
 });

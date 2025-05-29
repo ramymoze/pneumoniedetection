@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../supabaseClient";
+import axios from "axios";
 
 // Types
 export type RadioType = "X_RAY" | "MRI" | "CT_SCAN" | "ULTRASOUND" | "OTHER";
@@ -18,6 +19,10 @@ export interface Radiologue {
   id: string;
   name: string;
 }
+
+type PredictionResult = {
+  prediction: string;
+} | null;
 
 export interface RadioImage {
   id: string;
@@ -46,12 +51,15 @@ const formatDate = (date: Date): string => {
 function RadioList() {
   const [radioImages, setRadioImages] = useState<RadioImage[]>([]);
   const [selectedImage, setSelectedImage] = useState<RadioImage | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState({
     main: true,
     images: true,
   });
   const [error, setError] = useState<string | null>(null);
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [prediction, setPrediction] = useState<PredictionResult>(null);
+  const [isPredicting, setIsPredicting] = useState(false);
 
   const fetchRadioImages = async () => {
     try {
@@ -136,8 +144,44 @@ function RadioList() {
     fetchRadioImages();
   }, []);
 
+  const getPrediction = async (imageUrl: string) => {
+    try {
+      setIsPredicting(true);
+      setPrediction(null);
+
+      // Fetch the image from the URL
+      const response = await axios.get(imageUrl, { 
+        responseType: 'blob',
+      });
+
+      // Create a File object from the blob
+      const imageFile = new File([response.data], 'image.jpg', { type: response.data.type });
+
+      // Create form data
+      const formData = new FormData();
+      formData.append('image', imageFile);
+
+      // Call the detection API
+      const predictionResponse = await axios.post('http://localhost:3000/detect', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      setPrediction(predictionResponse.data);
+    } catch (error) {
+      console.error('Error getting prediction:', error);
+      setPrediction(null);
+    } finally {
+      setIsPredicting(false);
+    }
+  };
+
   const handleImageClick = (image: RadioImage) => {
     setSelectedImage(image);
+    if (image.radio_image) {
+      getPrediction(image.radio_image);
+    }
   };
 
   const handleCloseDetail = () => {
@@ -176,6 +220,11 @@ function RadioList() {
   const handleRetry = () => {
     fetchRadioImages();
   };
+
+  // Add this new function to filter images
+  const filteredImages = radioImages.filter(image => 
+    image.patient.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   if (loading.main) {
     return (
@@ -236,8 +285,36 @@ function RadioList() {
 
   return (
     <div className="bg-gray-50 min-h-screen p-6">
+      <div className="max-w-7xl mx-auto mb-6 flex items-center space-x-4">
+        <div className="relative flex-1">
+          <input
+            type="text"
+            placeholder="Search by patient name..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
+          />
+          <svg
+            className="absolute left-3 top-3 h-5 w-5 text-gray-400"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+        </div>
+        <div className="text-sm font-medium text-gray-500">
+          {filteredImages.length} {filteredImages.length === 1 ? 'result' : 'results'}
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {radioImages.map((image) => (
+        {filteredImages.map((image) => (
           <div
             key={image.id}
             className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer"
@@ -397,6 +474,34 @@ function RadioList() {
                       {isFullScreen ? "Exit Full Screen" : "Full Screen"}
                     </button>
                   </div>
+
+                  {/* AI Analysis Section - Moved here */}
+                  <div className="mt-4 bg-purple-50 rounded-lg p-4">
+                    <h3 className="text-sm font-semibold text-purple-800 uppercase mb-2">AI Analysis</h3>
+                    {isPredicting ? (
+                      <div className="flex items-center justify-center py-4">
+                        <div className="animate-spin rounded-full h-6 w-6 border-2 border-purple-500 border-t-transparent"></div>
+                        <span className="ml-2 text-purple-600">Analyzing image...</span>
+                      </div>
+                    ) : prediction ? (
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-gray-600">Diagnosis:</span>
+                          <span className={`font-medium ${
+                            prediction.prediction === 'PNEUMONIA' 
+                              ? 'text-red-600' 
+                              : 'text-green-600'
+                          }`}>
+                            {prediction.prediction}
+                          </span>
+                        </div>
+                     
+                       
+                      </div>
+                    ) : (
+                      <p className="text-gray-500 text-sm">Unable to analyze image. Please try again later.</p>
+                    )}
+                  </div>
                 </div>
 
                 {!isFullScreen && (
@@ -413,10 +518,7 @@ function RadioList() {
                             <p className="text-xs text-gray-500">Date</p>
                             <p className="font-medium text-gray-800">{formatDate(selectedImage.date)}</p>
                           </div>
-                          <div>
-                            <p className="text-xs text-gray-500">ID</p>
-                            <p className="font-medium text-gray-800">{selectedImage.id}</p>
-                          </div>
+                          
                         </div>
                       </div>
 
@@ -427,10 +529,7 @@ function RadioList() {
                             <p className="text-xs text-gray-500">Name</p>
                             <p className="font-medium text-gray-800">{selectedImage.patient.name}</p>
                           </div>
-                          <div>
-                            <p className="text-xs text-gray-500">ID</p>
-                            <p className="font-medium text-gray-800">{selectedImage.patient_id}</p>
-                          </div>
+                          
                         </div>
                       </div>
 

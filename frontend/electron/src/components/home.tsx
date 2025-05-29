@@ -13,6 +13,7 @@ import {
   CheckCircle, PlusCircle, XCircle, Building 
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import axios from "axios";
 
 // Custom scrollbar styles
 const scrollbarStyles = `
@@ -60,17 +61,26 @@ type ActivityItem = {
   timestamp: number;
 };
 
-
-
 export default function DashboardProfile() {
   const [user, setUser] = useState<UserType | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [progress, setProgress] = useState(0);
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<Task[]>(() => {
+    // Load tasks from localStorage on initial render
+    const savedTasks = localStorage.getItem('userTasks');
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  });
   const [newTask, setNewTask] = useState("");
   const [newTaskPriority, setNewTaskPriority] = useState<"Low" | "Medium" | "Urgent">("Medium");
   const [activityLog, setActivityLog] = useState<ActivityItem[]>([]);
+
+  // Save tasks to localStorage whenever they change
+  useEffect(() => {
+    if (tasks) {
+      localStorage.setItem('userTasks', JSON.stringify(tasks));
+    }
+  }, [tasks]);
 
   // Calculate progress whenever tasks change
   useEffect(() => {
@@ -244,11 +254,43 @@ export default function DashboardProfile() {
   const signOut = async () => {
     try {
       setLoading(true);
+      console.log("🚀 Starting sign out process...");
+
+      // Clear tasks from localStorage
+      console.log("🗑️ Clearing tasks from localStorage...");
+      localStorage.removeItem('userTasks');
+      setTasks([]);
+      
+      // Clear activity log
+      console.log("🧹 Clearing activity log...");
+      setActivityLog([]);
+
+      // Make API call to clean uploads
+      console.log("🔄 Calling cleanup endpoint...");
+      try {
+        const response = await axios.post('http://localhost:3000/cleanup-uploads');
+        console.log("✅ Cleanup response:", response.data);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          console.error('❌ Cleanup error response:', error.response?.data);
+          console.error('❌ Cleanup error status:', error.response?.status);
+          console.error('❌ Full error:', error);
+        }
+        console.error('❌ Error cleaning uploads:', error);
+      }
+
+      // Sign out from Supabase
+      console.log("🔑 Signing out from Supabase...");
       const { error } = await supabase.auth.signOut();
-      if (error) throw error;
+      if (error) {
+        console.error('❌ Supabase sign out error:', error);
+        throw error;
+      }
+      
+      console.log("✅ Sign out successful, redirecting...");
       window.location.href = "/";
     } catch (error) {
-      console.error("Error signing out:", error);
+      console.error("❌ Error in sign out process:", error);
     } finally {
       setLoading(false);
     }
@@ -379,10 +421,6 @@ const HeaderSection = ({ user, currentTime, getInitials }: {
   </div>
 );
 
-
-
-
-
 const ActivityTasksSection = ({
   activityLog,
   tasks,
@@ -457,7 +495,7 @@ const ActivityTasksSection = ({
           <div className="space-y-4">
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
-                <span className="font-medium">Weekly Progress</span>
+                <span className="font-medium">Daily Progress</span>
                 <span className="text-blue-600">{progress}%</span>
               </div>
               <Progress value={progress} className="h-2" />

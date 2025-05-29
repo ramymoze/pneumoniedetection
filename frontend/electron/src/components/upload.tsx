@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useEffect } from "react";
 import { supabase } from "../supabaseClient";
 import { Upload, Loader2, X, Check, ImagePlus } from "lucide-react";
 import { v4 as uuidv4 } from "uuid";
@@ -27,9 +27,36 @@ const ImageUploadCard = ({
   const [comment, setComment] = useState<string>("");
   const [type, setType] = useState<RadioType>(RadioType.Bones);
   const [uploadSuccess, setUploadSuccess] = useState<boolean>(false);
+  const [doctorName, setDoctorName] = useState<string>("");
 
   const userData = localStorage.getItem("user");
   const radiologueId = userData ? JSON.parse(userData).id : null;
+
+  const fetchDoctorName = async (doctorId: string) => {
+    try {
+      const { data, error } = await supabase
+        .from("doctor")
+        .select("firstName, lastName")
+        .eq("id", doctorId)
+        .single();
+
+      if (error) throw error;
+      if (data) {
+        setDoctorName(`Dr. ${data.firstName} ${data.lastName}`);
+      }
+    } catch (error) {
+      console.error("Error fetching doctor name:", error);
+      setDoctorName("");
+    }
+  };
+
+  useEffect(() => {
+    if (selectedDoctorId) {
+      fetchDoctorName(selectedDoctorId);
+    } else {
+      setDoctorName("");
+    }
+  }, [selectedDoctorId]);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -247,11 +274,9 @@ const ImageUploadCard = ({
               onChange={(e) => setType(e.target.value as RadioType)}
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
             >
-              <option value={RadioType.Bones}>X-Ray</option>
-              <option value={RadioType.Bones}>CT Scan</option>
-              <option value={RadioType.Bones}>MRI</option>
-              <option value={RadioType.Bones}>Ultrasound</option>
-              <option value={RadioType.Bones}>DICOM</option>
+              <option value={RadioType.Bones}>Bones</option>
+              <option value={RadioType.Lung}>Lung</option>
+              <option value={RadioType.Other}>Other</option>
             </select>
           </div>
 
@@ -262,7 +287,7 @@ const ImageUploadCard = ({
             <div className="px-4 py-2 bg-gray-100 rounded-md">
               {selectedDoctorId ? (
                 <span className="text-gray-800">
-                  Doctor #{selectedDoctorId.slice(0, 6)}...
+                  {doctorName || "Loading..."}
                 </span>
               ) : (
                 <span className="text-gray-500">None selected</span>

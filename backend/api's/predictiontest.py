@@ -37,8 +37,16 @@ def predict_image(file):
     processed_image = preprocess_image(image)
     prediction = model.predict(processed_image)
     probability = float(prediction[0][0])
-    predicted_label = labels[int(probability > 0.5)]
-    return {"prediction": predicted_label, "confidence": round(probability, 3)}
+    
+    # Determine prediction and confidence
+    if probability > 0.5:
+        predicted_label = 'NORMAL'
+        confidence = probability  # Keep as is for NORMAL
+    else:
+        predicted_label = 'PNEUMONIA'
+        confidence = 1 - probability  # Invert for PNEUMONIA
+        
+    return {"prediction": predicted_label, "confidence": round(confidence, 3)}
 
 # Main
 if __name__ == "__main__":
