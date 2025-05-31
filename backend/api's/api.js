@@ -5,19 +5,20 @@ require('dotenv').config();
 const formidable = require("formidable");
 const { exec } = require("child_process");
 const path = require("path");
-const fs = require('fs').promises; // Using promises version for better async handling
 const { PrismaClient } = require("@prisma/client");
 const e = require("express");
 const app = express();
 const prisma = new PrismaClient();
 
-// Enable CORS for all routes
-app.use(cors({
-  origin: ["http://localhost:5173"],
-  methods: ["GET", "POST"],
-}));
-
 app.use(express.json({ limit: "10mb" })); // Middleware to parse JSON bodies
+
+
+// Enable CORS for all origins (or specify your frontend URL)    tahts amiddlware
+app.use(cors({
+  origin: 'http://localhost:5173', // Your frontend URL
+  credentials: true // If you're using cookies/auth
+}));
+app.use(express.json()); // Middleware to parse JSON bodies
 
 app.post("/detect", (req, res) => {
   const form = new formidable.IncomingForm({
@@ -127,20 +128,27 @@ app.post("/create_doctor", async (req, res) => {
 
 
 app.post("/create_radiologue", async (req, res) => {
-  const { firstName, lastName, email,} = req.body;
-  const saltRounds = 12; // Work factor (higher = more secure but slower)
-  const salt = await bcrypt.genSalt(saltRounds); // Generate a salt for hashing which is a random string 
-  // Hash the password with the generated salt
-  const password = await bcrypt.hash(req.body.password, salt); // Get the password from the request body : req.body.password
-  await prisma.radiologue.create({
-    data: {
-      firstName,
-      lastName,
-      email,
-      password,
-    },
-  });
-  res.json("radiologue created successfully");
+  const { id, firstName, lastName, email } = req.body;
+  try {
+    console.log("Received body:", req.body);
+    const saltRounds = 12; // Work factor (higher = more secure but slower)
+    const salt = await bcrypt.genSalt(saltRounds); // Generate a salt for hashing which is a random string 
+    // Hash the password with the generated salt
+    const password = await bcrypt.hash(req.body.password, salt); // Get the password from the request body : req.body.password
+    await prisma.radiologue.create({
+      data: {
+        id, // from Supabase
+        firstName,
+        lastName,
+        email,
+        password,
+      },
+    });
+    res.json({ message: "Radiologue created successfully" });
+  } catch (err) {
+    console.error("Radiologue creation error:", err);
+    res.status(500).json({ error: err.message, stack: err.stack });
+  }
 });
 
 
@@ -217,26 +225,31 @@ app.listen(PORT, () => {
 });
 
 app.post('/login', async (req, res) => {
-  const { email, userType } = req.body;
+  const { email } = req.body;
 
   try {
-    if (userType === "doctor") { // lazm nbdl logic ada psq na7it radiobox t3 usertype
-      user = await prisma.doctor.findUnique({
-        where: { email },
-        select: { id: true, firstName: true, lastName: true, email: true },
-      });
-    } else{
-      user = await prisma.radiologue.findUnique({
-        where: { email },
-        select: { id: true, firstName: true, lastName: true, email: true },
-      });
-    } // Closing brace for the if-else block
+    // First check radiologue table
+    let user = await prisma.radiologue.findUnique({
+      where: { email },
+      select: { id: true, firstName: true, lastName: true, email: true },
+    });
 
-    if (!user) {
-      return res.status(404).json({ error: `${userType} profile not found` });
+    if (user) {
+      return res.json({ ...user, userType: 'radiologue' });
     }
 
-    res.json(user);
+    // If not found in radiologue table, check doctor table
+    user = await prisma.doctor.findUnique({
+      where: { email },
+      select: { id: true, firstName: true, lastName: true, email: true },
+    });
+
+    if (user) {
+      return res.json({ ...user, userType: 'doctor' });
+    }
+
+    // If user not found in either table
+    return res.status(404).json({ error: 'User not found' });
   } catch (err) {
     console.error('Login error:', err);
     res.status(500).json({ error: 'Internal server error' });
@@ -303,80 +316,6 @@ app.post("/create_radio", async (req, res) => {
     res.status(500).json({ 
       error: "Server error while saving radio",
       details: process.env.NODE_ENV === 'development' ? error.message : undefined
-    });
-  }
-});
-
-// Cleanup endpoint
-app.post("/cleanup-uploads", async (req, res) => {
-  console.log("🚀 Cleanup endpoint called");
-  const uploadsDir = path.join(__dirname, "../../backend/uploads");
-  console.log("📁 Uploads directory path:", uploadsDir);
-  
-  try {
-    // Check if directory exists
-    try {
-      console.log("🔍 Checking if directory exists...");
-      await fs.access(uploadsDir);
-      console.log("✅ Directory exists");
-    } catch (error) {
-      console.log("⚠️ Directory doesn't exist, creating it...");
-      console.error("Directory access error:", error);
-      await fs.mkdir(uploadsDir, { recursive: true });
-      console.log("✅ Directory created");
-      return res.json({ message: "No files to clean" });
-    }
-
-    // Read directory contents
-    console.log("📖 Reading directory contents...");
-    const files = await fs.readdir(uploadsDir);
-    console.log(`📊 Found ${files.length} files to delete:`, files);
-
-    // Delete each file
-    const deletePromises = files.map(async (file) => {
-      const filePath = path.join(uploadsDir, file);
-      try {
-        console.log(`🗑️ Attempting to delete: ${file}`);
-        await fs.unlink(filePath);
-        console.log(`✅ Successfully deleted: ${file}`);
-      } catch (err) {
-        console.error(`❌ Error deleting ${file}:`, err);
-        console.error("Error details:", {
-          code: err.code,
-          message: err.message,
-          stack: err.stack
-        });
-      }
-    });
-
-    // Wait for all deletions to complete
-    console.log("⏳ Waiting for all deletions to complete...");
-    await Promise.all(deletePromises);
-    console.log("✅ All deletions completed");
-
-    // Verify cleanup
-    const remainingFiles = await fs.readdir(uploadsDir);
-    console.log(`📊 Files remaining after cleanup: ${remainingFiles.length}`, remainingFiles);
-
-    res.json({ 
-      message: "Cleanup completed", 
-      filesDeleted: files.length,
-      remainingFiles: remainingFiles.length
-    });
-  } catch (error) {
-    console.log("❌ Cleanup error occurred:");
-    console.log("log message:", error.message);
-    console.log("Error code:", error.code);
-    console.log("Error stack:", error.stack);
-    console.log("Full error object:", error);
-    
-    res.status(500).json({ 
-      error: "Failed to clean uploads",
-      details: {
-        message: error.message,
-        code: error.code,
-        path: uploadsDir
-      }
     });
   }
 });

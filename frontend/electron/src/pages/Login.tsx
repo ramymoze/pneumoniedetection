@@ -35,7 +35,7 @@ export default function AuthPage() {
           data: {
             first_name: firstName,
             last_name: lastName,
-            user_type: userType,//user type radiologue / doctor nb3tha l supabase
+            user_type: userType,
           },
         },
       });
@@ -43,16 +43,16 @@ export default function AuthPage() {
       if (authError) throw new Error(authError.message);
       if (!authData.user) throw new Error('User creation failed unexpectedly.');
   
-      const userId = authData.user.id; // important: link Supabase user
+      const userId = authData.user.id;
   
       // Choose backend route based on userType
       const apiUrl = userType === 'radiologue'
-        ? 'http://localhost:3000/create_radiologue'//fl production nbedelha lazm
+        ? 'http://localhost:3000/create_radiologue'
         : 'http://localhost:3000/create_doctor';
   
-      // Send user info to backend API (Express)
+      // Send user info to backend API 
       await axios.post(apiUrl, {
-        id: userId,    //nb3t t3 supabase tssema 3ndhm nafs l id   ,sending to  prisma 
+        id: userId,    // Make sure to send the Supabase ID for both user types
         firstName,
         lastName,
         email,
@@ -79,7 +79,6 @@ export default function AuthPage() {
       });
   
       if (authError) {
-        // Check if it's a known Supabase error
         if (authError.code === '401') {
           throw new Error('Invalid credentials - Please check your email or password');
         }
@@ -92,26 +91,27 @@ export default function AuthPage() {
   
       // 2. Verify user profile exists (Backend API)
       const response = await axios.post('http://localhost:3000/login', {
-        email: email.trim(),
-        userType,
+        email: email.trim()
       }, {
         headers: {
-          'Authorization': `Bearer ${authData.session?.access_token}` // Use the access token from Supabase
+          'Authorization': `Bearer ${authData.session?.access_token}`
         }
       });
-  
-      if (response.status === 404) {
-        throw new Error(`${userType} profile not found with this email`);
-      }
       
       if (!response.data) {
         throw new Error('No user data returned from server');
       }
   
       const userData = response.data;
+      const detectedUserType = userData.userType;
+
+      // Check if the selected user type matches the detected type
+      if (userType !== detectedUserType) {
+        throw new Error(`This email is registered as a ${detectedUserType}. Please select the correct user type.`);
+      }
   
       // 3. Store session data
-      localStorage.setItem('userType', userType);
+      localStorage.setItem('userType', detectedUserType);
       localStorage.setItem('authToken', authData.session?.access_token || '');
       localStorage.setItem('user', JSON.stringify(userData));
   
@@ -119,7 +119,7 @@ export default function AuthPage() {
       toast.success('Login successful! Redirecting...');
       
       // Always redirect after successful login
-      const redirectPath = userType === 'radiologue' 
+      const redirectPath = detectedUserType === 'radiologue' 
         ? '/radiologue_interface' 
         : '/doctor_interface';
       
@@ -139,12 +139,10 @@ export default function AuthPage() {
       let errorMessage = 'An unexpected error occurred during login';
   
       if (err instanceof Error) {
-        // If it's an Axios error (which contains the response)
         if (axios.isAxiosError(err)) {
           if (err.response) {
-            // Check for specific response error codes from the backend
             if (err.response.status === 404) {
-              errorMessage = `User not found: ${err.response.data.error}`;
+              errorMessage = `User not found with this email`;
             } else if (err.response.status === 500) {
               errorMessage = 'Internal server error on backend';
             } else {
@@ -187,11 +185,7 @@ export default function AuthPage() {
 
         <div className="mt-8 bg-white p-8 rounded-lg shadow sm:mx-auto sm:w-full sm:max-w-md">
           <form className="space-y-6" onSubmit={authMode === 'login' ? handleLogin : handleSignup}>
-          
-
-            {authMode === 'signup' && (
-              <div>
-                  <div>
+            <div>
               <Label className="block text-sm font-medium text-gray-700">I am a</Label>
               <RadioGroup
                 defaultValue="radiologue"
@@ -209,28 +203,31 @@ export default function AuthPage() {
                 ))}
               </RadioGroup>
             </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="firstName">First name</Label>
-                  <Input
-                    id="firstName"
-                    type="text"
-                    required
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                  />
+
+            {authMode === 'signup' && (
+              <div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="firstName">First name</Label>
+                    <Input
+                      id="firstName"
+                      type="text"
+                      required
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="lastName">Last name</Label>
+                    <Input
+                      id="lastName"
+                      type="text"
+                      required
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                    />
+                  </div>
                 </div>
-                <div>
-                  <Label htmlFor="lastName">Last name</Label>
-                  <Input
-                    id="lastName"
-                    type="text"
-                    required
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                  />
-                </div>
-              </div>
               </div>
             )}
 

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast, Toaster } from 'sonner';
 import axios from 'axios';
+import { supabase } from '../supabaseClient';
 
 interface Patient {
   id: string;
@@ -29,6 +30,7 @@ const PatientList = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [userType, setUserType] = useState<"radiologue" | "doctor" | null>(null);
   const [newPatient, setNewPatient] = useState<NewPatientForm>({
     firstName: '',
     lastName: '',
@@ -44,6 +46,13 @@ const PatientList = () => {
   const patientsPerPage = 8;
 
   useEffect(() => {
+    const getUserType = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        setUserType(user.user_metadata?.user_type || null);
+      }
+    };
+    getUserType();
     fetchPatients();
   }, []);
 
@@ -82,9 +91,11 @@ const PatientList = () => {
   };
 
   const handlePatientClick = (id: string) => {
-    navigate('/radiologue_interface', {
-      state: { id, tab: 'add' },
-    });
+    if (userType === "radiologue") {
+      navigate('/radiologue_interface', {
+        state: { id, tab: 'add' },
+      });
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -171,12 +182,14 @@ const PatientList = () => {
 
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Patient Directory</h1>
-        <button
-          className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700"
-          onClick={() => setIsModalOpen(true)}
-        >
-          Add Patient
-        </button>
+
+          <button
+            className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700"
+            onClick={() => setIsModalOpen(true)}
+          >
+            Add Patient
+          </button>
+        
       </div>
 
       {isModalOpen && (
@@ -250,63 +263,71 @@ const PatientList = () => {
         onChange={(e) => setSearchTerm(e.target.value)}
       />
 
-      {loading ? (
-        <div className="text-center py-16">Loading...</div>
-      ) : filteredPatients.length === 0 ? (
-        <div className="text-center py-16 text-gray-500">No patients found.</div>
-      ) : (
-        <>
-          <div className="bg-white shadow rounded-lg overflow-hidden">
-            <table className="min-w-full table-auto">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="text-left px-6 py-3 text-sm font-medium text-gray-500">Name</th>
-                  <th className="text-left px-6 py-3 text-sm font-medium text-gray-500">Age</th>
-                  <th className="text-left px-6 py-3 text-sm font-medium text-gray-500">DOB</th>
-                  <th className="text-left px-6 py-3 text-sm font-medium text-gray-500">Email</th>
+      <div className="bg-white rounded-lg shadow overflow-hidden">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Age</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date of Birth</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {loading ? (
+              <tr>
+                <td colSpan={4} className="px-6 py-4 text-center">
+                  Loading...
+                </td>
+              </tr>
+            ) : currentPatients.length === 0 ? (
+              <tr>
+                <td colSpan={4} className="px-6 py-4 text-center">
+                  No patients found
+                </td>
+              </tr>
+            ) : (
+              currentPatients.map((patient) => (
+                <tr
+                  key={patient.id}
+                  onClick={() => handlePatientClick(patient.id)}
+                  className={`${
+                    userType === "radiologue"
+                      ? "cursor-pointer hover:bg-gray-50"
+                      : "cursor-default"
+                  }`}
+                >
+                  <td className="px-6 py-4">
+                    <div className="text-sm font-medium text-gray-900">
+                      {patient.firstName} {patient.lastName}
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-500">{patient.age}</td>
+                  <td className="px-6 py-4 text-sm text-gray-500">{patient.dateOfBirth}</td>
+                  <td className="px-6 py-4 text-sm text-gray-500">{patient.email || '-'}</td>
                 </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {currentPatients.map((p) => (
-                  <tr
-                    key={p.id}
-                    className="hover:bg-gray-50 cursor-pointer"
-                    onClick={() => handlePatientClick(p.id)}
-                  >
-                    <td className="px-6 py-4">{`${p.firstName} ${p.lastName}`}</td>
-                    <td className="px-6 py-4">{p.age}</td>
-                    <td className="px-6 py-4">{p.dateOfBirth}</td>
-                    <td className="px-6 py-4">{p.email || '-'}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
 
-          <div className="flex justify-between items-center mt-6">
+      {totalPages > 1 && (
+        <div className="flex justify-center mt-4 space-x-2">
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
             <button
-              onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
-              disabled={currentPage === 1}
-              className={`px-4 py-2 rounded-lg ${
-                currentPage === 1 ? 'bg-gray-200 text-gray-500' : 'bg-blue-600 text-white hover:bg-blue-700'
+              key={page}
+              onClick={() => setCurrentPage(page)}
+              className={`px-3 py-1 rounded ${
+                currentPage === page
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
               }`}
             >
-              Previous
+              {page}
             </button>
-
-            <span className="text-gray-700">Page {currentPage} of {totalPages}</span>
-
-            <button
-              onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
-              disabled={currentPage === totalPages}
-              className={`px-4 py-2 rounded-lg ${
-                currentPage === totalPages ? 'bg-gray-200 text-gray-500' : 'bg-blue-600 text-white hover:bg-blue-700'
-              }`}
-            >
-              Next
-            </button>
-          </div>
-        </>
+          ))}
+        </div>
       )}
     </div>
   );
